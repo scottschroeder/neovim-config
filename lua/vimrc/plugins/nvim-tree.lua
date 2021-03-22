@@ -32,5 +32,3 @@ map("n", "<Leader>k", toggle_nvim_tree)
 g.nvim_tree_ignore = { '.git', 'node_modules', '.cache' }
 g.nvim_tree_auto_close = 1 -- close when its the last window
 g.nvim_tree_tab_open = 1 -- persist open between tabs
-
-require("vimrc.utils").reload_plugin("nvim-tree")
