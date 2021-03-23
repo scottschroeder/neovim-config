@@ -2,27 +2,13 @@ local g = vim.g
 local cmd = vim.cmd
 
 local map = require("vimrc.config.mapping").map
+local win_open = require("nvim-tree.lib").win_open
 
-local is_open_var = "vimrc_nvim_tree_enabled"
-
-local function is_tree_open() 
-   ok, is_open = pcall(vim.api.nvim_get_var, is_open_var)
-   if not ok then
-       return false
-   end
-   return is_open
-end
-
-local function set_tree(status) 
-    vim.api.nvim_set_var(is_open_var, status)
-end
 
 local function toggle_nvim_tree()
-    if is_tree_open() then
-        set_tree(false)
+    if win_open() then
         cmd("NvimTreeClose")
     else
-        set_tree(true)
         cmd("NvimTreeFindFile")
     end
 end
