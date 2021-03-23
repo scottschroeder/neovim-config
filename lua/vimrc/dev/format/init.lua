@@ -1,7 +1,7 @@
 
 
 local function format_current_buffer()
-    print("I don't know how to format this file!")
+  vim.lsp.buf.formatting_sync(nil, 100)
 end
 
 return {

@@ -90,3 +90,8 @@ map("", "Y", "y$", {noremap = true})
 
 map("n", "/", "/\\v", {noremap = true})
 map("v", "/", "/\\v", {noremap = true})
+
+
+-- LSP
+
+map("n", "gd", vim.lsp.buf.definition, {noremap=true})

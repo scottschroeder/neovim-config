@@ -21,6 +21,11 @@ return require("packer").startup(
         use {"kyazdani42/nvim-web-devicons"}
         use {'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons'}
         use {'akinsho/nvim-bufferline.lua', requires = 'kyazdani42/nvim-web-devicons'}
+        use {"hrsh7th/nvim-compe"}
+        use {"neovim/nvim-lspconfig"}
+        use {"morhetz/gruvbox"}
+        use {"nvim-treesitter/nvim-treesitter"}
+        use {"norcalli/nvim-colorizer.lua"}
 
 
         -- TODO
@@ -32,7 +37,6 @@ return require("packer").startup(
         -- PREVIOUSLY USED
         -- use {"junegunn/fzf"}
         -- use {"junegunn/fzf.vim"}
-        -- use {"morhetz/gruvbox"}
         -- use {"xolox/vim-misc"}
         -- use {"xolox/vim-lua-ftplugin"}
         -- use {"itchyny/lightline.vim"}
@@ -45,18 +49,13 @@ return require("packer").startup(
 
 
         -- USED BY A CONFIG I LIKED https://github.com/siduck76/neovim-dots
-        -- use {"akinsho/nvim-bufferline.lua"}
         -- use {"alvan/vim-closetag"}
         -- use {"chriskempson/base16-vim"}
         -- use {"glepnir/galaxyline.nvim"}
-        -- use {"hrsh7th/nvim-compe"}
         -- use {"lewis6991/gitsigns.nvim"}
-        -- use {"neovim/nvim-lspconfig"}
-        -- use {"norcalli/nvim-colorizer.lua"}
         -- use {"nvim-lua/popup.nvim"}
         -- use {"nvim-telescope/telescope-media-files.nvim"}
         -- use {"nvim-telescope/telescope.nvim"}
-        -- use {"nvim-treesitter/nvim-treesitter"}
         -- use {"onsails/lspkind-nvim"}
         -- use {"ryanoasis/vim-devicons"}
         -- use {"sbdchd/neoformat"}
