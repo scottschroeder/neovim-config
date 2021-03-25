@@ -11,4 +11,4 @@ local function try_colorschemes(colors)
 	end
 end
 
-try_colorschemes({"gruvbox", "desert"})
+try_colorschemes({"gruvbox-material", "desert"})

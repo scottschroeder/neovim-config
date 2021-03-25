@@ -24,6 +24,7 @@ return require("packer").startup(
         use {"hrsh7th/nvim-compe"}
         use {"neovim/nvim-lspconfig"}
         use {"morhetz/gruvbox"}
+        use {"sainnhe/gruvbox-material"}
         use {"nvim-treesitter/nvim-treesitter"}
         use {"norcalli/nvim-colorizer.lua"}
 
