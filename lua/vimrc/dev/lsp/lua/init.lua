@@ -4,19 +4,10 @@ USER = vim.fn.expand('$USER')
 local home = vim.fn.expand("$HOME")
 
 local sumneko_root_path = home .. "/.hab/build/lua-language-server"
-local sumneko_binary = ""
+local sumneko_binary = sumneko_root_path .. "/bin/lua-language-server"
 
 if vim.fn.empty(vim.fn.glob(sumneko_root_path)) > 0 then
-  print(sumneko_root_path)
     return
-end
-
-if vim.fn.has("mac") == 1 then
-    sumneko_binary = sumneko_root_path .. "/bin/macOS/lua-language-server"
-elseif vim.fn.has("unix") == 1 then
-    sumneko_binary = sumneko_root_path .. "/bin/Linux/lua-language-server"
-else
-      print("sumneko only setup for mac/linux")
 end
 
 require('lspconfig').sumneko_lua.setup {
