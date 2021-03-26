@@ -3,23 +3,24 @@
 ## TODO
 - Spell Checking
 - Line wrapping
+- Auto Comment out/in
+- neomake?
+- autofmt
+
 - Auto Save
+- Projectile
   - `use {"907th/vim-auto-save"}`
   - `autocmd BufLeave,TabLeave,FocusLost * silent! wall`
 - Focus Lost to Normal Mode
   - `au FocusLost * call feedkeys("\<C-\>\<C-n>")`
-- Projectile
-- Auto Comment out/in
 - Fuzzy Selection
   - fzf fzf.vim lspfuzzy
 - Statusline
   - galaxyline
   - nvim-bufferline
-- neomake?
-- git gutter
 - mark gutter
 - remove gutter from tree
-- autofmt
+- git gutter
 
 
 ## Filetypes
@@ -31,7 +32,13 @@
 - ra
 ### Go
 - gopls
-
 ### Python
-
+### Bash
+### C++
+### Docker
+### Dot
+### Haskel
+### JSON
+### Terraform
+### Yaml
 

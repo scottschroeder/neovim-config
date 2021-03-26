@@ -30,6 +30,8 @@ return require("packer").startup(
         use {"907th/vim-auto-save"}
         use {"junegunn/fzf"}
         use {"junegunn/fzf.vim"}
+        use { 'glepnir/galaxyline.nvim', branch = 'main', requires = {'kyazdani42/nvim-web-devicons', opt = true} }
+        use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
 
 
         -- TODO
@@ -61,7 +63,6 @@ return require("packer").startup(
         -- eye candy
         -- use {"onsails/lspkind-nvim"}
         -- use {"ryanoasis/vim-devicons"}
-        -- use {"glepnir/galaxyline.nvim"}
 
     end
 )

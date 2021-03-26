@@ -13,7 +13,7 @@ opt("o", "updatetime", 250)
 opt("o", "background", "dark") -- assume dark background
 opt("o", "termguicolors", true) -- full GUI colors
 
-opt("w", "signcolumn", "yes")
+opt("w", "signcolumn", "auto")
 opt("w", "list", true)
 opt("o", "listchars", {'tab:▸░', 'trail:·', 'extends:»', 'precedes:«', 'nbsp:⣿'}) 
 opt("w", "number", true) -- show line numbers
