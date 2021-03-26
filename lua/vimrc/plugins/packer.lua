@@ -28,6 +28,8 @@ return require("packer").startup(
         use {"nvim-treesitter/nvim-treesitter"}
         use {"norcalli/nvim-colorizer.lua"}
         use {"907th/vim-auto-save"}
+        use {"junegunn/fzf"}
+        use {"junegunn/fzf.vim"}
 
 
         -- TODO
@@ -36,8 +38,6 @@ return require("packer").startup(
         -- MAYBE
 
         -- PREVIOUSLY USED
-        -- use {"junegunn/fzf"}
-        -- use {"junegunn/fzf.vim"}
         -- use {"xolox/vim-misc"}
         -- use {"xolox/vim-lua-ftplugin"}
         -- use {"itchyny/lightline.vim"}
@@ -51,7 +51,6 @@ return require("packer").startup(
 
         -- USED BY A CONFIG I LIKED https://github.com/siduck76/neovim-dots
         -- use {"alvan/vim-closetag"}
-        -- use {"chriskempson/base16-vim"}
         -- use {"lewis6991/gitsigns.nvim"}
         -- use {"nvim-lua/popup.nvim"}
         -- use {"nvim-telescope/telescope-media-files.nvim"}

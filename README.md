@@ -15,4 +15,23 @@
 - Statusline
   - galaxyline
   - nvim-bufferline
+- neomake?
+- git gutter
+- mark gutter
+- remove gutter from tree
+- autofmt
+
+
+## Filetypes
+### Lua
+- format
+### Markdown
+- tables
+### Rust
+- ra
+### Go
+- gopls
+
+### Python
+
 
