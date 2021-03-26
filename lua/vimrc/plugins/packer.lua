@@ -27,13 +27,13 @@ return require("packer").startup(
         use {"sainnhe/gruvbox-material"}
         use {"nvim-treesitter/nvim-treesitter"}
         use {"norcalli/nvim-colorizer.lua"}
+        use {"907th/vim-auto-save"}
 
 
         -- TODO
         -- use {"Yggdroot/indentLine"}
 
         -- MAYBE
-        -- use {"907th/vim-auto-save"}
 
         -- PREVIOUSLY USED
         -- use {"junegunn/fzf"}
@@ -52,16 +52,17 @@ return require("packer").startup(
         -- USED BY A CONFIG I LIKED https://github.com/siduck76/neovim-dots
         -- use {"alvan/vim-closetag"}
         -- use {"chriskempson/base16-vim"}
-        -- use {"glepnir/galaxyline.nvim"}
         -- use {"lewis6991/gitsigns.nvim"}
         -- use {"nvim-lua/popup.nvim"}
         -- use {"nvim-telescope/telescope-media-files.nvim"}
         -- use {"nvim-telescope/telescope.nvim"}
-        -- use {"onsails/lspkind-nvim"}
-        -- use {"ryanoasis/vim-devicons"}
         -- use {"sbdchd/neoformat"}
         -- use {"tweekmonster/startuptime.vim"}
         -- use {"windwp/nvim-autopairs"}
+        -- eye candy
+        -- use {"onsails/lspkind-nvim"}
+        -- use {"ryanoasis/vim-devicons"}
+        -- use {"glepnir/galaxyline.nvim"}
 
     end
 )
