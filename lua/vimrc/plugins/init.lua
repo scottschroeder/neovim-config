@@ -6,5 +6,7 @@ require("vimrc.plugins.treesitter")
 require("vimrc.plugins.vim-auto-save")
 require("vimrc.plugins.fzf")
 require("vimrc.plugins.galaxyline")
-require("colorizer").setup()
-require('gitsigns').setup()
+require("vimrc.plugins.colorizer")
+require('gitsigns').setup{
+  keymaps = {}
+}

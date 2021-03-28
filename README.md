@@ -21,7 +21,11 @@
 - mark gutter
 - remove gutter from tree
 - git gutter
+- Colorizer is broken on reload
 
+## LSP
+- LSP status. It can take a while for it to load the project.
+- Shortcuts for the hints
 
 ## Filetypes
 ### Lua
@@ -29,7 +33,7 @@
 ### Markdown
 - tables
 ### Rust
-- ra
+- auto suggest/import relevant types
 ### Go
 - gopls
 ### Python
