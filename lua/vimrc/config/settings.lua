@@ -1,6 +1,7 @@
 
 local opt = require("vimrc.config.option").opt
 local map = require("vimrc.config.mapping").map
+local usercmd = require("vimrc.config.mapping").cmd
 local cmd = vim.cmd
 
 opt("o", "hidden", true) -- Hides buffers instead of closing them
@@ -13,9 +14,9 @@ opt("o", "updatetime", 250)
 opt("o", "background", "dark") -- assume dark background
 opt("o", "termguicolors", true) -- full GUI colors
 
-opt("w", "signcolumn", "auto")
+opt("w", "signcolumn", "yes")
 opt("w", "list", true)
-opt("o", "listchars", {'tab:▸░', 'trail:·', 'extends:»', 'precedes:«', 'nbsp:⣿'}) 
+opt("o", "listchars", {'tab:▸░', 'trail:·', 'extends:»', 'precedes:«', 'nbsp:⣿'})
 opt("w", "number", true) -- show line numbers
 opt("w", "numberwidth", 2)
 opt("w", "cursorline", true) -- cursor line is highlighted
@@ -37,7 +38,7 @@ opt("b", "softtabstop", tabwidth)
 opt("b", "shiftwidth", tabwidth)
 opt("o", "smarttab", true)
 opt("b", "expandtab", true )
-opt("o", "pastetoggle", "<F2>")
+opt("o", "pastetoggle", "<F12>")
 
 opt("b", "spelllang", "en_us")
 
@@ -91,7 +92,8 @@ map("", "Y", "y$", {noremap = true})
 map("n", "/", "/\\v", {noremap = true})
 map("v", "/", "/\\v", {noremap = true})
 
+usercmd("VimrcDemo", function() print("demo") end)
 
 -- LSP
 
-map("n", "gd", vim.lsp.buf.definition, {noremap=true})
+-- map("n", "gd", vim.lsp.buf.definition, {noremap=true})

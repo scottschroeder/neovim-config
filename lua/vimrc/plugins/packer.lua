@@ -23,6 +23,10 @@ return require("packer").startup(
         use {'akinsho/nvim-bufferline.lua', requires = 'kyazdani42/nvim-web-devicons'}
         use {"hrsh7th/nvim-compe"}
         use {"neovim/nvim-lspconfig"}
+        use {"kosayoda/nvim-lightbulb"}
+        use {"nvim-lua/lsp_extensions.nvim"}
+        use {"onsails/lspkind-nvim"}
+        use {"RishabhRD/nvim-lsputils", requires = "RishabhRD/popfix"}
         use {"morhetz/gruvbox"}
         use {"sainnhe/gruvbox-material"}
         use {"nvim-treesitter/nvim-treesitter"}

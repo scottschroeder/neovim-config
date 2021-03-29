@@ -10,9 +10,19 @@ local function toggle_nvim_tree()
     if win_open() then
         cmd("NvimTreeClose")
     else
-        cmd("NvimTreeFindFile")
-        -- opt("w", "signcolumn", "no")
+        -- cmd("NvimTreeFindFile")
+        require'nvim-tree'.find_file(true)
     end
+    local winnr = require("nvim-tree.lib").Tree.winnr()
+    -- TODO this doesn't work
+    if winnr ~= nil then
+      vim.api.nvim_win_set_option(
+        winnr,
+        "signcolumn",
+        "no"
+      )
+    end
+    -- opt("w", "signcolumn", "no")
 end
 
 map("n", "<Leader>k", toggle_nvim_tree)

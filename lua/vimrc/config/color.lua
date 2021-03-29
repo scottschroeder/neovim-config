@@ -1,4 +1,5 @@
 local function set_colorscheme(name)
+
 	local cmd = "colorscheme " .. name
   return pcall(vim.api.nvim_command, cmd)
 end

@@ -3,8 +3,19 @@ USER = vim.fn.expand('$USER')
 
 local home = vim.fn.expand("$HOME")
 
+local system_name
+if vim.fn.has("mac") == 1 then
+  system_name = "macOS"
+elseif vim.fn.has("unix") == 1 then
+  system_name = "Linux"
+elseif vim.fn.has('win32') == 1 then
+  system_name = "Windows"
+else
+  print("Unsupported system for sumneko")
+end
+
 local sumneko_root_path = home .. "/.hab/build/lua-language-server"
-local sumneko_binary = sumneko_root_path .. "/bin/lua-language-server"
+local sumneko_binary = sumneko_root_path .. "/bin/" .. system_name .. "/lua-language-server"
 
 if vim.fn.empty(vim.fn.glob(sumneko_root_path)) > 0 then
     return
@@ -12,6 +23,8 @@ end
 
 require('lspconfig').sumneko_lua.setup {
     cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
+    root_dir = require("lspconfig.util").find_git_root,
+    on_attach = require("vimrc.dev.attach").on_attach,
     settings = {
         Lua = {
             runtime = {
@@ -22,7 +35,7 @@ require('lspconfig').sumneko_lua.setup {
             },
             diagnostics = {
                 -- Get the language server to recognize the `vim` global
-                globals = {'vim'}
+                globals = {'vim', 'use'}
             },
             workspace = {
                 -- Make the server aware of Neovim runtime files
