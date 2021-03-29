@@ -1,3 +1,5 @@
+local lsp_status = require('lsp-status')
+
 -- https://github.com/sumneko/lua-language-server/wiki/Build-and-Run-(Standalone)
 USER = vim.fn.expand('$USER')
 
@@ -15,6 +17,7 @@ lspconfig.rust_analyzer.setup {
     filetypes = { "rust" },
     root_dir = lspconfig.util.root_pattern("Cargo.toml", "rust-project.json"),
     on_attach = require("vimrc.dev.attach").on_attach,
+    capabilities = lsp_status.capabilities,
     settings = {
       ["rust-analyzer"] = {
             ["rust-analyzer.cargo.loadOutDirsFromCheck"]= true,

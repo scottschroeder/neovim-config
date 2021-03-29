@@ -147,38 +147,59 @@ gls.left[#gls.left+1] = {
     }
 }
 
-gls.left[#gls.left+1] = {
-    Space = {
-        provider = function()
-            return " "
-        end,
-        highlight = {colors.line_bg, colors.line_bg}
-    }
-}
 
 gls.left[#gls.left+1] = {
     DiagnosticWarn = {
         provider = "DiagnosticWarn",
         icon = "  ",
+        highlight = {colors.yellow, colors.bg}
+    }
+}
+
+gls.left[#gls.left+1] = {
+    DiagnosticInfo = {
+        provider = "DiagnosticInfo",
+        icon = "  ",
+        highlight = {colors.aqua, colors.bg}
+    }
+  }
+
+gls.left[#gls.left+1] = {
+    DiagnosticHint = {
+        provider = "DiagnosticHint",
+        icon = "  ",
         highlight = {colors.blue, colors.bg}
     }
 }
+
+local is_lsp = function ()
+  local tbl = {['dashboard'] = true,['']=true}
+  if tbl[vim.bo.filetype] then
+    return false
+  end
+  return true
+end
+
 
 -- gls.mid = {}
 gls.left[#gls.left+1] = {
   ShowLspClient = {
     provider = 'GetLspClient',
-    condition = function ()
-      local tbl = {['dashboard'] = true,['']=true}
-      if tbl[vim.bo.filetype] then
-        return false
-      end
-      return true
-    end,
-    icon = ' LSP:',
+    condition = is_lsp,
+    icon = ' ',
+    separator = " ",
     highlight = {colors.yellow,colors.bg,}
   }
 }
+
+gls.left[#gls.left+1] = {
+  LspStatus = {
+    provider = require("vimrc.plugins.lsp-status").statusline,
+    condition = is_lsp,
+    highlight = {colors.yellow,colors.bg,}
+  }
+}
+-- require('lsp-status').status()
 
 gls.right = {}
 gls.right[#gls.right+1] = {

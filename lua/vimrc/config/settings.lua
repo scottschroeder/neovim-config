@@ -92,7 +92,13 @@ map("", "Y", "y$", {noremap = true})
 map("n", "/", "/\\v", {noremap = true})
 map("v", "/", "/\\v", {noremap = true})
 
-usercmd("VimrcDemo", function() print("demo") end)
+usercmd("Wrapon", function()
+  opt("w", "wrap", true)
+end)
+
+usercmd("Wrapoff", function()
+  opt("w", "wrap", false)
+end)
 
 -- LSP
 

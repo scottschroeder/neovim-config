@@ -1,6 +1,10 @@
 local nvim_lsp = require('lspconfig')
+local lsp_status = require('lsp-status')
 local buf_map = require('vimrc.config.mapping').buf_map
+
 local on_attach = function(client, bufnr)
+  lsp_status.on_attach(client, bufnr)
+
   local function buf_set_keymap(...) buf_map(bufnr, ...) end
 
   -- Mappings.
@@ -9,12 +13,13 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', '<C-]>', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  -- buf_set_keymap('n', '<Leader>k', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', '<M-k>', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', '<M-l>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   -- buf_set_keymap('n', '<Leader>.', '<Cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', '<M-CR>', vim.lsp.buf.code_action, opts)
+  buf_set_keymap('n', '<M-.>', vim.lsp.buf.code_action, opts)
+  -- buf_set_keymap('i', '<M-.>', vim.lsp.buf.code_action, opts)
   -- buf_set_keymap('i', '<M-CR>', vim.lsp.buf.code_action, {noremap=true})
   -- buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  -- buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   -- buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
   -- buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
   -- buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)

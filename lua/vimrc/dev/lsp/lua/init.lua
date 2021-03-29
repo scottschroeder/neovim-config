@@ -1,3 +1,5 @@
+local lsp_status = require('lsp-status')
+
 -- https://github.com/sumneko/lua-language-server/wiki/Build-and-Run-(Standalone)
 USER = vim.fn.expand('$USER')
 
@@ -25,6 +27,7 @@ require('lspconfig').sumneko_lua.setup {
     cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
     root_dir = require("lspconfig.util").find_git_root,
     on_attach = require("vimrc.dev.attach").on_attach,
+    capabilities = lsp_status.capabilities,
     settings = {
         Lua = {
             runtime = {
