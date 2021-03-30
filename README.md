@@ -16,6 +16,11 @@
 - https://github.com/RishabhRD/nvim-lsputils
 - https://github.com/ojroques/nvim-lspfuzzy
 
+## LSP
+- more reliable restart command
+- show diagnostics in list?
+- show diagnostics from all files in workspace?
+
 ## Filetypes
 ### Lua
 - format
@@ -24,13 +29,28 @@
 ### Rust
 - auto suggest/import relevant types
 ### Go
-- gopls
+- lsp gopls
+```
+GO111MODULE=on go get golang.org/x/tools/gopls@latest
+```
 ### Python
 ### Bash
+```
+npm i -g bash-language-server
+```
 ### C++
 ### Docker
 ### Dot
+```
+npm i -g dot-language-server
+```
 ### Haskel
 ### JSON
+```
+npm install -g vscode-json-languageserver
+```
 ### Terraform
 ### Yaml
+```
+npm install -g yaml-language-server
+```
