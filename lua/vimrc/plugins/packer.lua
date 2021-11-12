@@ -26,7 +26,19 @@ return require("packer").startup(
         use {"kyazdani42/nvim-web-devicons"}
         use {"kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons"}
         use {"akinsho/nvim-bufferline.lua", requires = "kyazdani42/nvim-web-devicons"}
-        use {"hrsh7th/nvim-compe"}
+
+        -- Completion
+        use {"hrsh7th/nvim-cmp"}
+        use {"hrsh7th/cmp-buffer"}
+        use {"hrsh7th/cmp-path"}
+        use {"hrsh7th/cmp-cmdline"}
+        use {"hrsh7th/cmp-nvim-lua"}
+        use {"hrsh7th/cmp-nvim-lsp"}
+
+        -- If you use luasnip
+        use {'L3MON4D3/LuaSnip'}
+        use {'saadparwaiz1/cmp_luasnip'}
+
         use {"kosayoda/nvim-lightbulb"}
         use {"onsails/lspkind-nvim"}
         use {"RishabhRD/nvim-lsputils", requires = "RishabhRD/popfix"}
