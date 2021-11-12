@@ -19,7 +19,7 @@ end
 local sumneko_root_path = home .. "/.hab/build/lua-language-server"
 local sumneko_binary = sumneko_root_path .. "/bin/" .. system_name .. "/lua-language-server"
 
-if vim.fn.empty(vim.fn.glob(sumneko_root_path)) > 0 then
+if vim.fn.empty(vim.fn.glob(sumneko_binary)) > 0 then
     return
 end
 
