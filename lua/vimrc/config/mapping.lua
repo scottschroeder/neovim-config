@@ -45,18 +45,18 @@ local map_args = function(rhs, opts)
 end
 
 local function map(mode, lhs, rhs, opts)
-  args = map_args(rhs, opts)
+  local args = map_args(rhs, opts)
   vim.api.nvim_set_keymap(mode, lhs, args.rhs, args.options)
 end
 
 local function buf_map(bufnr, mode, lhs, rhs, opts)
-  args = map_args(rhs, opts)
+  local args = map_args(rhs, opts)
   vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, args.rhs, args.options)
 end
 
 local cmd = function(name, func)
   local id = new_binding(func)
-  cmd_str = fmt_vimscript_call(id)
+  local cmd_str = fmt_vimscript_call(id)
   vim.cmd("command! " .. name .. " " .. cmd_str)
 end
 

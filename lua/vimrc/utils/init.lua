@@ -11,6 +11,9 @@ local function lines(str)
     return result
 end
 
+function _G.pprint(...)
+    return vim.inspect(vim.tbl_map(vim.inspect, {...}))
+end
 
 function _G.dbg(...)
     local objects = vim.tbl_map(vim.inspect, {...})

@@ -6,26 +6,33 @@ USER = vim.fn.expand('$USER')
 local home = vim.fn.expand("$HOME")
 local lspconfig = require('lspconfig')
 
-local ra_bin = home .. "/.hab/build/rust-analyzer/bin/rust-analyzer"
+local lsp_installer_servers = require'nvim-lsp-installer.servers'
 
-if vim.fn.empty(vim.fn.glob(ra_bin)) > 0 then
-    return
-end
+local server_available, requested_server = lsp_installer_servers.get_server("rust_analyzer")
+if server_available then
 
-lspconfig.rust_analyzer.setup {
-    cmd = {ra_bin},
-    filetypes = { "rust" },
-    root_dir = lspconfig.util.root_pattern("Cargo.toml", "rust-project.json"),
-    on_attach = require("vimrc.dev.attach").on_attach,
-    capabilities = lsp_status.capabilities,
-    settings = {
-      ["rust-analyzer"] = {
-            ["rust-analyzer.cargo.loadOutDirsFromCheck"]= true,
-            ["rust-analyzer.highlightingOn"]= true,
-            ["rust-analyzer.procMacro.enable"]= true,
-      }
-    },
-}
+    requested_server:on_ready(function ()
+        local opts = {
+          on_attach = require("vimrc.dev.attach").on_attach,
+          capabilities = lsp_status.capabilities,
+          settings = {
+            ["rust-analyzer"] = {
+                  ["rust-analyzer.cargo.loadOutDirsFromCheck"]= true,
+                  ["rust-analyzer.highlightingOn"]= true,
+                  ["rust-analyzer.procMacro.enable"]= true,
+                  checkOnSave = {
+                    command = "clippy"
+                  },
+            }
+          },
+        }
+        requested_server:setup(opts)
+    end)
+    if not requested_server:is_installed() then
+        -- Queue the server to be installed
+        requested_server:install()
+    end
+  end
 
 
 vim.cmd([[autocmd CursorHold,CursorHoldI,BufEnter,BufWinEnter,TabEnter,BufWritePost,BufRead *.rs :lua require'lsp_extensions'.inlay_hints{ enabled = { "ChainingHint", "TypeHint", "ParameterHint" } }]])

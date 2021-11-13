@@ -1,5 +1,7 @@
 -- see https://github.com/tjdevries/config_manager/blob/master/xdg_config/nvim/after/plugin/completion.lua
 
+-- menuone: popup even when there's only one match
+-- noselect: Do not select, force user to select one from the menu
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 -- Don't show the dumb matching stuff.
@@ -53,12 +55,12 @@ cmp.setup {
       end,
     },
 
-    ["<tab>"] = cmp.mapping {
-      i = cmp.config.disable,
-      c = function(fallback)
-        fallback()
-      end,
-    },
+    -- ["<tab>"] = cmp.mapping {
+    --   i = cmp.config.disable,
+    --   c = function(fallback)
+    --     fallback()
+    --   end,
+    -- },
 
     -- Testing
     ["<c-q>"] = cmp.mapping.confirm {

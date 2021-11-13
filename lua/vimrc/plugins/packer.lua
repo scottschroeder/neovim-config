@@ -22,6 +22,7 @@ return require("packer").startup(
         use {"nvim-lua/lsp_extensions.nvim"}
         use {"nvim-lua/lsp-status.nvim"}
         use {"neovim/nvim-lspconfig"}
+        use {"williamboman/nvim-lsp-installer"}
 
         use {"kyazdani42/nvim-web-devicons"}
         use {"kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons"}
@@ -39,6 +40,8 @@ return require("packer").startup(
         use {'L3MON4D3/LuaSnip'}
         use {'saadparwaiz1/cmp_luasnip'}
 
+
+
         use {"kosayoda/nvim-lightbulb"}
         use {"onsails/lspkind-nvim"}
         use {"RishabhRD/nvim-lsputils", requires = "RishabhRD/popfix"}
@@ -53,6 +56,18 @@ return require("packer").startup(
         use {"lewis6991/gitsigns.nvim", requires = { "nvim-lua/plenary.nvim" } }
         use {"b3nj5m1n/kommentary"}
 
+        use {"nvim-lua/popup.nvim"}
+
+        -- Rust
+        use {"simrat39/rust-tools.nvim"}
+        -- use {"nvim-telescope/telescope.nvim"}
+        -- Debugging (needs plenary from above as well)
+        -- use {"mfussenegger/nvim-dap"}
+
+
+
+        -- Quickfix
+        use {'kevinhwang91/nvim-bqf'}
 
         -- TODO
         -- use {"Yggdroot/indentLine"}
