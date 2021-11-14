@@ -14,12 +14,6 @@ local function severity_lsp_to_vim(severity)
   return severity
 end
 
-function tablelength(T)
-  local count = 0
-  for _ in pairs(T) do count = count + 1 end
-  return count
-end
-
 local get_diagnostics = function (opts)
   -- Opt handling from vim.lisp.diagnostic.set_qflist
   opts = opts or {}
