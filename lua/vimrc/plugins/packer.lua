@@ -16,17 +16,41 @@ local packer_exists = pcall(vim.cmd, [[packadd packer.nvim]])
 
 return require("packer").startup(
     function()
+        -- Package Management
         use {"wbthomason/packer.nvim", opt = true}
 
+        -- Lib Extensions
         use {"nvim-lua/plenary.nvim"}
+        use {"nvim-lua/popup.nvim"}
+        use {"nvim-treesitter/nvim-treesitter"}
+
+        -- LSP Core
         use {"nvim-lua/lsp_extensions.nvim"}
         use {"nvim-lua/lsp-status.nvim"}
         use {"neovim/nvim-lspconfig"}
         use {"williamboman/nvim-lsp-installer"}
+        use {"kosayoda/nvim-lightbulb"}
+        use {"onsails/lspkind-nvim"}
+        use {"RishabhRD/nvim-lsputils", requires = "RishabhRD/popfix"}
 
+        -- Cosmetic
         use {"kyazdani42/nvim-web-devicons"}
-        use {"kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons"}
         use {"akinsho/nvim-bufferline.lua", requires = "kyazdani42/nvim-web-devicons"}
+        use {"morhetz/gruvbox"}
+        use {"sainnhe/gruvbox-material"}
+        use {"norcalli/nvim-colorizer.lua"}
+        use {"glepnir/galaxyline.nvim", branch = "main", requires = {"kyazdani42/nvim-web-devicons", opt = true} }
+        use {"lewis6991/gitsigns.nvim", requires = { "nvim-lua/plenary.nvim" } }
+
+        -- Editor
+        use {"ggandor/lightspeed.nvim"}
+        use {"kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons"}
+        use {"b3nj5m1n/kommentary"}
+        use {"907th/vim-auto-save"}
+        use {"junegunn/fzf"}
+        use {"junegunn/fzf.vim"}
+        use {'kevinhwang91/nvim-bqf'} -- quickfix
+
 
         -- Completion
         use {"hrsh7th/nvim-cmp"}
@@ -35,39 +59,14 @@ return require("packer").startup(
         use {"hrsh7th/cmp-cmdline"}
         use {"hrsh7th/cmp-nvim-lua"}
         use {"hrsh7th/cmp-nvim-lsp"}
-
-        -- If you use luasnip
         use {'L3MON4D3/LuaSnip'}
         use {'saadparwaiz1/cmp_luasnip'}
 
 
-
-        use {"kosayoda/nvim-lightbulb"}
-        use {"onsails/lspkind-nvim"}
-        use {"RishabhRD/nvim-lsputils", requires = "RishabhRD/popfix"}
-        use {"morhetz/gruvbox"}
-        use {"sainnhe/gruvbox-material"}
-        use {"nvim-treesitter/nvim-treesitter"}
-        use {"norcalli/nvim-colorizer.lua"}
-        use {"907th/vim-auto-save"}
-        use {"junegunn/fzf"}
-        use {"junegunn/fzf.vim"}
-        use {"glepnir/galaxyline.nvim", branch = "main", requires = {"kyazdani42/nvim-web-devicons", opt = true} }
-        use {"lewis6991/gitsigns.nvim", requires = { "nvim-lua/plenary.nvim" } }
-        use {"b3nj5m1n/kommentary"}
-
-        use {"nvim-lua/popup.nvim"}
-
         -- Rust
         use {"simrat39/rust-tools.nvim"}
-        -- use {"nvim-telescope/telescope.nvim"}
-        -- Debugging (needs plenary from above as well)
-        -- use {"mfussenegger/nvim-dap"}
 
 
-
-        -- Quickfix
-        use {'kevinhwang91/nvim-bqf'}
 
         -- TODO
         -- use {"Yggdroot/indentLine"}

@@ -12,8 +12,6 @@
 - mark gutter
 - remove gutter from tree
 - Plugins to checkout
-  - lightspeed https://github.com/ggandor/lightspeed.nvim/tree/smart-autojump
-  - rust tools: https://github.com/simrat39/rust-tools.nvim/
   - todo https://www.reddit.com/r/neovim/comments/nbh8ik/todo_comments_highlight_list_and_search_todo/
   - lsp pretty diagnostics https://www.reddit.com/r/neovim/comments/mw5a6z/lsp_trouble_a_pretty_diagnostics_list_to_help/
   - telescope vs fzf? https://github.com/nvim-telescope/telescope.nvim
