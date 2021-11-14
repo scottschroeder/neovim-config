@@ -1,3 +1,4 @@
+local log = require("vimrc.log")
 local M = {}
 local api = vim.api
 
@@ -37,12 +38,14 @@ end
 function M.reload_vimrc()
     M.unload_vimrc()
     require("vimrc")
-    print("vimrc reloaded!")
+    log.info("vimrc reloaded!")
 end
 
 function M.reload_plugin(name)
     require("plenary.reload").reload_module(name, true)
     require(name)
 end
+
+
 
 return M

@@ -1,3 +1,4 @@
+local log = require("vimrc.log")
 local lsp_status = require('lsp-status')
 
 -- https://github.com/sumneko/lua-language-server/wiki/Build-and-Run-(Standalone)
@@ -13,7 +14,7 @@ elseif vim.fn.has("unix") == 1 then
 elseif vim.fn.has('win32') == 1 then
   system_name = "Windows"
 else
-  print("Unsupported system for sumneko")
+  log.warn("unsupported system for sumneko")
 end
 
 local sumneko_root_path = home .. "/.hab/build/lua-language-server"

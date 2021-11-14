@@ -12,7 +12,7 @@ local default_config = {
   plugin = 'vimrc',
 
   -- Should print the output to neovim while running
-  use_console = false,
+  use_console = true,
 
   -- Should highlighting be used in console (using echohl)
   highlights = true,
@@ -22,6 +22,7 @@ local default_config = {
 
   -- Any messages above this level will be logged.
   level = "trace",
+  console_level = "info",
 
   -- Level configuration
   modes = {
@@ -96,7 +97,7 @@ log.new = function(config, standalone)
     local lineinfo = info.short_src .. ":" .. info.currentline
 
     -- Output to console
-    if config.use_console then
+    if config.use_console and level >= levels[config.console_level] then
       local console_string = string.format(
       "[%-6s%s] %s: %s",
       nameupper,
@@ -149,6 +150,5 @@ log.new = function(config, standalone)
 end
 
 log.new(default_config, true)
--- }}}
 
 return log

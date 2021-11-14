@@ -4,5 +4,6 @@ require("vimrc.utils")
 require("vimrc.config")
 require("vimrc.plugins")
 require("vimrc.dev")
+require("vimrc.orgmode")
 
 

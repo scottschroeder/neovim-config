@@ -72,6 +72,7 @@ local magic_quickfix = function (opts)
   end
   if next(diagnostics) == nil then
     close_quickfix()
+    return
   end
 
   local open = vim.F.if_nil(opts.open, true)

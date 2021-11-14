@@ -1,3 +1,4 @@
+local log = require("vimrc.log")
 
 local blacklist_buffer_var_name = "blacklist_this_buffer_from_reloads"
 
@@ -43,7 +44,7 @@ local reattach_if_lsp_lost = function()
 
   vim.lsp.buf_attach_client(0,cid)
   if not is_lsp_connected() then
-    print("failed to attach to LSP client!")
+    log.warn("failed to attach to LSP client!")
     vim.api.nvim_buf_set_var(0, blacklist_buffer_var_name, true)
   end
 end

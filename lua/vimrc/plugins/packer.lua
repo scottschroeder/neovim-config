@@ -1,11 +1,11 @@
-
+local log = require("vimrc.log")
 local execute = vim.api.nvim_command
 local fn = vim.fn
 
 local install_path = fn.stdpath("data").."/site/pack/packer/opt/packer.nvim"
 
 if fn.empty(fn.glob(install_path)) > 0 then
-    print("downloading packer: " .. install_path)
+    log.info("downloading packer:", install_path)
     execute("!git clone https://github.com/wbthomason/packer.nvim "..install_path)
     execute "packadd packer.nvim"
 end
@@ -66,7 +66,8 @@ return require("packer").startup(
         -- Rust
         use {"simrat39/rust-tools.nvim"}
 
-
+        -- OrgMode
+        use {'kristijanhusak/orgmode.nvim'}
 
         -- TODO
         -- use {"Yggdroot/indentLine"}
