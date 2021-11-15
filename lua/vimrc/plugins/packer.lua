@@ -47,11 +47,11 @@ return require("packer").startup(
         use {"kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons"}
         use {"b3nj5m1n/kommentary"}
         use {"907th/vim-auto-save"}
-        use {"junegunn/fzf"}
-        use {"junegunn/fzf.vim"}
+        -- use {"junegunn/fzf"}
+        -- use {"junegunn/fzf.vim"}
         use {'kevinhwang91/nvim-bqf'} -- quickfix
 
-
+        use { 'nvim-telescope/telescope.nvim', requires = { {'nvim-lua/plenary.nvim'} } }
         -- Completion
         use {"hrsh7th/nvim-cmp"}
         use {"hrsh7th/cmp-buffer"}
