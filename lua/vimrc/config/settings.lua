@@ -1,4 +1,5 @@
 
+local log = require("vimrc.log")
 local opt = require("vimrc.config.option").opt
 local map = require("vimrc.config.mapping").map
 local usercmd = require("vimrc.config.mapping").cmd
@@ -64,6 +65,15 @@ map("n", "<leader>o", ":only<CR>", {noremap = true})
 
 -- Reload vimrc
 map("n", "<leader>sv", require('vimrc.utils').reload_vimrc)
+
+
+map("n", "<leader>sd",
+  function ()
+    require("vimrc.utils").reload_plugin("vimrc.project")
+    log.trace("reload vimrc.project")
+    require("vimrc.project").setup({})
+  end
+)
 
 
 -- TODO I think this is supposed to be system copy/paste?
