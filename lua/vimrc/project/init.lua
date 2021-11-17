@@ -3,6 +3,7 @@ local log = require("vimrc.log")
 local cmd = require("vimrc.config.mapping").cmd
 local src = require("vimrc.project.list")
 local project_finder = require("vimrc.project.telescope")
+local project_actions = require("vimrc.project.actions")
 
 local pickers = require("telescope.pickers")
 local actions = require("telescope.actions")
@@ -20,6 +21,7 @@ local function check_config(opts)
     vim.validate({config = {opts, 'table', true}})
     return vim.tbl_deep_extend('keep', opts, {
         do_thing = true,
+        hidden_files = false,
         sub_thing = {
             other = true,
             list = {'a', 'b', 'c'},
@@ -114,9 +116,9 @@ function M.project(opts)
       -- map('i', '<c-w>', _actions.change_working_directory)
 
       local on_project_selected = function()
-        -- _actions.find_project_files(prompt_bufnr, hidden_files)
+        project_actions.find_project_files(prompt_bufnr, M.config.hidden_files)
       end
-      -- actions.select_default:replace(on_project_selected)
+      actions.select_default:replace(on_project_selected)
       return true
     end
   }):find()

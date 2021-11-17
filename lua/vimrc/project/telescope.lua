@@ -21,7 +21,7 @@ function M.project_finder(opts, projects)
     log.trace("path", project_path)
     local project_display = {
       title = entry:get_title(),
-      path = entry.path,
+      path = tostring(project_path),
       display_path = '',
     }
     if display_type == 'full' then
@@ -54,9 +54,10 @@ function M.project_finder(opts, projects)
   return finders.new_table {
       results = projects,
       entry_maker = function(project)
-        project.value = project.path
-        project.ordinal = project.title
+        project.value = tostring(project:to_path())
+        project.ordinal = project:get_title()
         project.display = make_display
+        log.trace("show project entry", project)
         return project
       end,
     }
