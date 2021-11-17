@@ -1,26 +1,9 @@
 local log = require("vimrc.log")
 
-local is_entry
-
-local Entry = require("vimrc.project.class")(function(e, path)
-  if is_entry(path) then
-    log.trace("OK entry", path)
-    e.path = path.path
-  else
-    log.trace("NOT entry", path)
-    e.path = path
-  end
+local Entry = require("vimrc.project.class")(function(e, opts)
+  opts = opts or {}
+  e.path = opts.path
 end)
-
-local function try_entry(o)
-  return o:is_a(Entry)
-end
-
-is_entry = function(o)
-  err, res = pcall(try_entry, o)
-  log.trace("err", err, "res", res)
-  return not error and res
-end
 
 function Entry:to_config()
   return {
@@ -29,23 +12,27 @@ function Entry:to_config()
 end
 
 local List = require("vimrc.project.class")(function(l, data)
+  data = data or {}
   local items = {}
-  for k, e in pairs(data.items) do
-    items[#items+1] = Entry(e)
+  if data.items then
+    for _, e in pairs(data.items) do
+      items[#items+1] = Entry(e)
+    end
   end
 
   l.source = data.source
+  l.name = data.name or l.source
   l.sync = data.sync
   l.items = items
 end)
 
 function List:to_config()
   local items = {}
-  for k, e in pairs(self.items) do
+  for _, e in pairs(self.items) do
     items[#items+1] = e:to_config()
   end
   return {
-    source = self.source,
+    name = self.name,
     items = items,
   }
 end
@@ -54,9 +41,27 @@ function List:sync_file(data_dir)
   return data_dir:joinpath(self.source .. ".json")
 end
 
+local function try_read_file(file)
+  local ok, contents = pcall(file.read, file)
+  if not ok then
+    log.debug("file", tostring(file), "not found, using empty list")
+    return {}
+  end
+
+  local res
+  ok, res = pcall(vim.json.decode, contents)
+  if not ok then
+    log.warn("file", tostring(file), "did not contain valid json:", contents)
+    return {}
+  end
+  return res
+end
+
 function List:load_file(data_dir, source)
   local sync_file = data_dir:joinpath(source .. ".json")
-  local data = vim.json.decode(sync_file:read())
+  local data = try_read_file(sync_file)
+  data.source = source
+  data.sync = true
   return List(data)
 end
 
@@ -75,13 +80,16 @@ function Sources:add(list)
 end
 
 
-function Sources:get_all_paths()
+function Sources:get_projects()
   local all_paths = {}
-  for k, src in pairs(self.sources) do
-    for i, pth in pairs(src.items) do
-      all_paths[#all_paths+1] = pth.path
+  for _, src in pairs(self.sources) do
+    for _, entry in pairs(src.items) do
+      all_paths[#all_paths+1] = entry
     end
   end
+  table.sort(all_paths, function(a, b)
+    return a.path > b.path
+  end)
   return all_paths
 end
 

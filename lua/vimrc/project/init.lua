@@ -2,7 +2,7 @@ local M = {}
 local initialized = false
 local identifier = "projecticle"
 local log = require("vimrc.log")
-local async = require "plenary.async"
+local cmd = require("vimrc.config.mapping").cmd
 
 local src = require("vimrc.project.list")
 
@@ -24,35 +24,38 @@ local function check_config(opts)
     })
 end
 
-
-local function load(name)
-  local json_path = M.data_dir():joinpath(name .. ".json")
-  log.trace("read file", json_path:__tostring())
-  local json_data = json_path:read()
-  local data = vim.json.decode(json_data)
-  log.trace(data)
-  return data
+local function data_dir()
+  local p = path.new(vim.fn.stdpath("data"))
+  return p:joinpath(identifier)
 end
 
 local function hacks()
-  local data = load("foo")
 
   local sources = src.Sources()
-  local e1 = src.Entry("foo")
-  local e2 = src.Entry("bar")
+  local e1 = src.Entry({path="~"})
+  local e2 = src.Entry({path="~/src/github/scottschroeder/neovim-config"})
   local l1 = src.List({
     source = "setup",
+    name = "Hacks",
     sync = false,
     items = {e1, e2}
   })
   sources:add(l1)
-  log.trace("sources:", sources:get_all_paths())
+  -- log.trace("sources:", sources:get_all_paths())
 
-  sources.sources["setup"]:do_sync(M.data_dir())
+  sources.sources["setup"]:do_sync(data_dir())
+  M.sources = sources
+  local s2 = src.List:load_file(data_dir(), "setup")
+  log.trace("s2:", s2)
 
-  local s2 = src.List:load_file(M.data_dir(), "setup")
-  log.trace("s2:", sources:get_all_paths())
+  local s3 = src.List:load_file(data_dir(), "recent")
+  log.trace("s3:", s3)
+end
 
+local function create_bindings()
+  cmd("ProjectList", function()
+    -- log.info(M.sources:get_all_paths())
+  end)
 end
 
 function M.setup(opts)
@@ -61,14 +64,12 @@ function M.setup(opts)
   end
   log.trace("init plugin", identifier)
   M.config = check_config(opts)
-  M.data_dir():mkdir({exist_ok = true, parents=true})
+  data_dir():mkdir({exist_ok = true, parents=true})
+  create_bindings()
   hacks()
   initialized = true
 end
 
-function M.data_dir()
-  local p = path.new(vim.fn.stdpath("data"))
-  return p:joinpath(identifier)
-end
+
 
 return M
