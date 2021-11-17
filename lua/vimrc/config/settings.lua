@@ -74,7 +74,7 @@ map("n", "<leader>sd",
     require("vimrc.project").setup({})
   end
 )
-map("n", "<leader>sf",
+map("n", "<leader>p",
   function ()
     require("vimrc.project").project({})
   end
