@@ -74,6 +74,11 @@ map("n", "<leader>sd",
     require("vimrc.project").setup({})
   end
 )
+map("n", "<leader>sf",
+  function ()
+    require("vimrc.project").project({})
+  end
+)
 
 
 -- TODO I think this is supposed to be system copy/paste?

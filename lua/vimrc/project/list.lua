@@ -1,9 +1,23 @@
 local log = require("vimrc.log")
+local Path = require("plenary.path")
 
 local Entry = require("vimrc.project.class")(function(e, opts)
   opts = opts or {}
   e.path = opts.path
+  e.title = opts.title
 end)
+
+function Entry:get_title()
+  if self.title then
+    return self.title
+  else
+    return self.path
+  end
+end
+
+function Entry:to_path()
+  return Path:new(Path:new(self.path):expand())
+end
 
 function Entry:to_config()
   return {
