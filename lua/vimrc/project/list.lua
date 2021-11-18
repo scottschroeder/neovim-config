@@ -3,7 +3,7 @@ local Path = require("plenary.path")
 
 local Entry = require("vimrc.project.class")(function(e, opts)
   opts = opts or {}
-  e.path = opts.path
+  e.path = Path:new(Path:new(opts.path):expand()):absolute()
   e.title = opts.title
 end)
 
@@ -19,9 +19,11 @@ function Entry:to_path()
   return Path:new(Path:new(self.path):expand())
 end
 
+
 function Entry:to_config()
   return {
     path = self.path,
+    title = self.title,
   }
 end
 
@@ -53,6 +55,10 @@ end
 
 function List:sync_file(data_dir)
   return data_dir:joinpath(self.source .. ".json")
+end
+
+function List:add(data)
+  self.items[#self.items+1] = Entry(data)
 end
 
 local function try_read_file(file)

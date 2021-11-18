@@ -4,6 +4,7 @@ local cmd = require("vimrc.config.mapping").cmd
 local src = require("vimrc.project.list")
 local project_finder = require("vimrc.project.telescope")
 local project_actions = require("vimrc.project.actions")
+local recent = require("vimrc.project.recent")
 
 local pickers = require("telescope.pickers")
 local actions = require("telescope.actions")
@@ -50,15 +51,12 @@ local function hacks()
     items = {e1, e2}
   })
   sources:add(l1)
-  -- log.trace("sources:", sources:get_all_paths())
+  sources:add(recent.list)
 
-  sources.sources["setup"]:do_sync(data_dir())
   M.sources = sources
-  local s2 = src.List:load_file(data_dir(), "setup")
-  log.trace("s2:", s2)
 
-  local s3 = src.List:load_file(data_dir(), "recent")
-  log.trace("s3:", s3)
+  -- local myfile = path:new("/home/scott/src/github/scottschroeder/astrometry/index/src/kdtree/fits.rs")
+  -- recent.check_add(myfile)
 end
 
 local function create_bindings()
@@ -74,6 +72,7 @@ function M.setup(opts)
   log.trace("init plugin", identifier)
   M.config = check_config(opts)
   data_dir():mkdir({exist_ok = true, parents=true})
+  recent.init(data_dir())
   create_bindings()
   hacks()
   initialized = true
