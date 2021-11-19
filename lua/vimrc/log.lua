@@ -34,9 +34,19 @@ local default_config = {
     { name = "fatal", hl = "ErrorMsg", },
   },
 
+  chop_path = "vimrc",
+
   -- Can limit the number of decimals displayed for floats
   float_precision = 0.01,
 }
+
+local function chop_start(needle, haystack)
+  local s = haystack:find(needle)
+  if s then
+    return haystack:sub(s)
+  end
+  return haystack
+end
 
 -- {{{ NO NEED TO CHANGE
 local log = {}
@@ -95,6 +105,9 @@ log.new = function(config, standalone)
     local msg = message_maker(...)
     local info = debug.getinfo(2, "Sl")
     local lineinfo = info.short_src .. ":" .. info.currentline
+    if config.chop_path then
+      lineinfo = chop_start(config.chop_path, lineinfo)
+    end
 
     -- Output to console
     if config.use_console and level >= levels[config.console_level] then

@@ -31,8 +31,19 @@
 - show diagnostics in list?
 - show diagnostics from all files in workspace?
 
+## Git
+- fugitive/magit/?
+
 ## Mac
 - meta key seems to not be working
+
+## Projectile
+- async background
+- multiple instances all writing
+- cwd management
+- de-dup sources (or at least omit recent)
+- source names
+- all git repos
 
 ## Filetypes
 ### Lua

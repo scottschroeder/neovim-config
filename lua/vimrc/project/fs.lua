@@ -9,10 +9,8 @@ local function github_name(path)
     
     log.trace("attempt to name:", tostring(path))
     local gitconfig = Path:new(path:absolute() .. "/.git/config")
-    log.trace("attempt to read:", tostring(gitconfig))
     for _, line in pairs(gitconfig:readlines()) do
       local s, e = github_re:match_str(line)
-      log.trace("line:", s, e, ":", line)
       if s then
         local offset = #"github.com/"
         return line:sub(s+1+offset, e)

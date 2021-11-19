@@ -18,7 +18,6 @@ function M.project_finder(opts, projects)
   -- each of the keys
   for _, entry in pairs(projects) do
     local project_path = entry:to_path()
-    log.trace("path", project_path)
     local project_display = {
       title = entry:get_title(),
       path = tostring(project_path),
@@ -57,7 +56,6 @@ function M.project_finder(opts, projects)
         project.value = tostring(project:to_path())
         project.ordinal = project:get_title()
         project.display = make_display
-        log.trace("show project entry", project)
         return project
       end,
     }

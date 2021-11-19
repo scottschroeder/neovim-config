@@ -39,6 +39,15 @@ local function data_dir()
   return p:joinpath(identifier)
 end
 
+local function define_autogroup()
+  vim.cmd([[
+  augroup vimrc_project
+    autocmd! 
+    autocmd BufReadPre,FileReadPre * :lua require("vimrc.project").observe_file()
+  augroup END
+  ]])
+end
+
 local function hacks()
 
   local sources = src.Sources()
@@ -54,15 +63,13 @@ local function hacks()
   sources:add(recent.list)
 
   M.sources = sources
-
-  -- local myfile = path:new("/home/scott/src/github/scottschroeder/astrometry/index/src/kdtree/fits.rs")
-  -- recent.check_add(myfile)
 end
 
 local function create_bindings()
   cmd("ProjectList", function()
     -- log.info(M.sources:get_all_paths())
   end)
+  define_autogroup()
 end
 
 function M.setup(opts)
@@ -121,6 +128,12 @@ function M.project(opts)
       return true
     end
   }):find()
+end
+
+function M.observe_file()
+  local this_buffer = vim.api.nvim_buf_get_name(0)
+  log.trace("observe", this_buffer)
+  recent.check_add(path:new(this_buffer))
 end
 
 return M

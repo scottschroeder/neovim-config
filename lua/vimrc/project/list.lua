@@ -86,7 +86,9 @@ function List:load_file(data_dir, source)
 end
 
 function List:do_sync(data_dir)
-  self:sync_file(data_dir):write(vim.json.encode(self:to_config()), 'w')
+  local sync_path = self:sync_file(data_dir)
+  log.trace("write", self.name, "(", self.source, ") to:", tostring(sync_path))
+  sync_path:write(vim.json.encode(self:to_config()), 'w')
 end
 
 

@@ -12,12 +12,16 @@ local M = {}
 
 function M.init(data_dir)
   M.data_dir = data_dir
-  M.list = List:load_file(data_dir, "recent")
-  M.list.name = "Recent"
+  M.load()
 end
 
 function M.save()
-  M.list.sync_file(M.data_dir)
+  M.list:do_sync(M.data_dir)
+end
+
+function M.load()
+  M.list = List:load_file(M.data_dir, "recent")
+  M.list.name = "Recent"
 end
 
 function M.check_add(path)
@@ -39,12 +43,16 @@ function M.check_add(path)
 
   local title = fs.try_get_name(Path:new(project_dir))
 
-  log.trace("adding", title, filepath)
+  log.trace("try load")
+  M.load()
+  log.trace("did load")
+  log.trace("adding", title, project_dir)
   M.list:add({
     path = project_dir,
     title = title,
   })
-  M.list:do_sync(M.data_dir)
+  log.trace("try save")
+  M.save()
 
 end
 
