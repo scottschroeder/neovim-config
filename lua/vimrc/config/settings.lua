@@ -115,6 +115,10 @@ usercmd("Wrapoff", function()
   opt("w", "wrap", false)
 end)
 
+usercmd("Scratch", function()
+  scratch("")
+end)
+
 -- LSP
 
 -- map("n", "gd", vim.lsp.buf.definition, {noremap=true})

@@ -45,6 +45,9 @@
 - source names
 - all git repos
 
+## Quickfix
+- <M-q> doesnt work if in a vertical split (and the wrong window)
+
 ## Filetypes
 ### Lua
 - format
