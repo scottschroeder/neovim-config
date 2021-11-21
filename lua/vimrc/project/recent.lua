@@ -30,14 +30,14 @@ function M.check_add(path)
   for _, entry in pairs(M.list.items) do
     if starts_with(filepath, entry.path) then
       log.trace("already saved", filepath, "is in", entry.path)
-      return
+      return entry.path
     end
   end
 
   local project_dir = fs.associated_project(path)
   if not project_dir then
     log.trace("not a project:", filepath)
-    return
+    return nil
   end
   log.trace("part of a new project:", project_dir)
 
@@ -53,7 +53,7 @@ function M.check_add(path)
   })
   log.trace("try save")
   M.save()
-
+  return project_dir
 end
 
 return M

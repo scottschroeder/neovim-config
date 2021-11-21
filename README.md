@@ -17,6 +17,8 @@
 
 ### Tabs
 
+### File Tree
+
 ### Snippets
   - luasnip https://github.com/L3MON4D3/LuaSnip
 
@@ -29,14 +31,9 @@
 - show diagnostics in list?
 - show diagnostics from all files in workspace?
 
-### Git
-- fugitive/magit/?
-- show diffs https://www.reddit.com/r/neovim/comments/n2vww8/diffviewnvim_cycle_through_diffs_for_all_modified/
-
 ### Projectile
 - async background
 - multiple instances all writing
-- cwd management
 - de-dup sources (or at least omit recent)
 - source names
 - all git repos
@@ -50,6 +47,5 @@
 #### Markdown
 - tables
 #### Org
-- neorg https://github.com/nvim-neorg/neorg
 - orgmode https://github.com/kristijanhusak/orgmode.nvim
 

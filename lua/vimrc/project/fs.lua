@@ -47,6 +47,7 @@ function M.associated_project(path)
       return current
     end
   end
+  return nil
 end
 
 

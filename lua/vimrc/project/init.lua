@@ -5,6 +5,8 @@ local src = require("vimrc.project.list")
 local project_finder = require("vimrc.project.telescope")
 local project_actions = require("vimrc.project.actions")
 local recent = require("vimrc.project.recent")
+local rooter = require("vimrc.project.rooter")
+
 
 local pickers = require("telescope.pickers")
 local actions = require("telescope.actions")
@@ -44,6 +46,7 @@ local function define_autogroup()
   augroup vimrc_project
     autocmd! 
     autocmd BufReadPre,FileReadPre * :lua require("vimrc.project").observe_file()
+    autocmd VimEnter,BufReadPost,BufEnter * nested :lua require("vimrc.project.rooter").rooter()
   augroup END
   ]])
 end
@@ -133,7 +136,8 @@ end
 function M.observe_file()
   local this_buffer = vim.api.nvim_buf_get_name(0)
   log.trace("observe", this_buffer)
-  recent.check_add(path:new(this_buffer))
+  local root = recent.check_add(path:new(this_buffer))
+  rooter.set_buf_root(0, root)
 end
 
 return M
