@@ -19,6 +19,9 @@ return require("packer").startup(
         -- Package Management
         use {"wbthomason/packer.nvim", opt = true}
 
+        -- Git
+        use {"tpope/vim-fugitive"}
+
         -- Lib Extensions
         use {"nvim-lua/plenary.nvim"}
         use {"nvim-lua/popup.nvim"}
