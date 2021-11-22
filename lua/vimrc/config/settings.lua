@@ -80,8 +80,7 @@ map("n", "<leader>p",
   end
 )
 
-
--- TODO I think this is supposed to be system copy/paste?
+-- vim's clipboard buffers go to tmux buffer
 -- opt("o", "clipboard", "unnamedplus")
 -- map("v", "<Leader>y", '"+y')
 -- map("n", "<Leader>y", '"+y')
@@ -99,6 +98,9 @@ map("v", "<Leader>/", ':let @/ = ""<CR>', {silent = true})
 
 -- Format the current file
 map("n", "<Leader>=", require("vimrc.dev.format").format_current_buffer)
+
+-- Git
+map("n", "<Leader>g", ":Git<CR>")
 
 map("n", "j", "gj", {noremap = true})
 map("n", "k", "gk", {noremap = true})

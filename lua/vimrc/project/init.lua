@@ -79,7 +79,6 @@ function M.setup(opts)
   if initialized then
     return
   end
-  log.trace("init plugin", identifier)
   M.config = check_config(opts)
   data_dir():mkdir({exist_ok = true, parents=true})
   recent.init(data_dir())

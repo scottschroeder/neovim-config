@@ -27,6 +27,10 @@ function M.rooter()
   local root = get_buf_root(0)
   if root == nil then
     local this_buffer = vim.api.nvim_buf_get_name(0)
+    if #this_buffer == 0 then
+      return
+    end
+
     log.trace("unknown root for", this_buffer, "searching...")
     root = fs.associated_project(Path:new(this_buffer))
     M.set_buf_root(0, root)
