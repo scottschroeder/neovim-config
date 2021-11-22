@@ -139,4 +139,8 @@ function M.observe_file()
   rooter.set_buf_root(0, root)
 end
 
+function M.gitdemo()
+  require("vimrc.project.gitsrc").demo()
+end
+
 return M

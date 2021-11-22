@@ -70,13 +70,19 @@ map("n", "<leader>sv", require('vimrc.utils').reload_vimrc)
 map("n", "<leader>sd",
   function ()
     require("vimrc.utils").reload_plugin("vimrc.project")
-    log.trace("reload vimrc.project")
     require("vimrc.project").setup({})
   end
 )
 map("n", "<leader>p",
   function ()
     require("vimrc.project").project({})
+  end
+)
+
+-- Test
+map("n", "<leader>sf",
+  function ()
+    require("vimrc.project").gitdemo()
   end
 )
 

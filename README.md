@@ -16,28 +16,20 @@
 - be able to work without any plugins
 
 ### Tabs
+- tabline?
 
 ### File Tree
 - does not start in project root?
 
 ### Snippets
-  - luasnip https://github.com/L3MON4D3/LuaSnip
-
-### Utils / Fuzzy Matching
-- https://github.com/RishabhRD/nvim-lsputils
-- https://github.com/ojroques/nvim-lspfuzzy
-
-### LSP
-- more reliable restart command
-- show diagnostics in list?
-- show diagnostics from all files in workspace?
+- luasnip https://github.com/L3MON4D3/LuaSnip
 
 ### Projectile
 - async background
 - multiple instances all writing
 - de-dup sources (or at least omit recent)
-- source names
-- all git repos
+- show source names during selection
+- all git repos source
 
 ### Quickfix
 - <M-q> doesnt work if in a vertical split (and the wrong window)
