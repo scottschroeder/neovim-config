@@ -6,6 +6,7 @@ local project_finder = require("vimrc.project.telescope")
 local project_actions = require("vimrc.project.actions")
 local recent = require("vimrc.project.recent")
 local rooter = require("vimrc.project.rooter")
+local fs = require("vimrc.project.fs")
 
 
 local pickers = require("telescope.pickers")
@@ -33,8 +34,15 @@ local function check_config(opts)
         key_map = {
             open = '<Leader>p',
         },
+        git_roots = {},
+        extras = {},
         sources = {
 
+        },
+        precedence = {
+          "extras",
+          "git",
+          "recent",
         }
     })
 end
@@ -54,32 +62,9 @@ local function define_autogroup()
   ]])
 end
 
-local function hacks()
-
-  local sources = src.Sources()
-  local e1 = {title="$HOME", path="~"}
-  local e2 = {title="Neovim Config", path="~/src/github/scottschroeder/neovim-config"}
-  local l1 = src.List({
-    source = "setup",
-    name = "Hacks",
-    sync = false,
-    items = {e1, e2}
-  })
-  sources:add("setup", function ()
-    return l1.items
-  end)
-  sources:add("recent", function()
-    return recent.get_list()
-  end)
-  sources:add("src", function()
-    return require("vimrc.project.gitsrc").get_list()
-  end)
-
-  M.sources = sources
-end
 local function create_bindings()
   cmd("ProjectList", function()
-    -- log.info(M.sources:get_all_paths())
+    M.project({})
   end)
   define_autogroup()
 end
@@ -91,24 +76,48 @@ function M.setup(opts)
   M.config = check_config(opts)
   data_dir():mkdir({exist_ok = true, parents=true})
   recent.init(data_dir())
-
-  require("vimrc.project.gitsrc").init(path:new("~"):expand() .. "/src")
+  require("vimrc.project.gitsrc").init(M.config.git_roots)
   create_bindings()
-  hacks()
+
+  local sources = src.Sources()
+  sources:add(function()
+    return recent.get_list()
+  end)
+  sources:add(function()
+    return require("vimrc.project.gitsrc").get_list()
+  end)
+  local extras = {}
+  for _, e_opts in pairs(M.config.extras) do
+    local p = path:new(e_opts.path):expand()
+    extras[#extras+1] = src.Entry({
+      path = p,
+      title = e_opts.title or fs.get_name(path:new(p)),
+      source = "extras",
+    })
+  end
+  sources:add(function ()
+    return extras
+  end)
+  M.sources = sources
   initialized = true
 end
 
 function M.project(opts)
+  if not initialized then
+    log.warn("project config requires setup({})")
+    return
+  end
+
   pickers.new(opts or {}, {
     prompt_title = 'Select a project',
     results_title = 'Projects',
-    finder = project_finder.project_finder(opts, M.sources:get_projects()),
+    finder = project_finder.project_finder(opts, M.sources:get_projects(), M.config.precedence),
     sorter = conf.file_sorter(opts),
     attach_mappings = function(prompt_bufnr, map)
 
       local refresh_projects = function()
         local picker = action_state.get_current_picker(prompt_bufnr)
-        local finder = project_finder.project_finder(opts, M.sources:get_projects())
+        local finder = project_finder.project_finder(opts, M.sources:get_projects(), M.config.precedence)
         picker:refresh(finder, { reset_prompt = true })
       end
 

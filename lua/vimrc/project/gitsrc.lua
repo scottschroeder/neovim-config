@@ -17,6 +17,7 @@ local function add_entry(project_dir)
   M.list:add({
     path = project_dir,
     title = title,
+    source = "git",
   })
 end
 
@@ -50,9 +51,12 @@ local function kickoff_fetch(base_dir)
 end
 
 
-function M.init(root)
+function M.init(roots)
   M.list = List()
-  pcall(kickoff_fetch, root)
+  for _, root in pairs(roots) do
+    local r = Path:new(root)
+    pcall(kickoff_fetch, r:expand())
+  end
 end
 
 function M.get_list()

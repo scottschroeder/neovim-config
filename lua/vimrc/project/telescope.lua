@@ -7,53 +7,90 @@ local entry_display = require("telescope.pickers.entry_display")
 
 local M = {}
 
-function M.project_finder(opts, projects)
+
+local function display_source(project)
+  local src = project.source or "unknown"
+  return "[" .. src .. "]"
+end
+
+function M.project_finder(opts, projects, precedence)
+  precedence = precedence or {}
+  log.trace("precedence", precedence)
+
+  local entry_merger = function(a, b)
+    log.trace("A", a, "B", b)
+    if a == nil then
+      return b
+    end
+    if b == nil then
+      return a
+    end
+    local time = math.max(a.time, b.time)
+    a.time = time
+    b.time = time
+    for _, pri in pairs(precedence) do
+      log.trace(pri)
+      if a.source == pri then
+        log.trace("use A")
+        return a
+      end
+      if b.source == pri then
+        log.trace("use B")
+        return b
+      end
+    end
+    log.trace("use B")
+    return b
+  end
+
   local display_type = opts.display_type
   local widths = {
     title = 0,
-    display_path = 0,
+    source = 0,
   }
+
+  dedup_projects = {}
 
   -- Loop over all of the projects and find the maximum length of
   -- each of the keys
   for _, entry in pairs(projects) do
-    local project_path = entry:to_path()
+
     local project_display = {
       title = entry:get_title(),
-      path = tostring(project_path),
-      display_path = '',
+      source = display_source(entry),
     }
-    if display_type == 'full' then
-      project_display.display_path = '[' .. project_display.path .. ']'
-    end
-    local project_path_exists = project_path:exists()
-    log.trace("check exist", tostring(project_path), project_path_exists)
-    if not project_path_exists then
-      project_display.title = project_display.title .. " [deleted]"
-    end
     for key, value in pairs(widths) do
       widths[key] = math.max(value, strings.strdisplaywidth(project_display[key] or ''))
     end
+
+
+    dedup_projects[entry.path] = entry_merger(dedup_projects[entry.path], entry)
+  end
+
+  project_list = {}
+  for _, e in pairs(dedup_projects) do
+    project_list[#project_list+1] = e
   end
 
   local displayer = entry_display.create {
     separator = " ",
     items = {
       { width = widths.title },
-      { width = widths.display_path },
+      { width = widths.source },
     }
   }
+
   local make_display = function(project)
     return displayer {
       { project.title },
-      { project.display_path }
+      { display_source(project) }
     }
   end
 
   return finders.new_table {
-      results = projects,
+      results = project_list,
       entry_maker = function(project)
-        project.value = tostring(project:to_path())
+        project.value = project.path
         project.ordinal = project:get_title()
         project.display = make_display
         return project

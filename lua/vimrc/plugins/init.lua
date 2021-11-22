@@ -17,3 +17,4 @@ require('lspkind').init({})
 require('gitsigns').setup{
   keymaps = {}
 }
+require('vimrc.plugins.project')

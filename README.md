@@ -29,11 +29,8 @@
 - luasnip https://github.com/L3MON4D3/LuaSnip
 
 ### Projectile
-- async background
-- multiple instances all writing
-- de-dup sources (or at least omit recent)
-- show source names during selection
-- all git repos source
+- sort by recently used
+- project names based on upstream?
 
 ### Quickfix
 - <M-q> doesnt work if in a vertical split (and the wrong window)

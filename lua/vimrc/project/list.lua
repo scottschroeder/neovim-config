@@ -5,6 +5,8 @@ local Entry = require("vimrc.project.class")(function(e, opts)
   opts = opts or {}
   e.path = Path:new(Path:new(opts.path):expand()):absolute()
   e.title = opts.title
+  e.source = opts.source or "unknown"
+  e.time = opts.time or 0
 end)
 
 function Entry:get_title()
@@ -24,6 +26,8 @@ function Entry:to_config()
   return {
     path = self.path,
     title = self.title,
+    source = self.source,
+    time = self.time,
   }
 end
 
@@ -37,8 +41,6 @@ local List = require("vimrc.project.class")(function(l, data)
   end
 
   l.source = data.source
-  l.name = data.name or l.source
-  l.sync = data.sync
   l.items = items
 end)
 
@@ -48,7 +50,6 @@ function List:to_config()
     items[#items+1] = e:to_config()
   end
   return {
-    name = self.name,
     items = items,
   }
 end
@@ -81,13 +82,12 @@ function List:load_file(data_dir, source)
   local sync_file = data_dir:joinpath(source .. ".json")
   local data = try_read_file(sync_file)
   data.source = source
-  data.sync = true
   return List(data)
 end
 
 function List:do_sync(data_dir)
   local sync_path = self:sync_file(data_dir)
-  log.trace("write", self.name, "(", self.source, ") to:", tostring(sync_path))
+  log.trace("write", self.source, "to:", tostring(sync_path))
   sync_path:write(vim.json.encode(self:to_config()), 'w')
 end
 
@@ -96,8 +96,8 @@ local Sources = require("vimrc.project.class")(function(s)
   s.sources = {}
 end)
 
-function Sources:add(name, func)
-  self.sources[name] = func
+function Sources:add(func)
+  self.sources[#self.sources+1] = func
 end
 
 function Sources:get_projects()

@@ -14,20 +14,19 @@ function M.extract_name(config_line)
   return nil
 end
 
-local github_re = vim.regex("github.com/[^/]\\+/[^/]\\+")
-function M.extract_name_regex(config_line)
-  local s, e = github_re:match_str(line)
-  if s then
-    local offset = #"github.com/"
-    return config_line:sub(s+1+offset, e)
-  end
-  return nil
+local function read_remote(config_line)
+  local s, e = config_line:find('\[remote ""')
+
 end
 
 function M.github_name(path)
   log.trace("attempt to name:", tostring(path))
   local gitconfig = Path:new(path:absolute() .. "/.git/config")
-  for _, line in pairs(gitconfig:readlines()) do
+  local ok, lines = pcall(Path.readlines,gitconfig)
+  if not ok then
+    return nil
+  end
+  for _, line in pairs(lines) do
     local res = M.extract_name(line)
     if res ~= nil then
       return res

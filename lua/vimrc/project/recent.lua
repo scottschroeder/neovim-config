@@ -55,6 +55,7 @@ function M.check_add(path)
   M.list:add({
     path = project_dir,
     title = title,
+    source = "recent",
   })
   log.trace("try save")
   M.save()

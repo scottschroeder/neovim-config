@@ -70,12 +70,14 @@ map("n", "<leader>sv", require('vimrc.utils').reload_vimrc)
 map("n", "<leader>sd",
   function ()
     require("vimrc.utils").reload_plugin("vimrc.project")
-    require("vimrc.project").setup({})
+    require("vimrc.utils").reload_plugin("vimrc.plugins.project")
+    require("vimrc.plugins.project")
   end
 )
 map("n", "<leader>p",
   function ()
-    require("vimrc.project").project({})
+    -- require("vimrc.project").project({display_type = "full"})
+    require("vimrc.project").project(require("telescope.themes").get_dropdown{})
   end
 )
 
