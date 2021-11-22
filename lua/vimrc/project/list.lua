@@ -96,16 +96,14 @@ local Sources = require("vimrc.project.class")(function(s)
   s.sources = {}
 end)
 
-function Sources:add(list)
-  assert(list:is_a(List), "item was not a list")
-  self.sources[list.source] = list
+function Sources:add(name, func)
+  self.sources[name] = func
 end
-
 
 function Sources:get_projects()
   local all_paths = {}
-  for _, src in pairs(self.sources) do
-    for _, entry in pairs(src.items) do
+  for _, gen_src in pairs(self.sources) do
+    for _, entry in pairs(gen_src()) do
       all_paths[#all_paths+1] = entry
     end
   end

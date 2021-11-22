@@ -33,6 +33,9 @@ local function check_config(opts)
         key_map = {
             open = '<Leader>p',
         },
+        sources = {
+
+        }
     })
 end
 
@@ -62,12 +65,18 @@ local function hacks()
     sync = false,
     items = {e1, e2}
   })
-  sources:add(l1)
-  sources:add(recent.list)
+  sources:add("setup", function ()
+    return l1.items
+  end)
+  sources:add("recent", function()
+    return recent.get_list()
+  end)
+  sources:add("src", function()
+    return require("vimrc.project.gitsrc").get_list()
+  end)
 
   M.sources = sources
 end
-
 local function create_bindings()
   cmd("ProjectList", function()
     -- log.info(M.sources:get_all_paths())
@@ -82,6 +91,8 @@ function M.setup(opts)
   M.config = check_config(opts)
   data_dir():mkdir({exist_ok = true, parents=true})
   recent.init(data_dir())
+
+  require("vimrc.project.gitsrc").init(path:new("~"):expand() .. "/src")
   create_bindings()
   hacks()
   initialized = true
@@ -137,10 +148,6 @@ function M.observe_file()
   log.trace("observe", this_buffer)
   local root = recent.check_add(path:new(this_buffer))
   rooter.set_buf_root(0, root)
-end
-
-function M.gitdemo()
-  require("vimrc.project.gitsrc").demo()
 end
 
 return M

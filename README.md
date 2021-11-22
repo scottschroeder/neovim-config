@@ -10,7 +10,11 @@
 - mark gutter
 - remove gutter from tree
 - todo https://www.reddit.com/r/neovim/comments/nbh8ik/todo_comments_highlight_list_and_search_todo/
-- yank to system buffer (and or get tmux buffers to sync to system?)
+
+### Copy/Paste
+- OSX unnamed(plus) go to system clipboard
+- Linux unnamed & unnamedplus go to tmux buffer
+  - yank to system buffer (and or get tmux buffers to sync to system?)
 
 ### Safe start
 - be able to work without any plugins
@@ -33,6 +37,7 @@
 
 ### Quickfix
 - <M-q> doesnt work if in a vertical split (and the wrong window)
+- Will grab all open projects, can we limit it to just the LSP attached to the current buffer?
 
 ### Filetypes
 #### Lua

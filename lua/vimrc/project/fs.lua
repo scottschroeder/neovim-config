@@ -3,19 +3,36 @@ local Path = require("plenary.path")
 
 local M = {}
 
-local github_re = vim.regex("github.com/[^/]\\+/[^/]\\+")
 
-local function github_name(path)
-    
-    log.trace("attempt to name:", tostring(path))
-    local gitconfig = Path:new(path:absolute() .. "/.git/config")
-    for _, line in pairs(gitconfig:readlines()) do
-      local s, e = github_re:match_str(line)
-      if s then
-        local offset = #"github.com/"
-        return line:sub(s+1+offset, e)
-      end
+
+function M.extract_name(config_line)
+  local s, e = config_line:find("github.com/[^/]+/[^/]+")
+  if s then
+    local offset = #"github.com/"
+    return config_line:sub(s+offset, e)
+  end
+  return nil
+end
+
+local github_re = vim.regex("github.com/[^/]\\+/[^/]\\+")
+function M.extract_name_regex(config_line)
+  local s, e = github_re:match_str(line)
+  if s then
+    local offset = #"github.com/"
+    return config_line:sub(s+1+offset, e)
+  end
+  return nil
+end
+
+function M.github_name(path)
+  log.trace("attempt to name:", tostring(path))
+  local gitconfig = Path:new(path:absolute() .. "/.git/config")
+  for _, line in pairs(gitconfig:readlines()) do
+    local res = M.extract_name(line)
+    if res ~= nil then
+      return res
     end
+  end
   return nil
 end
 
@@ -52,9 +69,18 @@ end
 
 
 function M.try_get_name(path)
-  local name = github_name(path)
+  -- log.trace("trygetname", tostring(path))
+  local name = M.github_name(path)
   if name then return name end
   return nil
+end
+
+
+function M.get_name(path)
+  local name = M.try_get_name(path)
+  if name then return name end
+  local components = vim.split(path:absolute(), "/")
+  return components[#components]
 end
 
 return M

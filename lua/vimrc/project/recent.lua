@@ -24,6 +24,11 @@ function M.load()
   M.list.name = "Recent"
 end
 
+function M.get_list()
+  M.load()
+  return M.list.items
+end
+
 function M.check_add(path)
   local filepath = path:absolute()
   log.trace("do check_add", filepath)
@@ -41,7 +46,7 @@ function M.check_add(path)
   end
   log.trace("part of a new project:", project_dir)
 
-  local title = fs.try_get_name(Path:new(project_dir))
+  local title = fs.get_name(Path:new(project_dir))
 
   log.trace("try load")
   M.load()

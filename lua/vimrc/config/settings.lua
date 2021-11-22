@@ -82,7 +82,21 @@ map("n", "<leader>p",
 -- Test
 map("n", "<leader>sf",
   function ()
-    require("vimrc.project").gitdemo()
+    --
+    --
+    -- local projects = {
+    --   "local/balance",
+    --   "github/scottschroeder/astrometry",
+    -- }
+    -- for _, p in pairs(projects) do
+    --   local proj_path = require("plenary.path"):new("/Users/sschroeder/src/" .. p)
+    --   local  t = require("vimrc.project.fs").github_name(proj_path)
+    --   log.trace(p, t)
+    -- end
+
+    -- local github_re = vim.regex("github.com/[^/]\\+/[^/]\\+")
+      -- local line = "     logallrefupdates = true"
+      -- local s, e = github_re:match_str(line)
   end
 )
 

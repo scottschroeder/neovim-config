@@ -1,11 +1,27 @@
+local fs = require("vimrc.project.fs")
 local Job = require("plenary.job")
 local log = require("vimrc.log")
+local Path = require("plenary.path")
+local List = require("vimrc.project.list").List
 
 
+local M = {}
 
--- fd -H --base-directory ~/src --type d '\.git$' . -x echo {//}
---
+local function add_entry(project_dir)
+  log.trace("add project:", project_dir)
+  local p = Path:new(project_dir)
+  log.trace("with path", tostring(p))
+  local title = fs.get_name(p)
+  log.trace("got title", title)
+
+  M.list:add({
+    path = project_dir,
+    title = title,
+  })
+end
+
 local function kickoff_fetch(base_dir)
+  -- fd -H --base-directory ~/src --type d '\.git$' . -x echo {//}
   Job:new({
     command = "fd",
     args = {
@@ -22,18 +38,28 @@ local function kickoff_fetch(base_dir)
     },
     on_exit=function(j, return_val)
       if return_val > 0 then
-        log.warn("unable to run `fd`")
+        -- log.warn("unable to run `fd`")
         return
       end
-      -- log.trace("stdout?", j:result())
-
-
+      for _, project in pairs(j:result()) do
+        local project_dir = base_dir .. "/" .. project
+        add_entry(project_dir)
+      end
     end,
   }):start()
 end
 
-local M = {}
-function M.demo()
-  pcall(kickoff_fetch,"/home/scott/src")
+
+function M.init(root)
+  M.list = List()
+  pcall(kickoff_fetch, root)
 end
+
+function M.get_list()
+  if M.list == nil then
+    return {}
+  end
+  return M.list.items or {}
+end
+
 return M
