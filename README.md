@@ -30,7 +30,6 @@
 
 ### Projectile
 - sort by recently used
-- project names based on upstream?
 
 ### Quickfix
 - <M-q> doesnt work if in a vertical split (and the wrong window)

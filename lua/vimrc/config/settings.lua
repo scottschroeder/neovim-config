@@ -120,6 +120,7 @@ map("v", "<Leader>/", ':let @/ = ""<CR>', {silent = true})
 
 -- Format the current file
 map("n", "<Leader>=", require("vimrc.dev.format").format_current_buffer)
+map("v", "<Leader>=", require("vimrc.dev.format").format_range)
 
 -- Git
 map("n", "<Leader>g", ":Git<CR>")

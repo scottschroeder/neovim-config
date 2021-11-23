@@ -15,24 +15,46 @@ function M.extract_name(config_line)
 end
 
 local function read_remote(config_line)
-  local s, e = config_line:find('\[remote ""')
-
+  local s, _, remote = config_line:find('%[remote "(%a+)"%]')
+  if s then
+    return remote
+  end
+  return nil
 end
 
 function M.github_name(path)
   log.trace("attempt to name:", tostring(path))
+  local remotes = {}
+  local last_remote = nil
+
+  local safe_insert = function(name)
+    if name == nil then
+      return
+    end
+    remotes["__last"] = name
+    if remotes[last_remote] == nil then
+      remotes[last_remote] = name
+    end
+  end
+
+  local safe_remote = function(remote)
+    if remote == nil then
+      return
+    end
+    last_remote = remote
+  end
+
+
   local gitconfig = Path:new(path:absolute() .. "/.git/config")
   local ok, lines = pcall(Path.readlines,gitconfig)
   if not ok then
     return nil
   end
   for _, line in pairs(lines) do
-    local res = M.extract_name(line)
-    if res ~= nil then
-      return res
-    end
+    safe_remote(read_remote(line))
+    safe_insert(M.extract_name(line))
   end
-  return nil
+  return remotes["upstream"] or remotes["origin"] or remotes["__last"]
 end
 
 function M.change_directory(path)

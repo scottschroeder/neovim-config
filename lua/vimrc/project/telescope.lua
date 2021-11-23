@@ -15,10 +15,8 @@ end
 
 function M.project_finder(opts, projects, precedence)
   precedence = precedence or {}
-  log.trace("precedence", precedence)
 
   local entry_merger = function(a, b)
-    log.trace("A", a, "B", b)
     if a == nil then
       return b
     end
@@ -29,17 +27,13 @@ function M.project_finder(opts, projects, precedence)
     a.time = time
     b.time = time
     for _, pri in pairs(precedence) do
-      log.trace(pri)
       if a.source == pri then
-        log.trace("use A")
         return a
       end
       if b.source == pri then
-        log.trace("use B")
         return b
       end
     end
-    log.trace("use B")
     return b
   end
 
