@@ -1,6 +1,9 @@
 # neovim-config
 
 ## TODO
+Ideas: https://neovimcraft.com/
+
+
 - Spell Checking
 - neomake?
 - Focus Lost to Normal Mode
@@ -19,9 +22,6 @@
 ### Safe start
 - be able to work without any plugins
 
-### Tabs
-- tabline?
-
 ### File Tree
 - does not start in project root?
 
@@ -30,6 +30,7 @@
 
 ### Projectile
 - sort by recently used
+- rooter should check all known projects
 
 ### Quickfix
 - <M-q> doesnt work if in a vertical split (and the wrong window)
@@ -43,3 +44,5 @@
 #### Org
 - orgmode https://github.com/kristijanhusak/orgmode.nvim
 
+### GUI
+https://github.com/neovide/neovide
