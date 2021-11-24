@@ -1,7 +1,7 @@
 local log = require("vimrc.log")
 local Path = require("plenary.path")
-local Entry = require("vimrc.project.list").Entry
-local List = require("vimrc.project.list").List
+local Entry = require("vimrc.project.entry")
+local List = require("vimrc.project.list")
 local fs = require("vimrc.project.fs")
 
 local function starts_with(str, start)

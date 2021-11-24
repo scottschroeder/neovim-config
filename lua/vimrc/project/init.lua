@@ -1,8 +1,9 @@
 local path = require("plenary.path")
 local log = require("vimrc.log")
 local cmd = require("vimrc.config.mapping").cmd
-local src = require("vimrc.project.list")
-local project_finder = require("vimrc.project.telescope")
+local Entry = require("vimrc.project.entry")
+local sources = require("vimrc.project.sources")
+local project_finder = require("vimrc.project.finder")
 local project_actions = require("vimrc.project.actions")
 local recent = require("vimrc.project.recent")
 local rooter = require("vimrc.project.rooter")
@@ -76,26 +77,26 @@ function M.setup(opts)
   M.config = check_config(opts)
   data_dir():mkdir({exist_ok = true, parents=true})
   recent.init(data_dir())
+  sources.init()
   require("vimrc.project.gitsrc").init(M.config.git_roots)
   create_bindings()
 
-  local sources = src.Sources()
-  sources:add(function()
+  sources.add(function()
     return recent.get_list()
   end)
-  sources:add(function()
+  sources.add(function()
     return require("vimrc.project.gitsrc").get_list()
   end)
   local extras = {}
   for _, e_opts in pairs(M.config.extras) do
     local p = path:new(e_opts.path):expand()
-    extras[#extras+1] = src.Entry({
+    extras[#extras+1] = Entry({
       path = p,
       title = e_opts.title or fs.get_name(path:new(p)),
       source = "extras",
     })
   end
-  sources:add(function ()
+  sources.add(function ()
     return extras
   end)
   M.sources = sources
@@ -156,7 +157,9 @@ function M.observe_file()
   local this_buffer = vim.api.nvim_buf_get_name(0)
   log.trace("observe", this_buffer)
   local root = recent.check_add(path:new(this_buffer))
-  rooter.set_buf_root(0, root)
+  if root then
+    rooter.set_buf_root(0, root)
+  end
 end
 
 return M

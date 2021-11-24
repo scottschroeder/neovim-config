@@ -2,7 +2,7 @@ local fs = require("vimrc.project.fs")
 local Job = require("plenary.job")
 local log = require("vimrc.log")
 local Path = require("plenary.path")
-local List = require("vimrc.project.list").List
+local List = require("vimrc.project.list")
 
 
 local M = {}

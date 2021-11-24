@@ -1,61 +1,8 @@
 local log = require("vimrc.log")
 local Path = require("plenary.path")
+local gitutil = require("vimrc.project.gitutil")
 
 local M = {}
-
-
-
-function M.extract_name(config_line)
-  local s, e = config_line:find("github.com/[^/]+/[^/]+")
-  if s then
-    local offset = #"github.com/"
-    return config_line:sub(s+offset, e)
-  end
-  return nil
-end
-
-local function read_remote(config_line)
-  local s, _, remote = config_line:find('%[remote "(%a+)"%]')
-  if s then
-    return remote
-  end
-  return nil
-end
-
-function M.github_name(path)
-  log.trace("attempt to name:", tostring(path))
-  local remotes = {}
-  local last_remote = nil
-
-  local safe_insert = function(name)
-    if name == nil then
-      return
-    end
-    remotes["__last"] = name
-    if remotes[last_remote] == nil then
-      remotes[last_remote] = name
-    end
-  end
-
-  local safe_remote = function(remote)
-    if remote == nil then
-      return
-    end
-    last_remote = remote
-  end
-
-
-  local gitconfig = Path:new(path:absolute() .. "/.git/config")
-  local ok, lines = pcall(Path.readlines,gitconfig)
-  if not ok then
-    return nil
-  end
-  for _, line in pairs(lines) do
-    safe_remote(read_remote(line))
-    safe_insert(M.extract_name(line))
-  end
-  return remotes["upstream"] or remotes["origin"] or remotes["__last"]
-end
 
 function M.change_directory(path)
   path = Path:new(path)
@@ -88,10 +35,8 @@ function M.associated_project(path)
   return nil
 end
 
-
 function M.try_get_name(path)
-  -- log.trace("trygetname", tostring(path))
-  local name = M.github_name(path)
+  local name = gitutil.parse_repo_name_from_git_path(path:absolute())
   if name then return name end
   return nil
 end

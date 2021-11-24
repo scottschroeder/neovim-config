@@ -30,7 +30,6 @@ Ideas: https://neovimcraft.com/
 
 ### Projectile
 - sort by recently used
-- rooter should check all known projects
 
 ### Quickfix
 - <M-q> doesnt work if in a vertical split (and the wrong window)

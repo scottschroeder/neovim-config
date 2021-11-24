@@ -2,6 +2,7 @@ local log = require("vimrc.log")
 local buf_var_name = "__project_root_dir"
 local fs = require("vimrc.project.fs")
 local Path = require("plenary.path")
+local sources = require("vimrc.project.sources")
 
 local function get_buf_root(bufn)
   local status, res = pcall(vim.api.nvim_buf_get_var,bufn, buf_var_name)
@@ -31,8 +32,15 @@ function M.rooter()
       return
     end
 
-    log.trace("unknown root for", this_buffer, "searching...")
-    root = fs.associated_project(Path:new(this_buffer))
+    local entry = sources.find_entry(this_buffer)
+    if entry ~= nil then
+      root = entry.path
+    end
+
+    if root == nil then
+      root = fs.associated_project(Path:new(this_buffer))
+    end
+
     M.set_buf_root(0, root)
   end
 

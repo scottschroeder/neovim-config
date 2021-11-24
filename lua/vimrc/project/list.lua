@@ -1,35 +1,5 @@
 local log = require("vimrc.log")
-local Path = require("plenary.path")
-
-local Entry = require("vimrc.project.class")(function(e, opts)
-  opts = opts or {}
-  e.path = Path:new(Path:new(opts.path):expand()):absolute()
-  e.title = opts.title
-  e.source = opts.source or "unknown"
-  e.time = opts.time or 0
-end)
-
-function Entry:get_title()
-  if self.title then
-    return self.title
-  else
-    return self.path
-  end
-end
-
-function Entry:to_path()
-  return Path:new(Path:new(self.path):expand())
-end
-
-
-function Entry:to_config()
-  return {
-    path = self.path,
-    title = self.title,
-    source = self.source,
-    time = self.time,
-  }
-end
+local Entry = require("vimrc.project.entry")
 
 local List = require("vimrc.project.class")(function(l, data)
   data = data or {}
@@ -92,30 +62,4 @@ function List:do_sync(data_dir)
 end
 
 
-local Sources = require("vimrc.project.class")(function(s)
-  s.sources = {}
-end)
-
-function Sources:add(func)
-  self.sources[#self.sources+1] = func
-end
-
-function Sources:get_projects()
-  local all_paths = {}
-  for _, gen_src in pairs(self.sources) do
-    for _, entry in pairs(gen_src()) do
-      all_paths[#all_paths+1] = entry
-    end
-  end
-  table.sort(all_paths, function(a, b)
-    return a.path > b.path
-  end)
-  return all_paths
-end
-
-
-return {
-  Entry = Entry,
-  List = List,
-  Sources = Sources,
-}
+return List
