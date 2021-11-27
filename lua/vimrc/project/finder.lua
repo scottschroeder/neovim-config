@@ -1,6 +1,4 @@
-local log = require("vimrc.log")
 local finders = require("telescope.finders")
-local Path = require("plenary.path")
 
 local strings = require("plenary.strings")
 local entry_display = require("telescope.pickers.entry_display")
@@ -37,13 +35,12 @@ function M.project_finder(opts, projects, precedence)
     return b
   end
 
-  local display_type = opts.display_type
   local widths = {
     title = 0,
     source = 0,
   }
 
-  dedup_projects = {}
+  local dedup_projects = {}
 
   -- Loop over all of the projects and find the maximum length of
   -- each of the keys
@@ -61,7 +58,7 @@ function M.project_finder(opts, projects, precedence)
     dedup_projects[entry.path] = entry_merger(dedup_projects[entry.path], entry)
   end
 
-  project_list = {}
+  local project_list = {}
   for _, e in pairs(dedup_projects) do
     project_list[#project_list+1] = e
   end

@@ -19,6 +19,9 @@ Ideas: https://neovimcraft.com/
 - Linux unnamed & unnamedplus go to tmux buffer
   - yank to system buffer (and or get tmux buffers to sync to system?)
 
+### Status Bar
+- new windows don't always inherit the right settings
+
 ### Safe start
 - be able to work without any plugins
 
@@ -30,10 +33,6 @@ Ideas: https://neovimcraft.com/
 
 ### Projectile
 - sort by recently used
-
-### Quickfix
-- Way to either preserve quickfix list? Clear current list, or simply populate with lsp?
-- Use `<C-q>` for some of these operations
 
 ### Filetypes
 #### Lua

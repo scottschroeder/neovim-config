@@ -72,7 +72,7 @@ local mode_alias = function(key)
 end
 
 
-local mode_settings = function() 
+local mode_settings = function()
   local mode_name = mode_alias(vim.fn.mode())
   local mode_color = mode_color(mode_name)
   return {name=mode_name, fg=mode_color[1], bg=mode_color[2]}

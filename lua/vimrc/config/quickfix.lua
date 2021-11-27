@@ -59,13 +59,31 @@ end
 
 local magic_quickfix = function (opts)
   log.trace("run magic quickfix")
-  if is_open() then
+  opts = opts or {}
+
+  -- Extract a few options to select behavior
+  local toggle = vim.F.if_nil(opts.toggle, true)
+  local force_diagnostics = vim.F.if_nil(opts.force_diagnostics, false)
+  local open = vim.F.if_nil(opts.open, true)
+
+  -- close qf if its open
+  if toggle and is_open() then
     close_quickfix()
     return
   end
 
-  opts = opts or {}
+  -- if qf has items, open qf
+  if not force_diagnostics then
+    local old_items = vim.fn.getqflist()
+    if #old_items > 0 then
+      if open then
+        open_quickfix()
+      end
+      return
+    end
+  end
 
+  -- Fetch diagnostics: Try errors only first, but then fallback to all diagnostics.
   local errors = get_diagnostics({severity = vim.diagnostic.severity.ERROR})
   local diagnostics = {}
   if next(errors) ~= nil then
@@ -73,22 +91,30 @@ local magic_quickfix = function (opts)
   else
     diagnostics = get_diagnostics({})
   end
+
+  -- If there is nothing to display, close qf
   if next(diagnostics) == nil then
     close_quickfix()
     return
   end
 
-  local open = vim.F.if_nil(opts.open, true)
+  -- Set the qf to our diagnostics
   local title = opts.title or "Diagnostics"
   local items = vim.diagnostic.toqflist(diagnostics)
   vim.fn.setqflist({}, ' ', {title=title, items=items})
-  if open then 
+  if open then
     open_quickfix()
   end
 end
 
+local diagnostic_quickfix = function (opts)
+  opts = opts or {}
+  opts["force_diagnostics"] = true
+  magic_quickfix(opts)
+end
 
 map("n", "<M-q>", magic_quickfix)
+map("n", "<C-q>", diagnostic_quickfix)
 
 return {
   magic_quickfix = magic_quickfix,
