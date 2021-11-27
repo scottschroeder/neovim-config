@@ -46,10 +46,15 @@ return require("packer").startup(
         use {"sainnhe/gruvbox-material"}
         use {"norcalli/nvim-colorizer.lua"}
         use {"lewis6991/gitsigns.nvim", requires = { "nvim-lua/plenary.nvim" } }
+        -- use {"lukas-reineke/indent-blankline.nvim"}
+
 
         -- Editor
         use {"ggandor/lightspeed.nvim"}
         use {"kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons"}
+        -- use({ 'ms-jpq/chadtree', branch="chad", run = ':CHADdeps' })
+        -- use({ '~/src/github/ms-jpq/chadtree', run = ':CHADdeps' })
+
         use {"b3nj5m1n/kommentary"}
         use {"907th/vim-auto-save"}
         -- use {"junegunn/fzf"}

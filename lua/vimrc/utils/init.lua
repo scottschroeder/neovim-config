@@ -36,6 +36,7 @@ function M.unload_vimrc()
 end
 
 function M.reload_vimrc()
+    require("vimrc.plugins.chadtree").unload_chadtree()
     M.unload_vimrc()
     require("vimrc")
     log.info("vimrc reloaded!")
