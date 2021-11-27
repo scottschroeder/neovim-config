@@ -1,5 +1,7 @@
 local map = require("vimrc.config.mapping").map
 local log = require("vimrc.log")
+local actions = require "telescope.actions"
+local qf = require("vimrc.config.quickfix")
 
 local function lsp_actions_preview()
 
@@ -9,9 +11,36 @@ local function lsp_actions_preview()
     layout_strategy = "cursor",
     layout_config = {
       height=items + reserved,
-    }
+    },
   })
 end
+
+local open_all_in_quickfix = function (...)
+  actions.send_to_qflist(...)
+  qf.open_quickfix()
+end
+
+local open_selected_in_quickfix = function (...)
+  actions.send_selected_to_qflist(...)
+  qf.open_quickfix()
+end
+
+require("telescope").setup({
+  defaults = {
+    mappings = {
+      i = {
+        ["<C-q>"] = open_selected_in_quickfix,
+        ["<M-q>"] = open_all_in_quickfix,
+      },
+      n = {
+        ["<C-q>"] = open_selected_in_quickfix,
+        ["<M-q>"] = open_all_in_quickfix,
+      },
+    }
+  }
+})
+
+
 
 map("n", "<C-p>", require('telescope.builtin').find_files)
 -- map("n", "<C-s>", require('telescope.builtin').spell_suggest)

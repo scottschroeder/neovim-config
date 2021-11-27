@@ -2,8 +2,11 @@ local map = require("vimrc.config.mapping").map
 local log = require("vimrc.log")
 
 
+local open_quickfix = function ()
+    vim.api.nvim_command("botright cwindow")
+end
+
 local function close_quickfix()
-  log.trace("close quickfix buffer")
   vim.cmd([[cclose]])
 end
 
@@ -74,14 +77,16 @@ local magic_quickfix = function (opts)
   local items = vim.diagnostic.toqflist(diagnostics)
   vim.fn.setqflist({}, ' ', {title=title, items=items})
   if open then 
-    vim.api.nvim_command("copen")
+    open_quickfix()
   end
 end
+
 
 map("n", "<M-q>", magic_quickfix)
 
 return {
   magic_quickfix = magic_quickfix,
+  open_quickfix = open_quickfix,
   close_quickfix = close_quickfix,
 }
 
