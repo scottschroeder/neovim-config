@@ -32,12 +32,14 @@ Ideas: https://neovimcraft.com/
 - sort by recently used
 
 ### Quickfix
-- <M-q> doesnt work if in a vertical split (and the wrong window)
 - Will grab all open projects, can we limit it to just the LSP attached to the current buffer?
+- Way to either preserve quickfix list? Clear current list, or simply populate with lsp?
+- Use `<C-q>` for some of these operations
 
 ### Filetypes
 #### Lua
-- format
+- format https://github.com/andrejlevkovitch/vim-lua-format
+
 #### Markdown
 - tables
 #### Org
