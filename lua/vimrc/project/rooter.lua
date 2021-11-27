@@ -28,6 +28,10 @@ function M.rooter()
   local root = get_buf_root(0)
   if root == nil then
     local this_buffer = vim.api.nvim_buf_get_name(0)
+    if this_buffer:match("NvimTree$") then
+      M.set_buf_root(0, nil)
+      return
+    end
     if #this_buffer == 0 then
       return
     end
@@ -44,7 +48,7 @@ function M.rooter()
     M.set_buf_root(0, root)
   end
 
-  if root then
+  if #root > 0 then
     fs.change_directory(root)
   end
 end

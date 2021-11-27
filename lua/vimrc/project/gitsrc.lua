@@ -8,11 +8,8 @@ local List = require("vimrc.project.list")
 local M = {}
 
 local function add_entry(project_dir)
-  log.trace("add project:", project_dir)
   local p = Path:new(project_dir)
-  log.trace("with path", tostring(p))
   local title = fs.get_name(p)
-  log.trace("got title", title)
 
   M.list:add({
     path = project_dir,

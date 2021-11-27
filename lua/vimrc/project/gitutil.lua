@@ -21,7 +21,6 @@ local function parse_remote_name(config_line)
 end
 
 function M.parse_repo_name_from_git_path(path)
-  log.trace("attempt to name:", path)
   local remotes = {}
   local last_remote = nil
 
