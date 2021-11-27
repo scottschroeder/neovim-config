@@ -26,10 +26,16 @@ local get_diagnostics = function (opts)
     opts.severity = {min=severity_lsp_to_vim(opts.severity_limit)}
   end
 
-  if opts.client_id then
-    opts.client_id = nil
+  if not opts.client_id then
+    local buf_clients = vim.lsp.buf_get_clients(0)
+    for k, _ in pairs(buf_clients) do
+      opts.namespace = vim.lsp.diagnostic.get_namespace(k)
+      break
+    end
+  else
     opts.namespace = vim.lsp.diagnostic.get_namespace(opts.client_id)
   end
+
   local workspace = vim.F.if_nil(opts.workspace, true)
   opts.bufnr = not workspace and 0
 
