@@ -12,7 +12,8 @@ Ideas: https://neovimcraft.com/
   - `autocmd BufLeave,TabLeave,FocusLost * silent! wall`
 - mark gutter
 - remove gutter from tree
-- todo https://www.reddit.com/r/neovim/comments/nbh8ik/todo_comments_highlight_list_and_search_todo/
+- auto braces {}
+- autocomplete on tab
 
 ### Copy/Paste
 - OSX unnamed(plus) go to system clipboard
@@ -31,9 +32,6 @@ Ideas: https://neovimcraft.com/
 ### Safe start
 - be able to work without any plugins
 
-### File Tree
-- does not start in project root?
-
 ### Snippets
 - luasnip https://github.com/L3MON4D3/LuaSnip
 
@@ -43,6 +41,11 @@ Ideas: https://neovimcraft.com/
 ### Filetypes
 #### Lua
 - format https://github.com/andrejlevkovitch/vim-lua-format
+
+#### Rust
+- snippets for tfn tmod
+- way to run cargo test for only this test/module
+- don't show clippy errors as error diagnostics?
 
 #### Markdown
 - tables
