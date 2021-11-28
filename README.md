@@ -13,7 +13,6 @@ Ideas: https://neovimcraft.com/
 - mark gutter
 - remove gutter from tree
 - auto braces {}
-- autocomplete on tab
 
 ### Copy/Paste
 - OSX unnamed(plus) go to system clipboard
