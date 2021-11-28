@@ -43,6 +43,7 @@ require("telescope").setup({
 
 
 map("n", "<C-p>", require('telescope.builtin').find_files)
+map("n", "<leader>b", require('telescope.builtin').buffers)
 -- map("n", "<C-s>", require('telescope.builtin').spell_suggest)
 -- map("n", "<C-h>", require('telescope.builtin').help_tags) -- C-h is used to move left :|
 map("n", "<C-f>", require('telescope.builtin').builtin)

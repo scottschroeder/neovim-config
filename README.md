@@ -19,6 +19,12 @@ Ideas: https://neovimcraft.com/
 - Linux unnamed & unnamedplus go to tmux buffer
   - yank to system buffer (and or get tmux buffers to sync to system?)
 
+
+### File Navigation
+- <leader>^ for fuzzy find all buffers that were in that window?
+- <leader>b for fuzzy find open buffers?
+- https://github.com/ThePrimeagen/harpoon ?
+
 ### Status Bar
 - new windows don't always inherit the right settings
 
