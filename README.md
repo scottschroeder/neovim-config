@@ -26,7 +26,7 @@ Ideas: https://neovimcraft.com/
 - https://github.com/ThePrimeagen/harpoon ?
 
 ### Status Bar
-- new windows don't always inherit the right settings
+- **bug: new windows don't always inherit the right settings**
 
 ### Safe start
 - be able to work without any plugins
