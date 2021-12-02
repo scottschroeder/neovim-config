@@ -1,8 +1,10 @@
 
 
 require('orgmode').setup({
-  org_agenda_files = {'~/Dropbox/Documents/Org/'},
+  org_agenda_files = {'~/Dropbox/Documents/Org/**'},
   org_default_notes_file = '~/Dropbox/Documents/Org/refile.org',
+  -- org_agenda_files = {'~/Dropbox/Documents/NewOrg/**'},
+  -- org_default_notes_file = '~/Dropbox/Documents/NewOrg/refile.org',
   org_todo_keywords = { 'TODO', '|', 'DONE' },
   org_todo_keyword_faces = {},
   org_deadline_warning_days = 14,

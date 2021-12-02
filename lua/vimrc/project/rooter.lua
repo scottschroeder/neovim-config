@@ -16,6 +16,11 @@ end
 
 local M = {}
 
+M.ignored_paths = {
+  "NvimTree$",
+  "^/tmp/",
+}
+
 function M.set_buf_root(bufn, root_dir)
   if root_dir == nil then
     root_dir = ""
@@ -28,10 +33,14 @@ function M.rooter()
   local root = get_buf_root(0)
   if root == nil then
     local this_buffer = vim.api.nvim_buf_get_name(0)
-    if this_buffer:match("NvimTree$") then
-      M.set_buf_root(0, nil)
-      return
+
+    for _, pattern in pairs(M.ignored_paths) do
+      if this_buffer:match(pattern) then
+        M.set_buf_root(0, nil)
+        return
+      end
     end
+
     if #this_buffer == 0 then
       return
     end
@@ -48,7 +57,7 @@ function M.rooter()
     M.set_buf_root(0, root)
   end
 
-  if #root > 0 then
+  if root ~= nil and #root > 0 then
     fs.change_directory(root)
   end
 end
