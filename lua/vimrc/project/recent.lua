@@ -1,12 +1,7 @@
 local log = require("vimrc.log")
 local Path = require("plenary.path")
-local Entry = require("vimrc.project.entry")
 local List = require("vimrc.project.list")
 local fs = require("vimrc.project.fs")
-
-local function starts_with(str, start)
-   return str:sub(1, #start) == start
-end
 
 local M = {}
 
@@ -33,7 +28,7 @@ function M.check_add(path)
   local filepath = path:absolute()
   log.trace("do check_add", filepath)
   for _, entry in pairs(M.list.items) do
-    if starts_with(filepath, entry.path) then
+    if fs.is_sub_folder(filepath, entry.path) then
       log.trace("already saved", filepath, "is in", entry.path)
       return entry.path
     end

@@ -4,6 +4,20 @@ local gitutil = require("vimrc.project.gitutil")
 
 local M = {}
 
+function M.is_sub_folder(child, parent)
+  -- Quickly exit if its not possible
+  if not child:sub(1, #parent) == child then
+    return false
+  end
+  parent = Path:new(parent):absolute()
+  for _, current in pairs(Path:new(child):parents()) do
+    if current == parent then
+      return true
+    end
+  end
+  return false
+end
+
 function M.change_directory(path)
   path = Path:new(path)
   if path:exists() then

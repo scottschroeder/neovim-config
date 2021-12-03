@@ -1,9 +1,4 @@
-local log = require("vimrc.log")
-
-local function starts_with(str, start)
-   return str:sub(1, #start) == start
-end
-
+local fs = require("vimrc.project.fs")
 
 local M = {}
 
@@ -33,7 +28,7 @@ function M.find_entry(path)
   local longest_match = 0
   for _, gen_src in pairs(M.sources) do
     for _, entry in pairs(gen_src()) do
-      if starts_with(path, entry.path) then
+      if fs.is_sub_folder(path, entry.path) then
         if #entry.path > longest_match then
           longest_match = #entry.path
           best_match = entry
