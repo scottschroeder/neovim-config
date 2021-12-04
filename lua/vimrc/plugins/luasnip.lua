@@ -30,6 +30,20 @@ ls.snippets = {
       d(1, date_input, {}, "%A, %B %d of %Y"),
       t(" and the clocks were striking thirteen."),
     }),
+  },
+  rust = {
+    s("tfn", {
+      t({"#[test]", "fn "}),
+      i(1, "test_thing"),
+      t({ "() {", "\t"}),
+      i(0),
+      t({ "", "}" }),
+    }),
+    s("tmod", {
+      t({"#[cfg(test)]", "mod tests {", "\tuse super::*;", "", "\t"}),
+      i(0),
+      t({ "", "}" }),
+    }),
   }
 }
 
