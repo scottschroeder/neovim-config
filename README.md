@@ -36,6 +36,7 @@ Ideas: https://neovimcraft.com/
 
 ### Projectile
 - sort by recently used
+- vim.ui.select
 
 ### Filetypes
 #### Lua

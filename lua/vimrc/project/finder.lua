@@ -6,12 +6,12 @@ local entry_display = require("telescope.pickers.entry_display")
 local M = {}
 
 
-local function display_source(project)
+function M.display_source(project)
   local src = project.source or "unknown"
   return "[" .. src .. "]"
 end
 
-function M.project_finder(opts, projects, precedence)
+function M.selectable_projects(projects, precedence)
   precedence = precedence or {}
 
   local entry_merger = function(a, b)
@@ -48,7 +48,7 @@ function M.project_finder(opts, projects, precedence)
 
     local project_display = {
       title = entry:get_title(),
-      source = display_source(entry),
+      source = M.display_source(entry),
     }
     for key, value in pairs(widths) do
       widths[key] = math.max(value, strings.strdisplaywidth(project_display[key] or ''))
@@ -62,24 +62,32 @@ function M.project_finder(opts, projects, precedence)
   for _, e in pairs(dedup_projects) do
     project_list[#project_list+1] = e
   end
+  return {
+    widths = widths,
+    project_list = project_list,
+  }
+end
+
+function M.project_finder(opts, projects, precedence)
+  local selectable = M.selectable_projects(projects, precedence)
 
   local displayer = entry_display.create {
     separator = " ",
     items = {
-      { width = widths.title },
-      { width = widths.source },
+      { width = selectable.widths.title },
+      { width = selectable.widths.source },
     }
   }
 
   local make_display = function(project)
     return displayer {
       { project.title },
-      { display_source(project) }
+      { M.display_source(project) }
     }
   end
 
   return finders.new_table {
-      results = project_list,
+      results = selectable.project_list,
       entry_maker = function(project)
         project.value = project.path
         project.ordinal = project:get_title()

@@ -24,7 +24,6 @@ return require("packer").startup(
 
         -- Lib Extensions
         use {"nvim-lua/plenary.nvim"}
-        use {"nvim-lua/popup.nvim"}
         use {"nvim-treesitter/nvim-treesitter"}
 
         -- LSP Core
@@ -55,8 +54,9 @@ return require("packer").startup(
         -- use {"junegunn/fzf"}
         -- use {"junegunn/fzf.vim"}
         use {'kevinhwang91/nvim-bqf'} -- quickfix
-
         use { 'nvim-telescope/telescope.nvim', requires = { {'nvim-lua/plenary.nvim'} } }
+        use {'stevearc/dressing.nvim'}
+
         -- Completion
         use {"hrsh7th/nvim-cmp"}
         use {"hrsh7th/cmp-buffer"}

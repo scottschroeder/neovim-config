@@ -8,6 +8,18 @@ local M = {}
 function M.init(data_dir)
   M.data_dir = data_dir
   M.load()
+  M.trim()
+  M.save()
+end
+
+function M.trim()
+  local new_data = {}
+  for _, e in pairs(M.list.items) do
+    if e:to_path():exists() then
+      new_data[#new_data+1] = e
+    end
+    M.list.items = new_data
+  end
 end
 
 function M.save()

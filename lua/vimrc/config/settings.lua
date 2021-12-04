@@ -84,11 +84,7 @@ map("n", "<leader>p",
 -- Test
 map("n", "<leader>sf",
   function ()
-    local bufs = vim.api.nvim_list_bufs()
-    for _, bn in pairs(bufs) do
-
-    end
-
+    require("vimrc.project").project_select()
   end
 )
 

@@ -8,6 +8,7 @@ local project_actions = require("vimrc.project.actions")
 local recent = require("vimrc.project.recent")
 local rooter = require("vimrc.project.rooter")
 local fs = require("vimrc.project.fs")
+local strings = require("plenary.strings")
 
 
 local pickers = require("telescope.pickers")
@@ -101,6 +102,28 @@ function M.setup(opts)
   end)
   M.sources = sources
   initialized = true
+end
+
+function M.project_select()
+  local selectable = project_finder.selectable_projects(M.sources:get_projects(), M.config.precedence)
+
+  local pad = function (s)
+    local padding = string.rep(" ", selectable.widths.title - strings.strdisplaywidth(s))
+    return s .. padding
+  end
+
+  vim.ui.select(
+    selectable.project_list,
+    {
+      format_item = function(item)
+        local src = item.source or "unknown"
+        return pad(item.title) .. " " .. project_finder.display_source(item)
+      end
+    },
+    function (item, idx)
+      log.info("item", item, "idx", idx)
+    end
+  )
 end
 
 function M.project(opts)
