@@ -40,6 +40,7 @@ return require("packer").startup(
         use {"nanozuki/tabby.nvim"}
         -- use {"akinsho/nvim-bufferline.lua", requires = "kyazdani42/nvim-web-devicons"}
         use {"glepnir/galaxyline.nvim", branch = "main", requires = {"kyazdani42/nvim-web-devicons", opt = true} }
+        -- use {"windwp/windline.nvim"}
         -- use {"NTBBloodbath/galaxyline.nvim", branch = "main", requires = {"kyazdani42/nvim-web-devicons", opt = true} }
         use {"morhetz/gruvbox"}
         use {"sainnhe/gruvbox-material"}

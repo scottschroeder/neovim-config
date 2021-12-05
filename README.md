@@ -19,20 +19,11 @@ Ideas: https://neovimcraft.com/
 - Linux unnamed & unnamedplus go to tmux buffer
   - yank to system buffer (and or get tmux buffers to sync to system?)
 
-
-### File Navigation
-- <leader>^ for fuzzy find all buffers that were in that window?
-- <leader>b for fuzzy find open buffers?
-- https://github.com/ThePrimeagen/harpoon ?
-
 ### Status Bar
 - **bug: new windows don't always inherit the right settings**
 
 ### Safe start
 - be able to work without any plugins
-
-### Snippets
-- luasnip https://github.com/L3MON4D3/LuaSnip
 
 ### Projectile
 - sort by recently used
@@ -43,7 +34,6 @@ Ideas: https://neovimcraft.com/
 - format https://github.com/andrejlevkovitch/vim-lua-format
 
 #### Rust
-- snippets for tfn tmod
 - way to run cargo test for only this test/module
 - don't show clippy errors as error diagnostics?
 
