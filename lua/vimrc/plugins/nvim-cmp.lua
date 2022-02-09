@@ -29,7 +29,7 @@ end
 local luasnip = require("luasnip")
 
 local lspkind = require "lspkind"
-lspkind.init()
+lspkind.init({})
 
 local cmp = require "cmp"
 
