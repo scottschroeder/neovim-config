@@ -2,7 +2,7 @@
 local M = {}
 
 function M.format_current_buffer()
-  vim.lsp.buf.formatting_sync(nil, 100)
+  vim.lsp.buf.format()
 end
 
 function M.format_range()
