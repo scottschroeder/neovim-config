@@ -15,7 +15,7 @@ map("n", "<Leader>k", toggle_builtin)
 if ok then
 
   nvimtree.setup {
-    auto_close = true,
+    -- auto_close = true,
     open_on_tab = true,
     update_cwd = true,
     update_focused_file = {
