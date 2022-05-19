@@ -1,5 +1,4 @@
 local lsp_status = require('lsp-status')
-local is_buf_blacklisted = require('vimrc.dev.lsp.utils').is_buf_blacklisted
 
 lsp_status.config({
   kind_labels = vim.g.completion_customize_lsp_label
@@ -19,11 +18,7 @@ local indicator_crash = ""
 local makeln = function(bufnr)
   bufnr = bufnr or 0
   if #vim.lsp.buf_get_clients(bufnr) == 0 then 
-    if is_buf_blacklisted(bufnr) then
-      return indicator_crash
-    else
-      return indicator_question
-    end
+    return indicator_question
   end
   local buf_messages = messages()
 
