@@ -1,4 +1,5 @@
 local lsp_status = require('lsp-status')
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- https://github.com/sumneko/lua-language-server/wiki/Build-and-Run-(Standalone)
 USER = vim.fn.expand('$USER')
@@ -14,7 +15,8 @@ if server_available then
     requested_server:on_ready(function ()
         local opts = {
           on_attach = require("vimrc.dev.attach").on_attach,
-          capabilities = lsp_status.capabilities,
+          -- capabilities = lsp_status.capabilities,
+          capabilities = capabilities,
           settings = {
             ["rust-analyzer"] = {
                   ["rust-analyzer.cargo.loadOutDirsFromCheck"]= true,

@@ -1,144 +1,84 @@
--- see https://github.com/tjdevries/config_manager/blob/master/xdg_config/nvim/after/plugin/completion.lua
-
 -- menuone: popup even when there's only one match
 -- noselect: Do not select, force user to select one from the menu
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
--- Don't show the dumb matching stuff.
-vim.opt.shortmess:append "c"
+local ok, cmp = pcall(require, "cmp")
 
--- Complextras.nvim configuration
-vim.api.nvim_set_keymap(
-  "i",
-  "<C-x><C-m>",
-  [[<c-r>=luaeval("require('complextras').complete_matching_line()")<CR>]],
-  { noremap = true }
-)
-vim.api.nvim_set_keymap(
-  "i",
-  "<C-x><C-d>",
-  [[<c-r>=luaeval("require('complextras').complete_line_from_cwd()")<CR>]],
-  { noremap = true }
-)
-
-local has_words_before = function()
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+if not ok then
+    return
 end
 
-local luasnip = require("luasnip")
+local icons = {
+    Text = "",
+    Method = "",
+    Function = "",
+    Constructor = "⌘",
+    Field = "ﰠ",
+    Variable = "",
+    Class = "ﴯ",
+    Interface = "",
+    Module = "",
+    Property = "ﰠ",
+    Unit = "塞",
+    Value = "",
+    Enum = "",
+    Keyword = "廓",
+    Snippet = "",
+    Color = "",
+    File = "",
+    Reference = "",
+    Folder = "",
+    EnumMember = "",
+    Constant = "",
+    Struct = "פּ",
+    Event = "",
+    Operator = "",
+    TypeParameter = "",
+}
 
-local lspkind = require "lspkind"
-lspkind.init({})
 
-local cmp = require "cmp"
-
-cmp.setup {
-  mapping = {
-    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-f>"] = cmp.mapping.scroll_docs(4),
-    ["<C-e>"] = cmp.mapping.close(),
-    ["<c-y>"] = cmp.mapping(
-      cmp.mapping.confirm {
-        behavior = cmp.ConfirmBehavior.Insert,
-        select = true,
-      },
-      { "i", "c" }
-    ),
-
-    ["<c-space>"] = cmp.mapping {
-      i = cmp.mapping.complete(),
-      c = function(
-        _ --[[fallback]]
-      )
-        if cmp.visible() then
-          if not cmp.confirm { select = true } then
-            return
-          end
-        else
-          cmp.complete()
-        end
-      end,
+cmp.setup({
+   experimental = {
+        native_menu = false,
+        ghost_text = false,
     },
-
-
-    -- ["<tab>"] = cmp.mapping {
-    --   i = cmp.config.disable,
-    --   c = function(fallback)
-    --     fallback()
-    --   end,
-    -- },
-
-    -- Testing
-    ["<CR>"] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-      { "i"}
+    confirmation = {
+        get_commit_characters = function()
+            return {}
+        end,
     },
+    completion = {
+        completeopt = "menu,menuone,noinsert",
+        keyword_pattern = [[\%(-\?\d\+\%(\.\d\+\)\?\|\h\w*\%(-\w*\)*\)]],
+        keyword_length = 1,
+    },
+  formatting = {
+        fields = { "kind", "abbr", "menu" },
+        format = function(_, vim_item)
+            vim_item.menu = vim_item.kind
+            vim_item.kind = icons[vim_item.kind]
 
-     ["<Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      elseif has_words_before() then
-        cmp.complete()
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
-
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
-
-    -- If you want tab completion :'(
-    --  First you have to just promise to read `:help ins-completion`.
-    --
-    -- ["<Tab>"] = function(fallback)
-    --   if cmp.visible() then
-    --     cmp.select_next_item()
-    --   else
-    --     fallback()
-    --   end
-    -- end,
-    -- ["<S-Tab>"] = function(fallback)
-    --   if cmp.visible() then
-    --     cmp.select_prev_item()
-    --   else
-    --     fallback()
-    --   end
-    -- end,
+            return vim_item
+        end,
+    },
+  snippet = {
+    -- REQUIRED - you must specify a snippet engine
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+    end,
   },
-
-  -- Youtube:
-  --    the order of your sources matter (by default). That gives them priority
-  --    you can configure:
-  --        keyword_length
-  --        priority
-  --        max_item_count
-  --        (more?)
-  sources = {
-    -- { name = "gh_issues" },
-    -- { name = "tn" },
-
-    -- Youtube: Could enable this only for lua, but nvim_lua handles that already.
-    { name = "nvim_lua" },
-    { name = "zsh" },
-
-    { name = "nvim_lsp" },
-    { name = "orgmode" },
-    { name = "path" },
-    { name = "luasnip" },
-    { name = "buffer", keyword_length = 5 },
+  window = {
+    -- completion = cmp.config.window.bordered(),
+    -- documentation = cmp.config.window.bordered(),
   },
-
+  mapping = cmp.mapping.preset.insert({
+    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-d>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    -- ['TAB'] = cmp.mapping.
+  }),
   sorting = {
     -- TODO: Would be cool to add stuff like "See variable names before method names" in rust, or something like that.
     comparators = {
@@ -166,83 +106,20 @@ cmp.setup {
       cmp.config.compare.order,
     },
   },
-
-  snippet = {
-    expand = function(args)
-      require("luasnip").lsp_expand(args.body)
-    end,
-
-  },
-
-  formatting = {
-    -- Youtube: How to set up nice formatting for your sources.
-    format = lspkind.cmp_format {
-      with_text = true,
-      menu = {
-        buffer = "[buf]",
-        nvim_lsp = "[LSP]",
-        nvim_lua = "[api]",
-        path = "[path]",
-        luasnip = "[snip]",
-        -- gh_issues = "[issues]",
-        tn = "[TabNine]",
-      },
-    },
-  },
-
-  experimental = {
-    -- I like the new menu better! Nice work hrsh7th
-    native_menu = false,
-
-    -- Let's play with this for a day or two
-    ghost_text = true,
-  },
-}
-cmp.setup.cmdline("/", {
-  completion = {
-    -- Might allow this later, but I don't like it right now really.
-    -- Although, perhaps if it just triggers w/ @ then we could.
-    --
-    -- I will have to come back to this.
-    autocomplete = false,
-  },
   sources = cmp.config.sources({
-    { name = "nvim_lsp_document_symbol" },
-  }, {
-    -- { name = "buffer", keyword_length = 5 },
-  }),
+    { name = 'nvim_lsp' },
+    { name = 'nvim_lua' },
+    { name = 'luasnip' }, -- For luasnip users.
+    { name = 'path' },
+    { name = 'buffer' },
+  })
 })
 
-cmp.setup.cmdline(":", {
-  completion = {
-    autocomplete = false,
-  },
-
-
+-- Set configuration for specific filetype.
+cmp.setup.filetype('gitcommit', {
   sources = cmp.config.sources({
-    {
-      name = "path",
-    },
+    { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
   }, {
-    {
-      name = "cmdline",
-      max_item_count = 20,
-      keyword_length = 4,
-    },
-  }),
+    { name = 'buffer' },
+  })
 })
---[[
-" Disable cmp for a buffer
-autocmd FileType TelescopePrompt lua require('cmp').setup.buffer { enabled = false }
---]]
-
-
--- vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
--- vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
--- vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
--- vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
--- map("i", "<Tab>", tab_complete, {expr = true})
--- map("s", "<Tab>", tab_complete, {expr = true})
--- map("i", "<S-Tab>", s_tab_complete, {expr = true})
--- map("s", "<S-Tab>", s_tab_complete, {expr = true})
-
