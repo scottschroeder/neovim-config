@@ -64,7 +64,7 @@ local mode_alias = function(key)
           t  = 'TERMINAL',
           ['!']  = 'SHELL',
       }
-      alias = alias_map[key]
+      local alias = alias_map[key]
       if alias == nil then
         alias = "UNKNOWN"
       end
@@ -74,8 +74,8 @@ end
 
 local mode_settings = function()
   local mode_name = mode_alias(vim.fn.mode())
-  local mode_color = mode_color(mode_name)
-  return {name=mode_name, fg=mode_color[1], bg=mode_color[2]}
+  local color = mode_color(mode_name)
+  return {name=mode_name, fg=color[1], bg=color[2]}
 end
 
 gls.left = {}
@@ -84,7 +84,7 @@ gls.left = {}
 gls.left[#gls.left+1] = {
   ViMode = {
     provider = function()
-      mode_cfg = mode_settings()
+      local mode_cfg = mode_settings()
       force_color(mode_cfg.fg, mode_cfg.bg)
       return "  " .. mode_cfg.name .. " "
     end,
@@ -110,13 +110,13 @@ gls.left[#gls.left+1] = {
     -- }
 -- }
 
-gls.left[#gls.left+1] = {
-    FileName = {
-        provider = {"FileName", "FileSize"},
-        condition = buffer_not_empty,
-        highlight = {colors.fg, colors.lightbg}
-    }
-}
+-- gls.left[#gls.left+1] = {
+--     FileName = {
+--         provider = {"FileName", "FileSize"},
+--         condition = buffer_not_empty,
+--         highlight = {colors.fg, colors.lightbg}
+--     }
+-- }
 
 
 local checkwidth = function()
@@ -211,7 +211,7 @@ gls.right = {}
         -- highlight = {colors.green, colors.line_bg}
     -- }
 -- }
--- 
+--
 -- gls.right[#gls.right+1] = {
     -- GitBranch = {
         -- provider = "GitBranch",
