@@ -7,7 +7,7 @@ local on_attach = function(client, bufnr)
     -- TODO is lsp_status still good?
     -- lsp_status.on_attach(client, bufnr)
     local function buf_set_keymap(mode, lhs, rhs, desc)
-      vim.keymap.set(mode, lhs, rhs, {buffer=bufnr, desc=desc})
+      buf_map(bufnr, mode, lhs, rhs, {desc=desc})
     end
 
 
