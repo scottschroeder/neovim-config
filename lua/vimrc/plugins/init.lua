@@ -8,6 +8,7 @@ require("vimrc.plugins.treesitter")
 require("vimrc.plugins.vim-auto-save")
 -- require("vimrc.plugins.fzf")
 require("vimrc.plugins.telescope")
+require("vimrc.plugins.lsp-installer")
 require("vimrc.plugins.lsp-status")
 require("vimrc.plugins.galaxyline")
 -- require("vimrc.plugins.windline")
@@ -21,3 +22,5 @@ require('gitsigns').setup{
   keymaps = {}
 }
 require('vimrc.plugins.project')
+
+

@@ -1,5 +1,6 @@
 local log = require("vimrc.log")
 local lsp_status = require('lsp-status')
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- https://github.com/sumneko/lua-language-server/wiki/Build-and-Run-(Standalone)
 USER = vim.fn.expand('$USER')
@@ -20,19 +21,21 @@ end
 local sumneko_root_path = home .. "/.hab/build/lua-language-server"
 local sumneko_binary = sumneko_root_path .. "/bin/" .. system_name .. "/lua-language-server"
 
-if vim.fn.empty(vim.fn.glob(sumneko_binary)) > 0 then
-    return
-end
+
+-- if vim.fn.empty(vim.fn.glob(sumneko_binary)) > 0 then
+--     return
+-- end
 
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
 require('lspconfig').sumneko_lua.setup {
-    cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
-    root_dir = require("lspconfig.util").find_git_root,
+    -- cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
+    -- root_dir = require("lspconfig.util").find_git_root,
     on_attach = require("vimrc.dev.attach").on_attach,
-    capabilities = lsp_status.capabilities,
+    -- capabilities = lsp_status.capabilities,
+    capabilities = capabilities,
     settings = {
         Lua = {
             runtime = {
