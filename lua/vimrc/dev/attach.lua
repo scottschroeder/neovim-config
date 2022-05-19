@@ -1,6 +1,7 @@
 local nvim_lsp = require('lspconfig')
 local lsp_status = require('lsp-status')
 local buf_map = require('vimrc.config.mapping').buf_map
+local log = require("vimrc.log")
 
 local on_attach = function(client, bufnr)
     -- TODO is lsp_status still good?
@@ -29,12 +30,13 @@ local on_attach = function(client, bufnr)
     buf_set_keymap({"n"}, "<M-q>", vim.diagnostic.setqflist, "set quickfix list")
 
 
-    if client.server_capabilities.documentFormattingProvider then
-      buf_set_keymap({"n"}, "<Leader>=", vim.lsp.buf.format, "format file")
-    end
-    if client.server_capabilities.documentRangeFormattingProvider then
-      buf_set_keymap({"v"}, "<Leader>=", vim.lsp.buf.range_formatting, "format highlighted range")
-    end
+    -- TODO formatting, client is nil?
+    -- if client.server_capailities.documentFormattingProvider then
+    --   buf_set_keymap({"n"}, "<Leader>=", vim.lsp.buf.format, "format file")
+    -- end
+    -- if client.server_capabilities.documentRangeFormattingProvider then
+    --   buf_set_keymap({"v"}, "<Leader>=", vim.lsp.buf.range_formatting, "format highlighted range")
+    -- end
 
 
     -- TODO inlay hints
