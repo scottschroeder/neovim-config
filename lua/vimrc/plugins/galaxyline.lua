@@ -102,13 +102,13 @@ gls.left[#gls.left+1] = {
     }
 }
 
-gls.left[#gls.left+1] = {
-    FileIcon = {
-        provider = "FileIcon",
-        condition = buffer_not_empty,
-        highlight = {require("galaxyline.provider_fileinfo").get_file_icon_color, colors.lightbg}
-    }
-}
+-- gls.left[#gls.left+1] = {
+    -- FileIcon = {
+        -- provider = "FileIcon",
+        -- condition = buffer_not_empty,
+        -- highlight = {require("galaxyline.provider_fileinfo").get_file_icon_color, colors.lightbg}
+    -- }
+-- }
 
 gls.left[#gls.left+1] = {
     FileName = {
@@ -202,23 +202,23 @@ gls.left[#gls.left+1] = {
 -- require('lsp-status').status()
 
 gls.right = {}
-gls.right[#gls.right+1] = {
-    GitIcon = {
-        provider = function()
-            return "   "
-        end,
-        condition = require("galaxyline.provider_vcs").check_git_workspace,
-        highlight = {colors.green, colors.line_bg}
-    }
-}
-
-gls.right[#gls.right+1] = {
-    GitBranch = {
-        provider = "GitBranch",
-        condition = require("galaxyline.provider_vcs").check_git_workspace,
-        highlight = {colors.green, colors.line_bg}
-    }
-}
+-- gls.right[#gls.right+1] = {
+    -- GitIcon = {
+        -- provider = function()
+            -- return "   "
+        -- end,
+        -- condition = require("galaxyline.provider_vcs").check_git_workspace,
+        -- highlight = {colors.green, colors.line_bg}
+    -- }
+-- }
+-- 
+-- gls.right[#gls.right+1] = {
+    -- GitBranch = {
+        -- provider = "GitBranch",
+        -- condition = require("galaxyline.provider_vcs").check_git_workspace,
+        -- highlight = {colors.green, colors.line_bg}
+    -- }
+-- }
 
 gls.right[#gls.right+1] = {
     DiffAdd = {

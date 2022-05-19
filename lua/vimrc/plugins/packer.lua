@@ -39,9 +39,8 @@ return require("packer").startup(
         use {"kyazdani42/nvim-web-devicons"}
         use {"nanozuki/tabby.nvim"}
         -- use {"akinsho/nvim-bufferline.lua", requires = "kyazdani42/nvim-web-devicons"}
-        use {"glepnir/galaxyline.nvim", branch = "main", requires = {"kyazdani42/nvim-web-devicons", opt = true} }
+        use {"NTBBloodbath/galaxyline.nvim", branch = "main", requires = {"kyazdani42/nvim-web-devicons", opt = true} }
         -- use {"windwp/windline.nvim"}
-        -- use {"NTBBloodbath/galaxyline.nvim", branch = "main", requires = {"kyazdani42/nvim-web-devicons", opt = true} }
         use {"morhetz/gruvbox"}
         use {"sainnhe/gruvbox-material"}
         use {"norcalli/nvim-colorizer.lua"}
@@ -56,6 +55,7 @@ return require("packer").startup(
         -- use {"junegunn/fzf.vim"}
         use {'kevinhwang91/nvim-bqf'} -- quickfix
         use { 'nvim-telescope/telescope.nvim', requires = { {'nvim-lua/plenary.nvim'} } }
+        use {'nvim-telescope/telescope-ui-select.nvim' } -- vim.ui.select will default everything to telescope
         use {'stevearc/dressing.nvim'}
 
         -- Completion

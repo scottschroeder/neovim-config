@@ -18,9 +18,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<M-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   -- buf_set_keymap('n', '<Leader>.', '<Cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', '<M-.>', vim.lsp.buf.code_action, opts)
-  buf_set_keymap('n', '<M-.>', vim.lsp.buf.code_action, opts)
-  buf_set_keymap("n", "<M-.>", require("vimrc.plugins.telescope").lsp_actions_preview)
-  -- buf_set_keymap('i', '<M-.>', vim.lsp.buf.code_action, opts)
+  buf_set_keymap('i', '<M-.>', vim.lsp.buf.code_action, opts)
   -- buf_set_keymap('i', '<M-CR>', vim.lsp.buf.code_action, {noremap=true})
   -- buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   -- buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
@@ -32,11 +30,13 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<M-Q>', '<cmd>lua vim.lsp.diagnostic.set_qflist()<CR>', opts)
 
+  -- dbg(client.server_capabilities)
+
   -- Set some keybinds conditional on server capabilities
-  if client.resolved_capabilities.document_formatting then
+  if client.server_capabilities.documentFormattingProvider then
     buf_set_keymap("n", "<Leader>=", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
   end
-  if client.resolved_capabilities.document_range_formatting then
+  if client.server_capabilities.documentRangeFormattingProvider then
     buf_set_keymap("v", "<Leader>=", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
   end
 -- vim.cmd [[autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics({focusable = false})]]
