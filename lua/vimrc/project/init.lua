@@ -23,30 +23,30 @@ local M = {}
 local initialized = false
 
 local function check_config(opts)
-    opts = opts or {}
-    vim.validate({config = {opts, 'table', true}})
-    return vim.tbl_deep_extend('keep', opts, {
-        do_thing = true,
-        hidden_files = false,
-        sub_thing = {
-            other = true,
-            list = {'a', 'b', 'c'},
-            optthing = nil
-        },
-        key_map = {
-            open = '<Leader>p',
-        },
-        git_roots = {},
-        extras = {},
-        sources = {
+  opts = opts or {}
+  vim.validate({ config = { opts, 'table', true } })
+  return vim.tbl_deep_extend('keep', opts, {
+    do_thing = true,
+    hidden_files = false,
+    sub_thing = {
+      other = true,
+      list = { 'a', 'b', 'c' },
+      optthing = nil
+    },
+    key_map = {
+      open = '<Leader>p',
+    },
+    git_roots = {},
+    extras = {},
+    sources = {
 
-        },
-        precedence = {
-          "extras",
-          "git",
-          "recent",
-        }
-    })
+    },
+    precedence = {
+      "extras",
+      "git",
+      "recent",
+    }
+  })
 end
 
 local function data_dir()
@@ -55,13 +55,26 @@ local function data_dir()
 end
 
 local function define_autogroup()
-  vim.cmd([[
-  augroup vimrc_project
-    autocmd! 
-    autocmd BufReadPre,FileReadPre * :lua require("vimrc.project").observe_file()
-    autocmd VimEnter,BufReadPost,BufEnter * nested :lua require("vimrc.project.rooter").rooter()
-  augroup END
-  ]])
+  local au_group = vim.api.nvim_create_augroup("vimrc_project", { clear = true })
+
+  vim.api.nvim_create_autocmd(
+    { "BufReadPre", "FileReadPre" },
+    {
+      pattern = "*",
+      callback = M.observe_file,
+      desc = "check if file should be added to projects",
+      group = au_group,
+    }
+  )
+  vim.api.nvim_create_autocmd(
+    { "VimEnter", "BufReadPost", "BufEnter" },
+    {
+      pattern = "*",
+      callback = require("vimrc.project.rooter").rooter,
+      desc = "change CWD to project dir",
+      group = au_group,
+    }
+  )
 end
 
 local function create_bindings()
@@ -76,7 +89,7 @@ function M.setup(opts)
     return
   end
   M.config = check_config(opts)
-  data_dir():mkdir({exist_ok = true, parents=true})
+  data_dir():mkdir({ exist_ok = true, parents = true })
   recent.init(data_dir())
   sources.init()
   require("vimrc.project.gitsrc").init(M.config.git_roots)
@@ -91,13 +104,13 @@ function M.setup(opts)
   local extras = {}
   for _, e_opts in pairs(M.config.extras) do
     local p = path:new(e_opts.path):expand()
-    extras[#extras+1] = Entry({
+    extras[#extras + 1] = Entry({
       path = p,
       title = e_opts.title or fs.get_name(path:new(p)),
       source = "extras",
     })
   end
-  sources.add(function ()
+  sources.add(function()
     return extras
   end)
   M.sources = sources
@@ -107,7 +120,7 @@ end
 function M.project_select()
   local selectable = project_finder.selectable_projects(M.sources:get_projects(), M.config.precedence)
 
-  local pad = function (s)
+  local pad = function(s)
     local padding = string.rep(" ", selectable.widths.title - strings.strdisplaywidth(s))
     return s .. padding
   end
@@ -120,7 +133,7 @@ function M.project_select()
         return pad(item.title) .. " " .. project_finder.display_source(item)
       end
     },
-    function (item, idx)
+    function(item, idx)
       log.info("item", item, "idx", idx)
     end
   )
