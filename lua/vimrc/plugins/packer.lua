@@ -74,7 +74,8 @@ return require("packer").startup(
 
 
         -- Rust
-        use {"simrat39/rust-tools.nvim"}
+        -- use {"simrat39/rust-tools.nvim", branch = "modularize_and_inlay_rewrite"}
+        use {"simrat39/rust-tools.nvim", branch = "master"}
 
         -- OrgMode
         use {'kristijanhusak/orgmode.nvim'}

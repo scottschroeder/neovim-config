@@ -31,8 +31,6 @@ local on_attach = function(client, bufnr)
     end
 
 
-    -- TODO inlay hints
-    -- vim.cmd([[autocmd CursorHold,CursorHoldI,BufEnter,BufWinEnter,TabEnter,BufWritePost,BufRead *.rs :lua require'lsp_extensions'.inlay_hints{ enabled = { "ChainingHint", "TypeHint", "ParameterHint" } }]])
 end
 
 return {
