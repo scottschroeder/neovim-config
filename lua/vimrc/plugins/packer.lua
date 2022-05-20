@@ -79,9 +79,6 @@ return require("packer").startup(
         -- OrgMode
         use {'kristijanhusak/orgmode.nvim'}
 
-        -- TODO
-        -- use {"Yggdroot/indentLine"}
-
         -- MAYBE
 
         -- PREVIOUSLY USED
