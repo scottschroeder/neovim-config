@@ -62,7 +62,7 @@ require "string"
 local get_last_dot = function(name)
   local split_at = 1
   for idx = 1, #name do
-    if "." == name:sub(idx,idx) then
+    if "." == name:sub(idx, idx) then
       split_at = idx + 1
     end
   end
