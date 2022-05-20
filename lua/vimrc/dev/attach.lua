@@ -23,13 +23,12 @@ local on_attach = function(client, bufnr)
     buf_set_keymap({"n"}, "<F2>", vim.lsp.buf.rename, "rename at point")
     buf_set_keymap({"n", "i"}, "<M-.>", vim.lsp.buf.code_action, "run LSP code actions")
 
-    -- TODO formatting, client is nil?
-    -- if client.server_capailities.documentFormattingProvider then
-    --   buf_set_keymap({"n"}, "<Leader>=", vim.lsp.buf.format, "format file")
-    -- end
-    -- if client.server_capabilities.documentRangeFormattingProvider then
-    --   buf_set_keymap({"v"}, "<Leader>=", vim.lsp.buf.range_formatting, "format highlighted range")
-    -- end
+    if client.server_capabilities.documentFormattingProvider then
+      buf_set_keymap({"n"}, "<Leader>=", vim.lsp.buf.format, "format file")
+    end
+    if client.server_capabilities.documentRangeFormattingProvider then
+      buf_set_keymap({"v"}, "<Leader>=", vim.lsp.buf.range_formatting, "format highlighted range")
+    end
 
 
     -- TODO inlay hints
