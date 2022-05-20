@@ -23,13 +23,6 @@ local on_attach = function(client, bufnr)
     buf_set_keymap({"n"}, "<F2>", vim.lsp.buf.rename, "rename at point")
     buf_set_keymap({"n", "i"}, "<M-.>", vim.lsp.buf.code_action, "run LSP code actions")
 
-    -- TODO these are not lsp specific
-    buf_set_keymap({"n"}, "]d", vim.diagnostic.goto_next, "go to next diagnostic")
-    buf_set_keymap({"n"}, "[d", vim.diagnostic.goto_prev, "go to prev diagnostic")
-    buf_set_keymap({"n"}, "L", vim.diagnostic.open_float, "show line diagnostics")
-    buf_set_keymap({"n"}, "<M-q>", vim.diagnostic.setqflist, "set quickfix list")
-
-
     -- TODO formatting, client is nil?
     -- if client.server_capailities.documentFormattingProvider then
     --   buf_set_keymap({"n"}, "<Leader>=", vim.lsp.buf.format, "format file")
