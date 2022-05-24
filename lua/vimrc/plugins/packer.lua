@@ -56,7 +56,7 @@ return require("packer").startup(
         use {'kevinhwang91/nvim-bqf'} -- quickfix
         use { 'nvim-telescope/telescope.nvim', requires = { {'nvim-lua/plenary.nvim'} } }
         use {'nvim-telescope/telescope-ui-select.nvim' } -- vim.ui.select will default everything to telescope
-        use {'stevearc/dressing.nvim'}
+        use {'stevearc/dressing.nvim'} -- appearance of the vim.ui.select & vim.ui.input modals
 
         -- Completion
         use {"hrsh7th/nvim-cmp"}
@@ -79,6 +79,9 @@ return require("packer").startup(
 
         -- OrgMode
         use {'kristijanhusak/orgmode.nvim'}
+
+        -- Terraform (non-lua)
+        use {'hashivim/vim-terraform'}
 
         -- MAYBE
 
