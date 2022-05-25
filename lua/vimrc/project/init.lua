@@ -198,4 +198,13 @@ function M.observe_file()
   end
 end
 
+function M.get_existing_project_for_filename(fname)
+  return recent.get_existing_project(path:new(fname))
+end
+
+function M.get_existing_project_for_buf(bufnr)
+  local bufname = vim.api.nvim_buf_get_name(bufnr)
+  return recent.get_existing_project(path:new(bufname))
+end
+
 return M

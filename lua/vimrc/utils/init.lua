@@ -46,6 +46,14 @@ function M.reload_plugin(name)
     require(name)
 end
 
+function M.safe_reloader(name)
+    require("plenary.reload").reload_module(name, true)
+    local ok, mod = pcall(require, name)
+    if not ok then
+      log.warn("could not load module:", name)
+    end
+    return ok, mod
+end
 
 
 return M

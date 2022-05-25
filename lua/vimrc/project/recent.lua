@@ -36,6 +36,17 @@ function M.get_list()
   return M.list.items
 end
 
+-- Helper to get the entry object for the given path
+function M.get_existing_project(path)
+  local filepath = path:absolute()
+  for _, entry in pairs(M.list.items) do
+    if fs.is_sub_folder(filepath, entry.path) then
+      return entry
+    end
+  end
+  return nil
+end
+
 function M.check_add(path)
   local filepath = path:absolute()
   log.trace("do check_add", filepath)

@@ -1,4 +1,3 @@
-
 local log = require("vimrc.log")
 local opt = require("vimrc.config.option").opt
 local map = require("vimrc.config.mapping").map
@@ -17,7 +16,7 @@ opt("o", "termguicolors", true) -- full GUI colors
 
 opt("w", "signcolumn", "yes")
 opt("w", "list", true)
-opt("o", "listchars", {'tab:▸░', 'trail:·', 'extends:»', 'precedes:«', 'nbsp:⣿'})
+opt("o", "listchars", { 'tab:▸░', 'trail:·', 'extends:»', 'precedes:«', 'nbsp:⣿' })
 opt("w", "number", true) -- show line numbers
 opt("w", "numberwidth", 2)
 opt("w", "cursorline", true) -- cursor line is highlighted
@@ -27,8 +26,8 @@ opt("o", "lazyredraw", true)
 opt("o", "ignorecase", true)
 opt("o", "smartcase", true)
 opt("o", "wildignorecase", true)
-opt("o", "wildmode", {"list:longest", "full"})
-opt("o", "wildignore", {"*.swp","*.bak","*.pyc","*.class"})
+opt("o", "wildmode", { "list:longest", "full" })
+opt("o", "wildignore", { "*.swp", "*.bak", "*.pyc", "*.class" })
 
 
 opt("w", "wrap", false)
@@ -38,7 +37,7 @@ opt("b", "tabstop", tabwidth)
 opt("b", "softtabstop", tabwidth)
 opt("b", "shiftwidth", tabwidth)
 opt("o", "smarttab", true)
-opt("b", "expandtab", true )
+opt("b", "expandtab", true)
 opt("o", "pastetoggle", "<F12>")
 
 opt("b", "spelllang", "en_us")
@@ -55,13 +54,13 @@ map("", "<C-k>", "<C-w>k")
 map("", "<C-l>", "<C-w>l")
 
 -- Open new vertical split
-map("n", "<leader>w", "<C-w>v<C-w>l", {noremap = true})
+map("n", "<leader>w", "<C-w>v<C-w>l", { noremap = true })
 -- Open a new horizontal split
-map("n", "<leader>h", "<C-w>s<C-w>j", {noremap = true})
+map("n", "<leader>h", "<C-w>s<C-w>j", { noremap = true })
 -- Close your current split
-map("n", "<leader>c", "<C-w>c", {noremap = true})
+map("n", "<leader>c", "<C-w>c", { noremap = true })
 -- Close everything except your current split
-map("n", "<leader>o", ":only<CR>", {noremap = true})
+map("n", "<leader>o", ":only<CR>", { noremap = true })
 
 -- Reload vimrc
 map("n", "<leader>sv", require('vimrc.utils').reload_vimrc)
@@ -71,23 +70,24 @@ map("n", "<leader>ss", function()
 end)
 
 
+
 map("n", "<leader>sd",
-  function ()
-    require("vimrc.utils").reload_plugin("vimrc.project")
-    require("vimrc.utils").reload_plugin("vimrc.plugins.project")
-    require("vimrc.plugins.project")
-  end
+  function()
+    require("vimrc.utils").reload_plugin("heirline")
+    require("vimrc.utils").reload_plugin("vimrc.plugins.heirline")
+  end,
+  { desc = "reload whatever thing we are currently developing" }
 )
 map("n", "<leader>p",
-  function ()
+  function()
     -- require("vimrc.project").project({display_type = "full"})
-    require("vimrc.project").project(require("telescope.themes").get_dropdown{})
+    require("vimrc.project").project(require("telescope.themes").get_dropdown {})
   end
 )
 
 -- Test
 map("n", "<leader>sf",
-  function ()
+  function()
     require("vimrc.project").project_select()
   end
 )
@@ -105,8 +105,8 @@ map("n", "<leader>sf",
 -- map("v", "<Leader>P", '"+P')
 
 -- Remove search hilighting
-map("n", "<Leader>/", ':let @/ = ""<CR>', {silent = true})
-map("v", "<Leader>/", ':let @/ = ""<CR>', {silent = true})
+map("n", "<Leader>/", ':let @/ = ""<CR>', { silent = true })
+map("v", "<Leader>/", ':let @/ = ""<CR>', { silent = true })
 
 -- Format the current file
 -- These are handled by the attach function. For now we have no other formatters
@@ -114,20 +114,20 @@ map("v", "<Leader>/", ':let @/ = ""<CR>', {silent = true})
 -- map("v", "<Leader>=", require("vimrc.dev.format").format_range)
 
 -- Diagnostics
-map({"n"}, "]d", vim.diagnostic.goto_next, {desc="go to next diagnostic"})
-map({"n"}, "[d", vim.diagnostic.goto_prev, {desc="go to prev diagnostic"})
-map({"n"}, "L", vim.diagnostic.open_float, {desc="show line diagnostics"})
-map({"n"}, "<M-q>", vim.diagnostic.setqflist, {desc="set quickfix list"})
+map({ "n" }, "]d", vim.diagnostic.goto_next, { desc = "go to next diagnostic" })
+map({ "n" }, "[d", vim.diagnostic.goto_prev, { desc = "go to prev diagnostic" })
+map({ "n" }, "L", vim.diagnostic.open_float, { desc = "show line diagnostics" })
+map({ "n" }, "<M-q>", vim.diagnostic.setqflist, { desc = "set quickfix list" })
 
 -- Git
 map("n", "<Leader>g", ":Git<CR>")
 
-map("n", "j", "gj", {noremap = true})
-map("n", "k", "gk", {noremap = true})
-map("", "Y", "y$", {noremap = true})
+map("n", "j", "gj", { noremap = true })
+map("n", "k", "gk", { noremap = true })
+map("", "Y", "y$", { noremap = true })
 
-map("n", "/", "/\\v", {noremap = true})
-map("v", "/", "/\\v", {noremap = true})
+map("n", "/", "/\\v", { noremap = true })
+map("v", "/", "/\\v", { noremap = true })
 
 usercmd("Wrapon", function()
   opt("w", "wrap", true)
