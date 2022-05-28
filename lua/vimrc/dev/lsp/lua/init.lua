@@ -1,5 +1,4 @@
 local log = require("vimrc.log")
-local lsp_status = require('lsp-status')
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- https://github.com/sumneko/lua-language-server/wiki/Build-and-Run-(Standalone)

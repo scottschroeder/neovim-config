@@ -1,5 +1,4 @@
 local nvim_lsp = require('lspconfig')
-local lsp_status = require('lsp-status')
 local buf_map = require('vimrc.config.mapping').buf_map
 local log = require("vimrc.log")
 

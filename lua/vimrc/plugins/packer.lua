@@ -28,7 +28,8 @@ return require("packer").startup(
 
         -- LSP Core
         use {"nvim-lua/lsp_extensions.nvim"}
-        use {"nvim-lua/lsp-status.nvim"}
+        -- use {"nvim-lua/lsp-status.nvim"} -- repo requires updates
+        use {"j-hui/fidget.nvim"} -- display lsp status updates
         use {"neovim/nvim-lspconfig"}
         use {"williamboman/nvim-lsp-installer"}
         use {"kosayoda/nvim-lightbulb"}
