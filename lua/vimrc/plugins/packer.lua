@@ -78,6 +78,7 @@ return require("packer").startup(
         -- Rust
         -- use {"simrat39/rust-tools.nvim", branch = "modularize_and_inlay_rewrite"}
         use {"simrat39/rust-tools.nvim", branch = "master"}
+        use {'pest-parser/pest.vim'} -- (non-lua) syntax highligting for pest grammers
 
         -- OrgMode
         use {'kristijanhusak/orgmode.nvim'}
