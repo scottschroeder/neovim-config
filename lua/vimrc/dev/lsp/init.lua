@@ -6,7 +6,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 })
 
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-local additional_servers = {"bashls", "dockerls", "gopls", "dotls", "jsonls", "terraformls"}
+local additional_servers = {"bashls", "dockerls", "gopls", "dotls", "jsonls", "terraformls", "pyright"}
 
 for _, server_name in ipairs(additional_servers) do
   require('lspconfig')[server_name].setup{
