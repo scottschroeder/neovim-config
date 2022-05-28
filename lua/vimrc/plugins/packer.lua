@@ -49,7 +49,7 @@ return require("packer").startup(
         use {"lewis6991/gitsigns.nvim", requires = { "nvim-lua/plenary.nvim" } }
 
         -- Editor
-        use {"ggandor/lightspeed.nvim"}
+        use {"ggandor/lightspeed.nvim", requires = "tpope/vim-repeat"}
         use {"kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons"}
         use {"b3nj5m1n/kommentary"}
         use {"907th/vim-auto-save"}
