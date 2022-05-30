@@ -15,17 +15,33 @@ map("n", "<Leader>k", toggle_builtin)
 if ok then
 
   nvimtree.setup {
-    -- auto_close = true,
-    open_on_tab = true,
-    update_cwd = true,
+    update_cwd          = true,
+    respect_buf_cwd     = true,
     update_focused_file = {
       enable = true,
       update_cwd = false,
     },
-    filters = {
+    filters             = {
       custom = {
         '.git', 'node_modules', '.cache'
       }
+    },
+    actions = {
+      open_file = {
+        window_picker = {
+          -- ENABLE TO ASK WHICH WINDOW
+          enable = false,
+        }
+      }
+    },
+    view                = {
+      signcolumn = "no",
+    },
+    renderer = {
+      highlight_git = true,
+    },
+    diagnostics = {
+      enable = true,
     }
   }
 

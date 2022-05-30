@@ -81,9 +81,6 @@ return require("packer").startup(
         use {"simrat39/rust-tools.nvim", branch = "master"}
         use {'pest-parser/pest.vim'} -- (non-lua) syntax highligting for pest grammers
 
-        -- OrgMode
-        use {'kristijanhusak/orgmode.nvim'}
-
         -- Terraform (non-lua)
         use {'hashivim/vim-terraform'}
 

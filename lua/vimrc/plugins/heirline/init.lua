@@ -44,7 +44,6 @@ local surround_round = { "", "" }
 local forward_arrow = ""
 
 local function bold_if_active(component)
-
   local hl = function()
     local color
     log.info(is_active(), os.time())
@@ -116,5 +115,13 @@ local winline = {
 }
 
 
+local winline_ignore_tree = {
+  condition = function()
+    local bufname = vim.api.nvim_buf_get_name(0)
+    return not bufname:match('NvimTree_%d+$')
+  end,
+  winline
+}
 
-heirline.setup(statusline, winline)
+
+heirline.setup(statusline, winline_ignore_tree)

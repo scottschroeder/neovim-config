@@ -1,14 +1,15 @@
 local map = require("vimrc.config.mapping").map
+local cmd = require("vimrc.config.mapping").map
 local log = require("vimrc.log")
 local actions = require "telescope.actions"
 local qf = require("vimrc.config.quickfix")
 
-local open_all_in_quickfix = function (...)
+local open_all_in_quickfix = function(...)
   actions.send_to_qflist(...)
   qf.open_quickfix()
 end
 
-local open_selected_in_quickfix = function (...)
+local open_selected_in_quickfix = function(...)
   actions.send_selected_to_qflist(...)
   qf.open_quickfix()
 end
@@ -26,7 +27,7 @@ require("telescope").setup({
       },
     }
   },
-   extensions = {
+  extensions = {
     ["ui-select"] = {
       require("telescope.themes").get_dropdown {
         -- even more opts
@@ -52,9 +53,16 @@ require("telescope").setup({
 
 require("telescope").load_extension("ui-select")
 
-
-
 map("n", "<C-p>", require('telescope.builtin').find_files)
+-- TODO why didn't the cmd function work?
+vim.api.nvim_create_user_command("Files",
+  function()
+    require('telescope.builtin').find_files({
+      hidden = true,
+      no_ignore = true,
+    })
+  end, {})
+-- cmd("Files", function() require('telescope.builtin').find_files({}) end)
 map("n", "<leader>b", require('telescope.builtin').buffers)
 -- map("n", "<C-s>", require('telescope.builtin').spell_suggest)
 -- map("n", "<C-h>", require('telescope.builtin').help_tags) -- C-h is used to move left :|
