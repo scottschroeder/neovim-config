@@ -34,9 +34,6 @@ if ok then
         }
       }
     },
-    view                = {
-      signcolumn = "no",
-    },
     renderer = {
       highlight_git = true,
     },
