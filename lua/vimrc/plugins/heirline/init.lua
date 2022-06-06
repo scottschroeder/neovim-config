@@ -116,9 +116,11 @@ local winline = {
 
 
 local winline_ignore_tree = {
-  condition = function()
+  init = function()
     local bufname = vim.api.nvim_buf_get_name(0)
-    return not bufname:match('NvimTree_%d+$')
+    if bufname:match('NvimTree_%d+$') then
+      vim.opt_local.winbar = nil
+    end
   end,
   winline
 }
