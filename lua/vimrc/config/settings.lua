@@ -95,6 +95,11 @@ map("n", "<leader>sf",
 -- vim's clipboard buffers go to tmux buffer
 -- opt("o", "clipboard", "unnamedplus")
 -- map("v", "<Leader>y", '"+y')
+
+-- For my current setup, the unnamed buffer (PRIMARY) is the
+-- one that's getting synced.
+map({"n", "v"}, "<Leader>y", '"*y')
+
 -- map("n", "<Leader>y", '"+y')
 -- map("v", "<Leader>d", '"+d')
 -- map("n", "<Leader>d", '"+d')
