@@ -81,15 +81,9 @@ local map_node = function(index, map_f)
 end
 
 ls.add_snippets("all", {
-  s("novel", {
-    t("It was a dark and stormy night on "),
-    d(1, date_input, {}, "%A, %B %d of %Y"),
-    t(" and the clocks were striking thirteen."),
-  }),
   s("curtime", f(function()
     return os.date "%D - %H:%M"
   end)),
-  s("sametest", fmt([[example: {}, function: {}]], { map_node(1, make_module_var), i(1) })),
 })
 
 
