@@ -54,6 +54,7 @@ require("telescope").setup({
 require("telescope").load_extension("ui-select")
 
 map("n", "<C-p>", require('telescope.builtin').find_files)
+map("n", "<leader>t", require('telescope.builtin').lsp_dynamic_workspace_symbols)
 -- TODO why didn't the cmd function work?
 vim.api.nvim_create_user_command("Files",
   function()
