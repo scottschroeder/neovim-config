@@ -30,6 +30,7 @@ require("telescope").setup({
   extensions = {
     ["ui-select"] = {
       require("telescope.themes").get_dropdown {
+        wrap_results = true,
         -- even more opts
       }
 
@@ -64,7 +65,7 @@ vim.api.nvim_create_user_command("Files",
     })
   end, {})
 -- cmd("Files", function() require('telescope.builtin').find_files({}) end)
-map("n", "<leader>b", require('telescope.builtin').buffers)
+-- map("n", "<leader>b", require('telescope.builtin').buffers)
 -- map("n", "<C-s>", require('telescope.builtin').spell_suggest)
 -- map("n", "<C-h>", require('telescope.builtin').help_tags) -- C-h is used to move left :|
 map("n", "<C-f>", require('telescope.builtin').builtin)

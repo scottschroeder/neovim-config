@@ -124,6 +124,7 @@ map({ "n" }, "[d", vim.diagnostic.goto_prev, { desc = "go to prev diagnostic" })
 map({ "n" }, "L", vim.diagnostic.open_float, { desc = "show line diagnostics" })
 map({ "n" }, "<M-q>", vim.diagnostic.setqflist, { desc = "set quickfix list" })
 
+
 -- Git
 map("n", "<Leader>g", ":Git<CR>")
 

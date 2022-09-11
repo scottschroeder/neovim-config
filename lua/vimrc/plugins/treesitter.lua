@@ -25,6 +25,7 @@ ts_config.setup {
         "python",
         "regex",
         "rust",
+        "sql",
         "toml",
     },
     highlight = {

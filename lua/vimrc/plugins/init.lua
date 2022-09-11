@@ -5,9 +5,10 @@ require("vimrc.plugins.nvim-tree")
 require("vimrc.plugins.nvim-cmp")
 require("vimrc.plugins.luasnip")
 require("vimrc.plugins.treesitter")
-require("vimrc.plugins.vim-auto-save")
+-- require("vimrc.plugins.vim-auto-save")
+require("vimrc.plugins.auto-save")
 require("vimrc.plugins.telescope")
-require("vimrc.plugins.lsp-installer")
+require("vimrc.plugins.mason")
 require("vimrc.plugins.fidget")
 require("vimrc.plugins.gps")
 require("vimrc.plugins.devicons")
@@ -24,5 +25,3 @@ require('gitsigns').setup{
   keymaps = {}
 }
 require('vimrc.plugins.project')
-
-
