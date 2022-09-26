@@ -55,7 +55,8 @@ return require("packer").startup(
     use { "kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons" }
     use { "b3nj5m1n/kommentary" }
     -- use { "907th/vim-auto-save" } -- deprecated and broken with dap ui
-    use { "Pocco81/auto-save.nvim" }
+    -- use { "Pocco81/auto-save.nvim" } -- this is the main repo, but has an issue that causes autosave failures whenever a ui buffer closes
+    use { "yyk/simply-auto-save.nvim", commit = "f44defab145821f6f954aa05e3b0b9be87313eb9", as = "auto-save.nvim"}
     -- use {"junegunn/fzf"}
     -- use {"junegunn/fzf.vim"}
     use { 'kevinhwang91/nvim-bqf' } -- quickfix
