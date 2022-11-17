@@ -38,6 +38,7 @@ return require("packer").startup(
     use { "kosayoda/nvim-lightbulb" }
     use { "onsails/lspkind-nvim" }
     use { "RishabhRD/nvim-lsputils", requires = "RishabhRD/popfix" }
+    use { 'simrat39/inlay-hints.nvim' }
 
     -- Cosmetic
     use { "kyazdani42/nvim-web-devicons" }

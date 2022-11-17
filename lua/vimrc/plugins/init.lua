@@ -26,3 +26,4 @@ require('gitsigns').setup{
   keymaps = {}
 }
 require('vimrc.plugins.project')
+require('vimrc.plugins.inlay_hints')
