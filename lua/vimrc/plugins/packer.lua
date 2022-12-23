@@ -10,7 +10,6 @@ if fn.empty(fn.glob(install_path)) > 0 then
   execute "packadd packer.nvim"
 end
 
-
 -- check if packer is installed (~/local/share/nvim/site/pack)
 local packer_exists = pcall(vim.cmd, [[packadd packer.nvim]])
 
@@ -66,6 +65,7 @@ return require("packer").startup(
     use { 'nvim-telescope/telescope-ui-select.nvim' } -- vim.ui.select will default everything to telescope
     use { 'stevearc/dressing.nvim' } -- appearance of the vim.ui.select & vim.ui.input modals
     use { "SmiteshP/nvim-gps", requires = "nvim-treesitter/nvim-treesitter" } -- show code object at location
+    use { "m4xshen/autoclose.nvim" }
 
     -- Completion
     use { "hrsh7th/nvim-cmp" }

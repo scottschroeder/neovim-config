@@ -27,3 +27,4 @@ require('gitsigns').setup{
 }
 require('vimrc.plugins.project')
 require('vimrc.plugins.inlay_hints')
+require('vimrc.plugins.autoclose')
