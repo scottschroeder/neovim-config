@@ -6,4 +6,6 @@ if not ok then
   return
 end
 
-autoclose.setup({})
+
+-- I don't like this plugin
+-- autoclose.setup({})
