@@ -1,6 +1,7 @@
 local conditions = require("heirline.conditions")
-local colors = require("vimrc.plugins.heirline.colors").colors
+local palette = require("vimrc.config.palette")
 
+local colors = palette.colors.simple
 local M = {}
 
 M.GitBranch = {
@@ -44,21 +45,21 @@ M.GitChanges = {
       local count = self.status_dict.added or 0
       return count > 0 and ("+" .. count)
     end,
-    hl = { fg = colors.git.add },
+    hl = { fg = palette.git().add },
   },
   {
     provider = function(self)
       local count = self.status_dict.removed or 0
       return count > 0 and ("-" .. count)
     end,
-    hl = { fg = colors.git.del },
+    hl = { fg = palette.git().del },
   },
   {
     provider = function(self)
       local count = self.status_dict.changed or 0
       return count > 0 and ("~" .. count)
     end,
-    hl = { fg = colors.git.change },
+    hl = { fg = palette.git().change },
   },
   {
     condition = function(self)
@@ -98,21 +99,21 @@ M.Git = {
       local count = self.status_dict.added or 0
       return count > 0 and ("+" .. count)
     end,
-    hl = { fg = colors.git.add },
+    hl = { fg = palette.git().add },
   },
   {
     provider = function(self)
       local count = self.status_dict.removed or 0
       return count > 0 and ("-" .. count)
     end,
-    hl = { fg = colors.git.del },
+    hl = { fg = palette.git().del },
   },
   {
     provider = function(self)
       local count = self.status_dict.changed or 0
       return count > 0 and ("~" .. count)
     end,
-    hl = { fg = colors.git.change },
+    hl = { fg = palette.git().change },
   },
   {
     condition = function(self)

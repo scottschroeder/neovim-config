@@ -1,5 +1,6 @@
 local conditions = require("heirline.conditions")
-local colors = require("vimrc.plugins.heirline.colors").colors
+local palette = require("vimrc.config.palette")
+local colors = palette.colors.simple
 
 local M = {}
 
@@ -17,7 +18,7 @@ M.LSPActive = {
         end
         return " [" .. table.concat(names, " ") .. "]"
     end,
-    hl = { fg = colors.green, bold = true },
+    hl = function() return { fg = colors.green, bold = true } end,
 }
 
 
@@ -34,7 +35,7 @@ M.Gps = {
       return ok and gps.is_available()
     end,
     provider = require("nvim-gps").get_location,
-    hl = { fg = colors.gray },
+    hl = function() return { fg = colors.gray0 } end,
 }
 
 return M

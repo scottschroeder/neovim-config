@@ -1,5 +1,5 @@
 local conditions = require("heirline.conditions")
-local colors = require("vimrc.plugins.heirline.colors").colors
+local palette = require("vimrc.config.palette")
 
 local M = {}
 
@@ -51,32 +51,32 @@ M.Diagnostics = {
     provider = function(self)
       return not conditions.has_diagnostics() and self.healthy_icon
     end,
-    hl = { fg = colors.diag.healthy, bold = true },
+    hl = function() return { fg = palette.diagnostic().healthy, bold = true } end,
   },
   {
     provider = function(self)
       -- 0 is just another output, we can decide to print it or not!
       return self.errors > 0 and (append_space_if(self.error_icon .. self.errors, self.errorspace))
     end,
-    hl = { fg = colors.diag.error },
+    hl = function() return { fg = palette.diagnostic().error } end,
   },
   {
     provider = function(self)
       return self.warnings > 0 and (append_space_if(self.warn_icon .. self.warnings, self.warnspace))
     end,
-    hl = { fg = colors.diag.warn },
+    hl = function() return { fg = palette.diagnostic().warn } end,
   },
   {
     provider = function(self)
       return self.info > 0 and (append_space_if(self.info_icon .. self.info, self.infospace))
     end,
-    hl = { fg = colors.diag.info },
+    hl = function() return { fg = palette.diagnostic().info } end,
   },
   {
     provider = function(self)
       return self.hints > 0 and (self.hint_icon .. self.hints)
     end,
-    hl = { fg = colors.diag.hint },
+    hl = function() return { fg = palette.diagnostic().hint } end,
   },
   {
     provider = "]",

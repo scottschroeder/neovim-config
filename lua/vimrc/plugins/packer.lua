@@ -48,6 +48,8 @@ return require("packer").startup(
     use { "rebelot/heirline.nvim" }
     use { "morhetz/gruvbox" }
     use { "sainnhe/gruvbox-material" }
+    use { "NLKNguyen/papercolor-theme" }
+    use { "rakr/vim-one" }
     use { "norcalli/nvim-colorizer.lua" }
     use { "lewis6991/gitsigns.nvim", requires = { "nvim-lua/plenary.nvim" } }
 

@@ -17,7 +17,8 @@ local surround = require("heirline.utils").surround
 -- Set the statusbar to be the entire bottom line, not per-window
 vim.opt.laststatus = 3
 
-local colors = require("vimrc.plugins.heirline.colors").colors
+local palette = require("vimrc.config.palette")
+local colors = palette.colors.simple
 
 -- local colors = require("vimrc.plugins.heirline.colors").colors
 -- local filename = {
@@ -47,7 +48,7 @@ local function bold_if_active(component)
   local hl = function()
     local color
     log.info(is_active(), os.time())
-    if (math.floor(os.time()) % 2)  == 0 then
+    if (math.floor(os.time()) % 2) == 0 then
       color = colors.red
     else
       color = colors.green
@@ -62,12 +63,14 @@ local function bold_if_active(component)
   return {
     {
       condition = is_active,
-      hl = {
-        fg = colors.orange,
-        bg = colors.lightbg,
-        bold = true,
-        force = true,
-      },
+      hl = function()
+        return {
+          fg = colors.orange,
+          bg = palette.backgrounds()[3],
+          bold = true,
+          force = true,
+        }
+      end,
       component
     },
     {
@@ -86,7 +89,7 @@ local function bold_if_active(component)
 end
 
 local statusline = {
-  hl = { bg = colors.line_bg },
+  hl = function() return { bg = palette.backgrounds()[3] } end,
   require("vimrc.plugins.heirline.mode").ViMode,
   Space,
   require("vimrc.plugins.heirline.lsp").LSPActive,
@@ -106,7 +109,7 @@ local statusline = {
   surround({ '[', ']' }, nil, require("vimrc.plugins.heirline.files").FileSize),
 }
 local winline = {
-  hl = { bg = colors.line_bg },
+  hl = function() return { bg = palette.backgrounds()[3] } end,
   -- require("vimrc.plugins.heirline.files").FileType,
   -- TODO project name
   require("vimrc.plugins.heirline.files").FileNameBlock,
@@ -126,4 +129,8 @@ local winline_ignore_tree = {
 }
 
 
-heirline.setup(statusline, winline_ignore_tree)
+heirline.setup({
+  statusline = statusline,
+  winbar = winline,
+  winline_ignore_tree = winline_ignore_tree,
+})

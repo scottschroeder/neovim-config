@@ -1,6 +1,5 @@
 local conditions = require("heirline.conditions")
 local utils = require("heirline.utils")
-local colors = require("vimrc.plugins.heirline.colors").colors
 
 local M = {}
 

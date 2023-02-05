@@ -11,8 +11,6 @@ opt("o", "mouse", "a")
 
 opt("o", "cmdheight", 1)
 opt("o", "updatetime", 250)
-opt("o", "background", "dark") -- assume dark background
-opt("o", "termguicolors", true) -- full GUI colors
 
 opt("w", "signcolumn", "yes")
 opt("w", "list", true)
@@ -98,7 +96,7 @@ map("n", "<leader>sf",
 
 -- For my current setup, the unnamed buffer (PRIMARY) is the
 -- one that's getting synced.
-map({"n", "v"}, "<Leader>y", '"*y')
+map({ "n", "v" }, "<Leader>y", '"*y')
 
 -- map("n", "<Leader>y", '"+y')
 -- map("v", "<Leader>d", '"+d')
@@ -145,6 +143,16 @@ end)
 
 usercmd("Scratch", function()
   scratch("")
+end)
+
+usercmd("LightDarkSwap", function()
+  local palette = require("vimrc.config.palette")
+  if vim.o.background == "dark" then
+    opt("o", "background", "light")
+  else
+    opt("o", "background", "dark")
+  end
+  palette.refresh_palette()
 end)
 
 -- LSP

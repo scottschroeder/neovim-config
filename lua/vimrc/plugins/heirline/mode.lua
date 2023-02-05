@@ -1,6 +1,7 @@
 local M = {}
 
-local colors = require("vimrc.plugins.heirline.colors").colors
+local palette = require("vimrc.config.palette")
+local colors = palette.colors.simple
 
 M.ViMode = {
   -- get vim current mode, this information will be required by the provider
@@ -52,9 +53,9 @@ M.ViMode = {
     mode_colors = {
       n = colors.red,
       i = colors.green,
-      v = colors.cyan,
-      V = colors.cyan,
-      ["\22"] = colors.cyan,
+      v = colors.blue,
+      V = colors.blue,
+      ["\22"] = colors.blue,
       c = colors.orange,
       s = colors.purple,
       S = colors.purple,
@@ -63,6 +64,21 @@ M.ViMode = {
       r = colors.orange,
       ["!"] = colors.red,
       t = colors.red,
+    },
+    mode_color_names = {
+      n = "red",
+      i = "green",
+      v = "blue",
+      V = "blue",
+      ["\22"] = "blue",
+      c = "orange",
+      s = "purple",
+      S = "purple",
+      ["\19"] = "purple",
+      R = "orange",
+      r = "orange",
+      ["!"] = "red",
+      t = "red",
     }
   },
   -- We can now access the value of mode() that, by now, would have been
@@ -78,7 +94,8 @@ M.ViMode = {
   -- Same goes for the highlight. Now the foreground will change according to the current mode.
   hl = function(self)
     local mode = self.mode:sub(1, 1) -- get only the first mode character
-    return { fg = self.mode_colors[mode], bold = true, }
+    local mode_color = palette.colors.simple[self.mode_color_names[mode]]
+    return { fg = mode_color, bold = true, }
   end,
 }
 
