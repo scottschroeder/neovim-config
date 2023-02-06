@@ -46,6 +46,9 @@ local debug_test = function()
   end
 end
 
+vim.fn.sign_define('DapBreakpoint',{ text ='🟥', texthl ='', linehl ='', numhl =''})
+vim.fn.sign_define('DapStopped',{ text ='▶️', texthl ='', linehl ='', numhl =''})
+
 map({ "n" }, "<F5>", function() dap.continue() end, { desc = "DAP Continue" })
 map({ "n" }, "<Leader>db", function() dap.toggle_breakpoint() end, { desc = "Toggle Breakpoint" })
 map({ "n" }, "<Leader>dB", function() dap.set_breakpoint(vim.fn.input("Breakpoint Condition: ")) end,
