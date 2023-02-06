@@ -145,7 +145,7 @@ usercmd("Scratch", function()
   scratch("")
 end)
 
-usercmd("LightDarkSwap", function()
+usercmd("BackgroundToggle", function()
   local palette = require("vimrc.config.palette")
   if vim.o.background == "dark" then
     opt("o", "background", "light")
