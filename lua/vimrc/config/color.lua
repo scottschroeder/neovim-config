@@ -10,6 +10,10 @@ local function try_colorschemes(colors)
   end
 end
 
+local in_tmux = function()
+  return os.getenv("TMUX") ~= nil
+end
+
 vim.g.gruvbox_material_better_performance = 1
 vim.g.gruvbox_material_background = "medium"
 vim.g.gruvbox_material_foreground = "mix"
@@ -18,7 +22,7 @@ vim.g.gruvbox_material_enable_italic = 1
 vim.g.gruvbox_material_cursor = "auto" -- only works with gui
 vim.g.gruvbox_material_transparent_background = 0
 vim.g.gruvbox_material_dim_inactive_windows = 1
--- vim.g.gruvbox_material_visual = "green background"
+vim.g.gruvbox_material_visual = "green background"
 vim.g.gruvbox_material_menu_selection_background = "purple"
 vim.g.gruvbox_material_ui_contrast = "high"
 vim.g.gruvbox_material_diagnostic_text_highlight = 1
@@ -31,7 +35,13 @@ vim.g.gruvbox_material_statusline_style = "mix"
 -- }
 
 opt("o", "termguicolors", true) -- full GUI colors
-opt("o", "background", "dark")
+
+if in_tmux() then
+  opt("o", "background", "dark")
+else
+  opt("o", "background", "light")
+end
+
 try_colorschemes({ "gruvbox-material", "one", "PaperColor", "desert" })
 -- vim.highlight.create("CursorLine", {ctermbg=0, guibg="lightgrey"}, false)
 --
