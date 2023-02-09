@@ -53,7 +53,7 @@ require("vimrc.config.mapping").prefix("<Leader>d", "Debug Adapter Protocol")
 map({ "n" }, "<F5>", function() dap.continue() end, { desc = "DAP Continue" })
 map({ "n" }, "<Leader>db", function() dap.toggle_breakpoint() end, { desc = "Toggle Breakpoint" })
 map({ "n" }, "<Leader>dB", function() dap.set_breakpoint(vim.fn.input("Breakpoint Condition: ")) end,
-  { desc = "Toggle Breakpoint" })
+  { desc = "Toggle Breakpoint w/ Condition" })
 map({ "n" }, "<Leader>dt", function() debug_test() end, { desc = "DAP Test" })
 
 -- TODO only when actively debugging?
