@@ -126,7 +126,9 @@ map({ "n" }, "<M-q>", vim.diagnostic.setqflist, { desc = "set quickfix list" })
 
 -- Git
 -- TODO are there sub mappings here? can we do them manually?
-map("n", "<Leader>g", ":Git<CR>", {desc = "Git"})
+-- map("n", "<Leader>g", ":Git<CR>", {desc = "Git"})
+map("n", "<Leader>gs", ":Git<CR>", {desc = "Fugitive"})
+map_prefix("<leader>g", "Git Helpers")
 
 map("n", "j", "gj", { noremap = true })
 map("n", "k", "gk", { noremap = true })
