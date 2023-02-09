@@ -113,8 +113,8 @@ local diagnostic_quickfix = function (opts)
   magic_quickfix(opts)
 end
 
-map("n", "<M-q>", magic_quickfix)
-map("n", "<C-q>", diagnostic_quickfix)
+map("n", "<M-q>", magic_quickfix, { desc = "Magic Quickfix" })
+map("n", "<C-q>", diagnostic_quickfix, { desc = "Diagnostic Quickfix" })
 
 return {
   magic_quickfix = magic_quickfix,

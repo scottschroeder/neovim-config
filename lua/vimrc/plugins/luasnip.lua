@@ -34,13 +34,14 @@ map({ "i", "s" }, "<M-j>", function()
   if ls.jumpable(-1) then
     ls.jump(-1)
   end
-end)
+end, { desc = "luasnip jump(-1)" }
+)
 
 map({ "i" }, "<M-l>", function()
   if ls.choice_active() then
     ls.change_choice(1)
   end
-end)
+end, { desc = "luasnip change choice" })
 
 ls.config.set_config({
   history = true,

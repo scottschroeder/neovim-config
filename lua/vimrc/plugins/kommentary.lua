@@ -11,5 +11,5 @@ config.configure_language("default", {
 require("kommentary")
 vim.g.kommentary_create_default_mappings = false
 
-map("n", "<M-/>", '<Plug>kommentary_line_default')
-map("v", "<M-/>", '<Plug>kommentary_visual_default')
+map("n", "<M-/>", '<Plug>kommentary_line_default', {desc="Comment Toggle"})
+map("v", "<M-/>", '<Plug>kommentary_visual_default', {desc="Comment Toggle"})

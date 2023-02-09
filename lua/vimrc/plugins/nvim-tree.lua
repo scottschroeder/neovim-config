@@ -10,7 +10,7 @@ local function toggle_builtin()
 end
 
 local map = require("vimrc.config.mapping").map
-map("n", "<Leader>k", toggle_builtin)
+map("n", "<Leader>k", toggle_builtin, {desc = "NvimTree"})
 
 if ok then
 

@@ -15,10 +15,11 @@ gitlinker.setup({
   },
 })
 
-map("n", "<leader>gy", function() gitlinker.get_buf_range_url("n", {}) end)
-map("v", "<leader>gy", function() gitlinker.get_buf_range_url("v", {}) end)
+map("n", "<leader>gy", function() gitlinker.get_buf_range_url("n", {}) end, {desc = "Link to GitHub"})
+map("v", "<leader>gy", function() gitlinker.get_buf_range_url("v", {}) end, {desc = "Link to GitHub"})
 map('n', '<leader>gB',
   function()
     gitlinker.get_repo_url({ action_callback = require "gitlinker.actions".open_in_browser })
   end
+, {desc = "Open in GitHub"}
 )

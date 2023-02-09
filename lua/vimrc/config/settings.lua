@@ -1,6 +1,7 @@
 local log = require("vimrc.log")
 local opt = require("vimrc.config.option").opt
 local map = require("vimrc.config.mapping").map
+local map_prefix = require("vimrc.config.mapping").prefix
 local usercmd = require("vimrc.config.mapping").cmd
 local cmd = vim.cmd
 
@@ -46,26 +47,26 @@ cmd "filetype on"
 
 vim.g.mapleader = " "
 
-map("", "<C-h>", "<C-w>h")
-map("", "<C-j>", "<C-w>j")
-map("", "<C-k>", "<C-w>k")
-map("", "<C-l>", "<C-w>l")
+map("", "<C-h>", "<C-w>h", {desc = "move window left"})
+map("", "<C-j>", "<C-w>j", {desc = "move window down"})
+map("", "<C-k>", "<C-w>k", {desc = "move window up"})
+map("", "<C-l>", "<C-w>l", {desc = "move window right"})
 
 -- Open new vertical split
-map("n", "<leader>w", "<C-w>v<C-w>l", { noremap = true })
+map("n", "<leader>w", "<C-w>v<C-w>l", { noremap = true, desc = "New Vertical Split" })
 -- Open a new horizontal split
-map("n", "<leader>h", "<C-w>s<C-w>j", { noremap = true })
+map("n", "<leader>h", "<C-w>s<C-w>j", { noremap = true, desc = "New Horizontal Split" })
 -- Close your current split
-map("n", "<leader>c", "<C-w>c", { noremap = true })
+map("n", "<leader>c", "<C-w>c", { noremap = true, desc = "Close Split" })
 -- Close everything except your current split
-map("n", "<leader>o", ":only<CR>", { noremap = true })
+map("n", "<leader>o", ":only<CR>", { noremap = true, desc = "Close Everything Else" })
 
 -- Reload vimrc
-map("n", "<leader>sv", require('vimrc.utils').reload_vimrc)
+map("n", "<leader>sv", require('vimrc.utils').reload_vimrc, {desc = "reload .vimrc"})
 map("n", "<leader>ss", function()
   log.info('doing reload of luasnip')
   require("vimrc.utils").reload_plugin("vimrc.plugins.luasnip")
-end)
+end, {desc = "reload luasnip"})
 
 
 
@@ -74,20 +75,21 @@ map("n", "<leader>sd",
     require("vimrc.utils").reload_plugin("heirline")
     require("vimrc.utils").reload_plugin("vimrc.plugins.heirline")
   end,
-  { desc = "reload whatever thing we are currently developing" }
+  { desc = "reload heirline" }
 )
 map("n", "<leader>p",
   function()
     -- require("vimrc.project").project({display_type = "full"})
     require("vimrc.project").project(require("telescope.themes").get_dropdown {})
-  end
+  end , {desc = "Project Picker"}
 )
 
 -- Test
+map_prefix("<leader>s", "nvim config debug commands")
 map("n", "<leader>sf",
   function()
     require("vimrc.project").project_select()
-  end
+  end, {desc = "Project Select ???"}
 )
 
 -- vim's clipboard buffers go to tmux buffer
@@ -96,7 +98,7 @@ map("n", "<leader>sf",
 
 -- For my current setup, the unnamed buffer (PRIMARY) is the
 -- one that's getting synced.
-map({ "n", "v" }, "<Leader>y", '"*y')
+map({ "n", "v" }, "<Leader>y", '"*y', {desc="Yank to Clipboard"})
 
 -- map("n", "<Leader>y", '"+y')
 -- map("v", "<Leader>d", '"+d')
@@ -108,8 +110,7 @@ map({ "n", "v" }, "<Leader>y", '"*y')
 -- map("v", "<Leader>P", '"+P')
 
 -- Remove search hilighting
-map("n", "<Leader>/", ':let @/ = ""<CR>', { silent = true })
-map("v", "<Leader>/", ':let @/ = ""<CR>', { silent = true })
+map({"n", "v"}, "<Leader>/", ':let @/ = ""<CR>', { silent = true, desc = "Clear Search" })
 
 -- Format the current file
 -- These are handled by the attach function. For now we have no other formatters
@@ -124,11 +125,12 @@ map({ "n" }, "<M-q>", vim.diagnostic.setqflist, { desc = "set quickfix list" })
 
 
 -- Git
-map("n", "<Leader>g", ":Git<CR>")
+-- TODO are there sub mappings here? can we do them manually?
+map("n", "<Leader>g", ":Git<CR>", {desc = "Git"})
 
 map("n", "j", "gj", { noremap = true })
 map("n", "k", "gk", { noremap = true })
-map("", "Y", "y$", { noremap = true })
+map("", "Y", "y$", { noremap = true , desc = "y$"})
 
 map("n", "/", "/\\v", { noremap = true })
 map("v", "/", "/\\v", { noremap = true })
@@ -154,7 +156,3 @@ usercmd("BackgroundToggle", function()
   end
   palette.refresh_palette()
 end)
-
--- LSP
-
--- map("n", "gd", vim.lsp.buf.definition, {noremap=true})
