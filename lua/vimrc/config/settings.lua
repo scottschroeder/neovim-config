@@ -129,6 +129,7 @@ map({ "n" }, "<M-q>", vim.diagnostic.setqflist, { desc = "set quickfix list" })
 -- map("n", "<Leader>g", ":Git<CR>", {desc = "Git"})
 map("n", "<Leader>gs", ":Git<CR>", {desc = "Fugitive"})
 map_prefix("<leader>g", "Git Helpers")
+vim.g.fugitive_no_maps = 1
 
 map("n", "j", "gj", { noremap = true })
 map("n", "k", "gk", { noremap = true })
