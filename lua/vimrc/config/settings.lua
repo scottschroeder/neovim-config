@@ -47,10 +47,10 @@ cmd "filetype on"
 
 vim.g.mapleader = " "
 
-map("", "<C-h>", "<C-w>h", {desc = "move window left"})
-map("", "<C-j>", "<C-w>j", {desc = "move window down"})
-map("", "<C-k>", "<C-w>k", {desc = "move window up"})
-map("", "<C-l>", "<C-w>l", {desc = "move window right"})
+map("", "<C-h>", "<C-w>h", { desc = "move window left" })
+map("", "<C-j>", "<C-w>j", { desc = "move window down" })
+map("", "<C-k>", "<C-w>k", { desc = "move window up" })
+map("", "<C-l>", "<C-w>l", { desc = "move window right" })
 
 -- Open new vertical split
 map("n", "<leader>w", "<C-w>v<C-w>l", { noremap = true, desc = "New Vertical Split" })
@@ -62,11 +62,11 @@ map("n", "<leader>c", "<C-w>c", { noremap = true, desc = "Close Split" })
 map("n", "<leader>o", ":only<CR>", { noremap = true, desc = "Close Everything Else" })
 
 -- Reload vimrc
-map("n", "<leader>sv", require('vimrc.utils').reload_vimrc, {desc = "reload .vimrc"})
+map("n", "<leader>sv", require('vimrc.utils').reload_vimrc, { desc = "reload .vimrc" })
 map("n", "<leader>ss", function()
   log.info('doing reload of luasnip')
   require("vimrc.utils").reload_plugin("vimrc.plugins.luasnip")
-end, {desc = "reload luasnip"})
+end, { desc = "reload luasnip" })
 
 
 
@@ -81,7 +81,7 @@ map("n", "<leader>p",
   function()
     -- require("vimrc.project").project({display_type = "full"})
     require("vimrc.project").project(require("telescope.themes").get_dropdown {})
-  end , {desc = "Project Picker"}
+  end, { desc = "Project Picker" }
 )
 
 -- Test
@@ -89,7 +89,7 @@ map_prefix("<leader>s", "nvim config debug commands")
 map("n", "<leader>sf",
   function()
     require("vimrc.project").project_select()
-  end, {desc = "Project Select ???"}
+  end, { desc = "Project Select ???" }
 )
 
 -- vim's clipboard buffers go to tmux buffer
@@ -98,7 +98,7 @@ map("n", "<leader>sf",
 
 -- For my current setup, the unnamed buffer (PRIMARY) is the
 -- one that's getting synced.
-map({ "n", "v" }, "<Leader>y", '"*y', {desc="Yank to Clipboard"})
+map({ "n", "v" }, "<Leader>y", '"*y', { desc = "Yank to Clipboard" })
 
 -- map("n", "<Leader>y", '"+y')
 -- map("v", "<Leader>d", '"+d')
@@ -110,7 +110,7 @@ map({ "n", "v" }, "<Leader>y", '"*y', {desc="Yank to Clipboard"})
 -- map("v", "<Leader>P", '"+P')
 
 -- Remove search hilighting
-map({"n", "v"}, "<Leader>/", ':let @/ = ""<CR>', { silent = true, desc = "Clear Search" })
+map({ "n", "v" }, "<Leader>/", ':let @/ = ""<CR>', { silent = true, desc = "Clear Search" })
 
 -- Format the current file
 -- These are handled by the attach function. For now we have no other formatters
@@ -125,15 +125,37 @@ map({ "n" }, "<M-q>", vim.diagnostic.setqflist, { desc = "set quickfix list" })
 
 
 -- Git
--- TODO are there sub mappings here? can we do them manually?
--- map("n", "<Leader>g", ":Git<CR>", {desc = "Git"})
-map("n", "<Leader>gs", ":Git<CR>", {desc = "Fugitive"})
-map_prefix("<leader>g", "Git Helpers")
 vim.g.fugitive_no_maps = 1
+map_prefix("<leader>g", "Git Helpers")
+map("n", "<Leader>gs", ":Git<CR>", { desc = "Fugitive" })
+
+map({ "n", "v" }, "<Leader>gl", function()
+  qf = require("vimrc.config.quickfix")
+  local bn = vim.api.nvim_get_current_buf()
+
+  local mode = vim.api.nvim_get_mode()["mode"]
+
+  local range = nil
+  if mode ~= "n" then
+    local vstart = vim.fn.getpos('v')[2]
+    local vend = vim.fn.getcurpos()[2]
+    if vstart > vend then
+      range = {vend, vstart}
+    else
+      range = {vstart, vend}
+    end
+  end
+
+  vim.api.nvim_cmd({cmd="Gclog", range=range}, {})
+  vim.api.nvim_set_current_buf(bn)
+  qf.close_quickfix()
+  qf.open_quickfix()
+end, { desc = "Git Log Quickfix" })
+map({ "n", "v" }, "<Leader>gb", ":G blame<CR>", { desc = "Git Blame" })
 
 map("n", "j", "gj", { noremap = true })
 map("n", "k", "gk", { noremap = true })
-map("", "Y", "y$", { noremap = true , desc = "y$"})
+map("", "Y", "y$", { noremap = true, desc = "y$" })
 
 map("n", "/", "/\\v", { noremap = true })
 map("v", "/", "/\\v", { noremap = true })
