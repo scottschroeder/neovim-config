@@ -21,5 +21,5 @@ mason.setup({
 })
 
 mason_lsp_config.setup({
-  ensure_installed = { "sumneko_lua", "rust_analyzer", "gopls"}
+  ensure_installed = { "lua_ls", "rust_analyzer", "gopls"}
 })
