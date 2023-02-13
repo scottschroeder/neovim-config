@@ -33,6 +33,7 @@ dap.listeners.before.event_exited["dapui_config"] = function()
 end
 
 local my_dap_go_config = require("vimrc.dev.dap.go")
+require("vimrc.dev.dap.rust")
 
 local debug_test = function()
   local ft = vim.bo.filetype
@@ -49,6 +50,7 @@ end
 vim.fn.sign_define('DapBreakpoint',{ text ='🟥', texthl ='', linehl ='', numhl =''})
 vim.fn.sign_define('DapStopped',{ text ='▶️', texthl ='', linehl ='', numhl =''})
 
+-- Config map ideas https://github.com/alpha2phi/neovim-for-beginner/blob/16-dap1/lua/config/dap/keymaps.lua
 require("vimrc.config.mapping").prefix("<Leader>d", "Debug Adapter Protocol")
 map({ "n" }, "<F5>", function() dap.continue() end, { desc = "DAP Continue" })
 map({ "n" }, "<Leader>db", function() dap.toggle_breakpoint() end, { desc = "Toggle Breakpoint" })

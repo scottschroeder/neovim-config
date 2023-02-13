@@ -1,4 +1,5 @@
 local log = require("vimrc.log")
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 local ok, mason_path = pcall(require, "mason-core.path")
 if not ok then
@@ -6,12 +7,40 @@ if not ok then
   return
 end
 
-local codelldb_package = mason_path.package_prefix("codelldb")
-local codelldb_path = 'codelldb'
-local liblldb_path = codelldb_package .. 'lldb/lib/liblldb.so'
+local extension_path = mason_path.package_prefix("codelldb") .. "/extension"
+local codelldb_path = extension_path .. '/adapter/codelldb'
+local liblldb_path = extension_path .. '/lldb/lib/liblldb.so'
+
+-- log.debug("codelldb", codelldb_path)
+-- log.debug("lib", liblldb_path)
+-- local adapter = require('rust-tools.dap').get_codelldb_adapter(codelldb_path, liblldb_path)
+-- log.debug("adapter", adapter)
 
 local opts = {
-    -- ... other configs
+    tools = {
+        hover_with_actions = false,
+    },
+    server = {
+        on_attach = require("vimrc.dev.attach").on_attach,
+        capabilities = capabilities,
+        settings = {
+            ["rust-analyzer"] = {
+                assist = {
+                    importGranularity = "crate",
+                    importPrefix = "self",
+                },
+                cargo = {
+                    loadOutDirsFromCheck = true
+                },
+                procMacro = {
+                    enable = true
+                },
+                checkOnSave = {
+                    command = "clippy"
+                },
+            }
+        },
+    },
     dap = {
         adapter = require('rust-tools.dap').get_codelldb_adapter(
             codelldb_path, liblldb_path)
