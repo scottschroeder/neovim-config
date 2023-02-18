@@ -1,4 +1,5 @@
 local log = require("vimrc.log")
+local map = require("vimrc.config.mapping").map
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 local ok, mason_path = pcall(require, "mason-core.path")
@@ -21,7 +22,10 @@ local opts = {
         hover_with_actions = false,
     },
     server = {
-        on_attach = require("vimrc.dev.attach").on_attach,
+        on_attach = function(...)
+          require("vimrc.dev.attach").on_attach(...)
+          map({ "n", "v" }, "gD", ":RustOpenExternalDocs<CR>", { desc = "Open Rust Documentation" })
+        end,
         capabilities = capabilities,
         settings = {
             ["rust-analyzer"] = {
