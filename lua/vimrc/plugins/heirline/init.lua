@@ -55,30 +55,30 @@ local function bold_if_active(component)
     end
 
     return {
-      bold = is_active(),
-      fg = color,
+        bold = is_active(),
+        fg = color,
     }
   end
 
   return {
-    {
-      condition = is_active,
-      hl = function()
-        return {
-          fg = colors.orange,
-          bg = palette.backgrounds()[3],
-          bold = true,
-          force = true,
-        }
-      end,
-      component
-    },
-    {
-      condition = function()
-        return not is_active()
-      end,
-      component
-    },
+      {
+          condition = is_active,
+          hl = function()
+            return {
+                fg = colors.orange,
+                bg = palette.backgrounds()[3],
+                bold = true,
+                force = true,
+            }
+          end,
+          component
+      },
+      {
+          condition = function()
+            return not is_active()
+          end,
+          component
+      },
   }
   -- return {
   --   hl = function()
@@ -89,48 +89,107 @@ local function bold_if_active(component)
 end
 
 local statusline = {
-  hl = function() return { bg = palette.backgrounds()[3] } end,
-  require("vimrc.plugins.heirline.mode").ViMode,
-  Space,
-  require("vimrc.plugins.heirline.lsp").LSPActive,
-  Space,
-  -- require("vimrc.plugins.heirline.lsp").LSPMessages,
-  require("vimrc.plugins.heirline.diagnostic").Diagnostics,
-  Space,
-  surround({ '[', ']' }, nil, require("vimrc.plugins.heirline.project").ProjectName),
-  Space,
-  require("vimrc.plugins.heirline.lsp").Gps,
-  Align,
-  require("vimrc.plugins.heirline.git").GitBranch,
-  Space,
-  require("vimrc.plugins.heirline.files").Ruler,
-  require("vimrc.plugins.heirline.files").ScrollBar,
-  Space,
-  surround({ '[', ']' }, nil, require("vimrc.plugins.heirline.files").FileSize),
+    hl = function() return { bg = palette.backgrounds()[3] } end,
+    require("vimrc.plugins.heirline.mode").ViMode,
+    Space,
+    require("vimrc.plugins.heirline.lsp").LSPActive,
+    Space,
+    -- require("vimrc.plugins.heirline.lsp").LSPMessages,
+    require("vimrc.plugins.heirline.diagnostic").Diagnostics,
+    Space,
+    surround({ '[', ']' }, nil, require("vimrc.plugins.heirline.project").ProjectName),
+    Space,
+    require("vimrc.plugins.heirline.lsp").Gps,
+    Align,
+    require("vimrc.plugins.heirline.git").GitBranch,
+    Space,
+    require("vimrc.plugins.heirline.files").Ruler,
+    require("vimrc.plugins.heirline.files").ScrollBar,
+    Space,
+    surround({ '[', ']' }, nil, require("vimrc.plugins.heirline.files").FileSize),
 }
+
+local should_ignore_window = function()
+  if buffer_matches({
+          buftype = { "nofile", "prompt", "help", "quickfix" },
+          filetype = { "^git.*", "fugitive" },
+      }) then
+    return true
+  end
+
+  local bufname = vim.api.nvim_buf_get_name(0)
+  if bufname:match('NvimTree_%d+$') then
+    return true
+  end
+
+  local winconfig = vim.api.nvim_win_get_config(0)
+  if winconfig.relative ~= "" then
+    return true
+  end
+
+  return false
+end
+
+local check_display_winbar = function()
+  if vim.opt_local.winbar == nil then
+    return false
+  end
+
+  if should_ignore_window() then
+    vim.opt_local.winbar = nil
+    return false
+  end
+  return true
+end
+
 local winline = {
-  hl = function() return { bg = palette.backgrounds()[3] } end,
-  -- require("vimrc.plugins.heirline.files").FileType,
-  -- TODO project name
-  require("vimrc.plugins.heirline.files").FileNameBlock,
-  Align,
-  require("vimrc.plugins.heirline.git").GitChanges,
+    fallthrough = false,
+    {
+        condition = should_ignore_window,
+        init = function()
+          vim.opt_local.winbar = nil
+        end
+    },
+    {
+        -- condition = check_display_winbar,
+        -- init = check_display_winbar,
+        -- require("vimrc.plugins.heirline.files").FileType,
+        -- TODO project name
+        hl = function() return { bg = palette.backgrounds()[3] } end,
+        require("vimrc.plugins.heirline.files").FileNameBlock,
+        Align,
+        require("vimrc.plugins.heirline.git").GitChanges,
+    },
 }
 
+local function define_autogroup()
+  local au_group = vim.api.nvim_create_augroup("vimrc_winbar_disable", { clear = true })
 
-local winline_ignore_tree = {
-  init = function()
-    local bufname = vim.api.nvim_buf_get_name(0)
-    if bufname:match('NvimTree_%d+$') then
-      vim.opt_local.winbar = nil
-    end
-  end,
-  winline
-}
+  vim.api.nvim_create_autocmd(
+      { "User" },
+      {
+          pattern = "HeirlineInitWinbar",
+          callback = function(args)
+            local buf = args.buf
+            local buftype = vim.tbl_contains(
+                    { "prompt", "nofile", "help", "quickfix" },
+                    vim.bo[buf].buftype
+                )
+            local filetype = vim.tbl_contains({ "gitcommit", "fugitive" }, vim.bo[buf].filetype)
+            if buftype or filetype then
+              vim.opt_local.winbar = nil
+            end
+          end,
+          desc = "disable winbar for certain windows",
+          group = au_group,
+      }
+  )
+end
 
+define_autogroup()
 
 heirline.setup({
-  statusline = statusline,
-  winbar = winline,
-  winline_ignore_tree = winline_ignore_tree,
+    statusline = statusline,
+    winbar = winline,
+    -- winline_ignore_tree = winline_ignore_tree,
 })
