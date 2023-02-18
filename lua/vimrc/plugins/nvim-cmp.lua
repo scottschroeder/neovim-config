@@ -1,11 +1,11 @@
 -- menuone: popup even when there's only one match
 -- noselect: Do not select, force user to select one from the menu
-vim.opt.completeopt = { "menu", "menuone", "noselect" }
+vim.opt.completeopt = { "menu", "menuone", "noinsert", "noselect", "preview" }
 
 local ok, cmp = pcall(require, "cmp")
 
 if not ok then
-    return
+  return
 end
 
 local icons = {
@@ -39,6 +39,7 @@ local icons = {
 
 cmp.setup({
    experimental = {
+    preselect = cmp.PreselectMode.None,
         native_menu = false,
         ghost_text = false,
     },
@@ -48,7 +49,7 @@ cmp.setup({
         end,
     },
     completion = {
-        completeopt = "menu,menuone,noinsert",
+        completeopt = "menu,menuone,noinsert,noselect,preview",
         keyword_pattern = [[\%(-\?\d\+\%(\.\d\+\)\?\|\h\w*\%(-\w*\)*\)]],
         keyword_length = 1,
     },
