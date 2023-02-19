@@ -64,9 +64,8 @@ map("n", "<leader>o", ":only<CR>", { noremap = true, desc = "Close Everything El
 -- Reload vimrc
 map("n", "<leader>sv", require('vimrc.utils').reload_vimrc, { desc = "reload .vimrc" })
 map("n", "<leader>ss", function()
-  log.info('doing reload of luasnip')
   require("vimrc.utils").reload_plugin("vimrc.plugins.luasnip")
-end, { desc = "reload luasnip" })
+end, { desc = "reload snippets" })
 
 
 

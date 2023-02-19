@@ -103,23 +103,6 @@ ls.add_snippets("rust", {
     t({ "", "}" }),
   }),
   s(
-    "tmod",
-    fmt(
-      [[
-        #[cfg(test)]
-        mod test {{
-        {}
-
-          {}
-        }}
-      ]],
-      {
-        c(1, { t "    use super::*;", t "" }),
-        i(0),
-      }
-    )
-  ),
-  s(
     "pd",
     fmt([[println!("{}: {{:?}}", {});]], { rep(1), i(1) })
   ),
