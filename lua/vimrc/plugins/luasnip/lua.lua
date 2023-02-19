@@ -39,7 +39,7 @@ local snippet_plugin_import = snippet("reqplugin",
         fmt(
             [[
           local log = require("vimrc.log")
-          local ok, {} = require("{}")
+          local ok, {} = pcall(require, "{}")
           if not ok then
             log.warn("unable to load {}")
             return
