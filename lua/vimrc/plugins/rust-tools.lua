@@ -18,37 +18,46 @@ local liblldb_path = extension_path .. '/lldb/lib/liblldb.so'
 -- log.debug("adapter", adapter)
 
 local opts = {
-    tools = {
-        hover_with_actions = false,
-    },
-    server = {
-        on_attach = function(...)
-          require("vimrc.dev.attach").on_attach(...)
-          map({ "n", "v" }, "gD", ":RustOpenExternalDocs<CR>", { desc = "Open Rust Documentation" })
-        end,
-        capabilities = capabilities,
-        settings = {
-            ["rust-analyzer"] = {
-                assist = {
-                    importGranularity = "crate",
-                    importPrefix = "self",
-                },
-                cargo = {
-                    loadOutDirsFromCheck = true
-                },
-                procMacro = {
-                    enable = true
-                },
-                checkOnSave = {
-                    command = "clippy"
-                },
-            }
+  tools = {
+    hover_with_actions = false,
+  },
+  server = {
+    on_attach = function(...)
+      require("vimrc.dev.attach").on_attach(...)
+      map({ "n", "v" }, "gD", ":RustOpenExternalDocs<CR>", { desc = "Open Rust Documentation" })
+    end,
+    capabilities = capabilities,
+    settings = {
+      ["rust-analyzer"] = {
+        assist = {
+          importGranularity = "crate",
+          importPrefix = "self",
         },
+        imports = {
+          granularity = {
+            group = "crate",
+          },
+          prefix = "self",
+        },
+        cargo = {
+          loadOutDirsFromCheck = true,
+          buildScripts = {
+            enable = true
+          },
+        },
+        procMacro = {
+          enable = true
+        },
+        checkOnSave = {
+          command = "clippy"
+        },
+      }
     },
-    dap = {
-        adapter = require('rust-tools.dap').get_codelldb_adapter(
-            codelldb_path, liblldb_path)
-    }
+  },
+  dap = {
+    adapter = require('rust-tools.dap').get_codelldb_adapter(
+      codelldb_path, liblldb_path)
+  }
 }
 
 
