@@ -65,7 +65,6 @@ local compare_kind_with_priority = function(priority_list)
 end
 
 
-
 cmp.setup({
   preselect = cmp.PreselectMode.None,
   experimental = {
@@ -106,7 +105,8 @@ cmp.setup({
     ['<C-d>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
-    ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Do not make a selection.
+    ['<C-y>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Take the first selection if one is not set.
     -- ['TAB'] = cmp.mapping.
   }),
   sorting = {
