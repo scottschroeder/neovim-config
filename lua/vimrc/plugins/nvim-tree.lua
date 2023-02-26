@@ -23,7 +23,7 @@ if ok then
     },
     filters             = {
       custom = {
-        '.git', 'node_modules', '.cache'
+        '\\.git', 'node_modules', '\\.cache'
       }
     },
     actions = {
