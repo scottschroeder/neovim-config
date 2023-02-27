@@ -36,6 +36,7 @@ end, { desc = "luasnip change choice" })
 local types = require("luasnip.util.types")
 ls.config.set_config({
     history = true,
+    region_check_events = "InsertEnter,CursorMoved",
     updateevents = "TextChanged,TextChangedI",
     enable_autosnippets = true,
     ext_opts = {
