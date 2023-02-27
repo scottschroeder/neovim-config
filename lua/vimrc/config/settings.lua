@@ -154,7 +154,7 @@ map({ "n", "v" }, "<Leader>gb", ":G blame<CR>", { desc = "Git Blame" })
 
 map("n", "j", "gj", { noremap = true })
 map("n", "k", "gk", { noremap = true })
-map("", "Y", "y$", { noremap = true, desc = "y$" })
+map({ "n", "v" }, "Y", "y$", { noremap = true, desc = "y$" })
 
 map("n", "/", "/\\v", { noremap = true })
 map("v", "/", "/\\v", { noremap = true })
