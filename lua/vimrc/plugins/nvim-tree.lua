@@ -22,9 +22,9 @@ if ok then
       update_cwd = false,
     },
     filters             = {
-      custom = {
-        '\\.git', 'node_modules', '\\.cache'
-      }
+      -- custom = {
+      --   '\\.git', 'node_modules', '\\.cache'
+      -- }
     },
     actions = {
       open_file = {

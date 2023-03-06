@@ -1,5 +1,6 @@
 local log = require("vimrc.log")
 local map = require("vimrc.config.mapping").map
+local map_prefix = require("vimrc.config.mapping").prefix
 local ok, tabby = pcall(require,"tabby")
 if not ok then
   log.warn("unable to load tabby")
@@ -10,6 +11,7 @@ tabby.setup({
   tabline = require("tabby.presets").active_wins_at_tail
 })
 
+map_prefix("<leader>t", "Tabs")
 map("n", "<leader>ta", ":$tabnew<CR>", {noremap = true})
 map("n", "<leader>tc", ":tabclose<CR>", { noremap = true })
 map("n", "<leader>to", ":tabonly<CR>", { noremap = true })
