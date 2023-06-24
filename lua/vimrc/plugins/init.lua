@@ -25,9 +25,7 @@ require("vimrc.plugins.nvim-lightbulb")
 require("vimrc.plugins.lsp_extensions")
 require("vimrc.plugins.kommentary")
 require('lspkind').init({})
-require('gitsigns').setup{
-  keymaps = {}
-}
+require('gitsigns').setup {}
 require('vimrc.plugins.project')
 require('vimrc.plugins.inlay_hints')
 require('vimrc.plugins.autoclose')
