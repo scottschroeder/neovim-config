@@ -1,19 +1,20 @@
 local log = require("vimrc.log")
 local ok, nvimtree = pcall(require, "nvim-tree")
+if not ok then
+  log.warn("could not load module:", "nvim-tree")
+  return
+end
+
+local api = require("nvim-tree.api")
 
 local function toggle_builtin()
-  if ok then
-    nvimtree.toggle(true)
-  else
-    log.warn("nvim-tree not found")
-  end
+  api.tree.toggle { find_file = false, focus = true }
 end
 
 local map = require("vimrc.config.mapping").map
-map("n", "<Leader>k", toggle_builtin, {desc = "NvimTree"})
+map("n", "<Leader>k", toggle_builtin, { desc = "NvimTree" })
 
 if ok then
-
   nvimtree.setup {
     update_cwd          = true,
     respect_buf_cwd     = true,
@@ -26,7 +27,7 @@ if ok then
       --   '\\.git', 'node_modules', '\\.cache'
       -- }
     },
-    actions = {
+    actions             = {
       open_file = {
         window_picker = {
           -- ENABLE TO ASK WHICH WINDOW
@@ -34,12 +35,11 @@ if ok then
         }
       }
     },
-    renderer = {
+    renderer            = {
       highlight_git = true,
     },
-    diagnostics = {
+    diagnostics         = {
       enable = true,
     }
   }
-
 end
