@@ -30,7 +30,7 @@ return require("packer").startup(
           -- LSP Core
           use { "nvim-lua/lsp_extensions.nvim" }
           -- use {"nvim-lua/lsp-status.nvim"} -- repo requires updates
-          use { "j-hui/fidget.nvim" } -- display lsp status updates
+          use { "j-hui/fidget.nvim", tag = "legacy" } -- display lsp status updates
           use { "williamboman/mason.nvim" }
           use { "williamboman/mason-lspconfig.nvim" }
           use { "neovim/nvim-lspconfig" }
