@@ -94,6 +94,9 @@ return require("packer").startup(
           -- Terraform (non-lua)
           use { 'hashivim/vim-terraform' }
 
+          -- Ledger
+          -- use { 'ledger/vim-ledger' }
+
           -- Debugging
           use { 'mfussenegger/nvim-dap' }
           use { 'leoluz/nvim-dap-go' }
