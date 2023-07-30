@@ -75,6 +75,21 @@ local function define_autogroup()
           group = au_group,
       }
   )
+  vim.api.nvim_create_autocmd(
+      { "VimEnter", "BufReadPost", "BufEnter" },
+      {
+          pattern = "*",
+          callback = function ()
+            local entry = require("vimrc.project").get_existing_project_for_buf(0)
+            if entry ~= nil then
+              vim.opt.titlestring = entry.title
+            end
+
+          end,
+          desc = "update terminal title to match project",
+          group = au_group,
+      }
+  )
 end
 
 local function create_bindings()

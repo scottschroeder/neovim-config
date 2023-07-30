@@ -21,6 +21,7 @@ opt("w", "numberwidth", 2)
 opt("w", "cursorline", true) -- cursor line is highlighted
 opt("o", "scrolloff", 3) -- keep cursorline away from the edge
 opt("o", "lazyredraw", true)
+opt("o", "title", true)
 
 opt("o", "ignorecase", true)
 opt("o", "smartcase", true)
