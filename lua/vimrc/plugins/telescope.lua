@@ -54,8 +54,12 @@ require("telescope").setup({
 
 require("telescope").load_extension("ui-select")
 
-map("n", "<C-p>", require('telescope.builtin').find_files, {desc = "Telescope Find Files"})
-map("n", "<leader>lt", require('telescope.builtin').lsp_dynamic_workspace_symbols, {desc = "Search Symbols"})
+map("n", "<C-p>",
+  function()
+    require('telescope.builtin').find_files({ find_command = { 'rg', '--files', '--hidden', '-g', '!.git' } })
+  end, { desc = "Telescope Find Files" }
+)
+map("n", "<leader>lt", require('telescope.builtin').lsp_dynamic_workspace_symbols, { desc = "Search Symbols" })
 -- TODO why didn't the cmd function work?
 vim.api.nvim_create_user_command("Files",
   function()
@@ -68,7 +72,7 @@ vim.api.nvim_create_user_command("Files",
 -- map("n", "<leader>b", require('telescope.builtin').buffers)
 -- map("n", "<C-s>", require('telescope.builtin').spell_suggest)
 -- map("n", "<C-h>", require('telescope.builtin').help_tags) -- C-h is used to move left :|
-map("n", "<C-f>", require('telescope.builtin').builtin, {desc="Telescope Anything"})
-map("n", "<C-g>", require('telescope.builtin').live_grep, {desc="Live Grep"})
+map("n", "<C-f>", require('telescope.builtin').builtin, { desc = "Telescope Anything" })
+map("n", "<C-g>", require('telescope.builtin').live_grep, { desc = "Live Grep" })
 -- map("n", "<Leader>m", ":Marks<CR>")
-map("n", "<Leader><Space>", require('telescope.builtin').commands, {desc = "Telescope Commands"})
+map("n", "<Leader><Space>", require('telescope.builtin').commands, { desc = "Telescope Commands" })
