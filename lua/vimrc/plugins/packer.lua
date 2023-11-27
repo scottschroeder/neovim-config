@@ -67,7 +67,7 @@ return require("packer").startup(
           use { 'nvim-telescope/telescope.nvim', requires = { { 'nvim-lua/plenary.nvim' } } }
           use { 'nvim-telescope/telescope-ui-select.nvim' } -- vim.ui.select will default everything to telescope
           use { 'stevearc/dressing.nvim' } -- appearance of the vim.ui.select & vim.ui.input modals
-          use { "SmiteshP/nvim-gps", requires = "nvim-treesitter/nvim-treesitter" } -- show code object at location
+          use { "SmiteshP/nvim-navic", requires = "neovim/nvim-lspconfig" }
           use { "m4xshen/autoclose.nvim" }
           use { "folke/which-key.nvim" }
 

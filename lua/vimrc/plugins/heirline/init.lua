@@ -99,7 +99,7 @@ local statusline = {
     Space,
     surround({ '[', ']' }, nil, require("vimrc.plugins.heirline.project").ProjectName),
     Space,
-    require("vimrc.plugins.heirline.lsp").Gps,
+    require("vimrc.plugins.heirline.lsp").Navic,
     Align,
     require("vimrc.plugins.heirline.git").GitBranch,
     Space,
