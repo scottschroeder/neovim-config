@@ -59,4 +59,7 @@ ls.cleanup()
 require("vimrc.plugins.luasnip.all")
 require("vimrc.plugins.luasnip.lua")
 require("vimrc.plugins.luasnip.rust")
-require("vimrc.plugins.luasnip.go")
+local has_go, luasnip_go = pcall(require, "vimrc.plugins.luasnip.go")
+if not has_go then
+  log.warn("luasnip could not load golang snippets")
+end
