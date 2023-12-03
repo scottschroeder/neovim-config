@@ -98,7 +98,8 @@ map("n", "<leader>sf",
 
 -- For my current setup, the unnamed buffer (PRIMARY) is the
 -- one that's getting synced.
-map({ "n", "v" }, "<Leader>y", '"*y', { desc = "Yank to Clipboard" })
+map({ "n", "v" }, "<Leader>y", '"+y', { desc = "Yank to Clipboard" })
+-- map({ "n", "v" }, "<Leader>y", '"*y', { desc = "Yank to Clipboard" })
 
 -- map("n", "<Leader>y", '"+y')
 -- map("v", "<Leader>d", '"+d')
