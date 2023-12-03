@@ -104,6 +104,24 @@ return require("packer").startup(
           use { 'theHamsta/nvim-dap-virtual-text' }
           use { 'nvim-telescope/telescope-dap.nvim' }
 
+          -- AI
+          -- Must be lazy loaded because it's very slow
+          use {
+            "zbirenbaum/copilot.lua",
+            cmd = "Copilot",
+            event = "InsertEnter",
+            config = function()
+              require("vimrc.plugins.copilot").setup()
+            end,
+          }
+          use {
+            "zbirenbaum/copilot-cmp",
+            after = { "copilot.lua" },
+            config = function ()
+              require("vimrc.plugins.copilot_cmp").setup()
+            end
+          }
+
           -- MAYBE
 
           -- PREVIOUSLY USED

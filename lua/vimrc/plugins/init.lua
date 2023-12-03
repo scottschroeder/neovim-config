@@ -1,6 +1,7 @@
 -- Plugin Configs
 require("vimrc.plugins.nvim-tree")
 require("vimrc.plugins.alpha-nvim")
+-- require("vimrc.plugins.copilot").setup()
 -- require("vimrc.plugins.nvim-bufferline")
 -- require("vimrc.plugins.tabby")
 require("vimrc.plugins.nvim-cmp")

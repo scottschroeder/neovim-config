@@ -101,7 +101,7 @@ cmp.setup({
     -- documentation = cmp.config.window.bordered(),
   },
   mapping = cmp.mapping.preset.insert({
-    ['<C-u>'] = cmp.mapping.scroll_docs( -4),
+    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
     ['<C-d>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
@@ -174,11 +174,17 @@ cmp.setup({
       cmp.config.compare.order,
     },
   },
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'nvim_lua' },
-    { name = 'luasnip' }, -- For luasnip users.
-  },
+  sources = cmp.config.sources(
+    {
+      { name = 'nvim_lsp' },
+      { name = 'luasnip' }, -- For luasnip users.
+    },
+    {
+      { name = 'copilot' },
+    },
+    {
+      { name = 'nvim_lua' },
+    },
     {
       { name = 'path' },
       { name = 'buffer' },
