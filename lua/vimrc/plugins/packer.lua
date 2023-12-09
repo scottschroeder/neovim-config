@@ -20,7 +20,7 @@ return require("packer").startup(
 
           -- Git
           use { "tpope/vim-fugitive" }
-          -- use {"sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" }
+          use {"sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" }
           use { 'ruifm/gitlinker.nvim', requires = 'nvim-lua/plenary.nvim', }
 
           -- Lib Extensions
