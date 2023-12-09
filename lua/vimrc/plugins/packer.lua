@@ -70,6 +70,7 @@ return require("packer").startup(
           use { "SmiteshP/nvim-navic", requires = "neovim/nvim-lspconfig" }
           use { "m4xshen/autoclose.nvim" }
           use { "folke/which-key.nvim" }
+          use { "stevearc/oil.nvim" }
 
           -- Completion
           use { "hrsh7th/nvim-cmp" }
