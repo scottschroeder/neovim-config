@@ -176,6 +176,7 @@ cmp.setup({
   },
   sources = cmp.config.sources(
     {
+      { name = 'git' },     -- github
       { name = 'nvim_lsp' },
       { name = 'luasnip' }, -- For luasnip users.
     },
@@ -199,3 +200,8 @@ cmp.setup.filetype('gitcommit', {
     { name = 'buffer' },
   })
 })
+
+local gitcmp_ok, gitcmp = pcall(require, "cmp_git")
+if gitcmp_ok then
+  gitcmp.setup({})
+end

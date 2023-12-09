@@ -23,6 +23,20 @@ return require("packer").startup(
           use {"sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" }
           use { 'ruifm/gitlinker.nvim', requires = 'nvim-lua/plenary.nvim', }
 
+          -- This just causes too many errors right now to be useful / trusted
+          -- not sure where the problem is.
+          use { 'pwntester/octo.nvim',
+            disable = true,
+            requires = {
+              'nvim-lua/plenary.nvim',
+              'nvim-telescope/telescope.nvim',
+              'nvim-tree/nvim-web-devicons',
+            },
+            config = function ()
+              require("vimrc.plugins.octo")
+            end
+          }
+
           -- Lib Extensions
           use { "nvim-lua/plenary.nvim" }
           use { "nvim-treesitter/nvim-treesitter" }
@@ -80,6 +94,7 @@ return require("packer").startup(
           use { "hrsh7th/cmp-nvim-lua" }
           use { "hrsh7th/cmp-nvim-lsp" }
           use { "hrsh7th/cmp-nvim-lsp-document-symbol" }
+          use {"petertriho/cmp-git", requires = "nvim-lua/plenary.nvim"}
 
 
           -- Snips

@@ -19,7 +19,7 @@ local is_autosave = function(buf)
 
   if
       vim.fn.getbufvar(buf, "&modifiable") == 1 and
-      utils.not_in(vim.fn.getbufvar(buf, "&filetype"), {"oil"}) then
+      utils.not_in(vim.fn.getbufvar(buf, "&filetype"), {"oil", "octo"}) then
     return true -- met condition(s), can save
   end
   return false  -- can't save
