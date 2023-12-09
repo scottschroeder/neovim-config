@@ -60,7 +60,7 @@ local is_copilot_enabled = function()
 
   local enabled = copilot_rules(filepath, filename, filetype)
 
-  log.warn("copilot enabled=", enabled, "ft=", filetype, "path:", filename, filepath)
+  -- log.warn("copilot enabled=", enabled, "ft=", filetype, "path:", filename, filepath)
   return enabled
 end
 
