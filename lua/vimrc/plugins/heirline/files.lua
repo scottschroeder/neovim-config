@@ -10,6 +10,16 @@ local filename_max_width = 0.9 -- 0.25
 
 local M = {}
 
+M.FileType = {
+  init = function(self)
+    self.filetype = string.lower(vim.bo.filetype)
+  end,
+  provider = function(self)
+    return "[" .. self.filetype .. "]"
+  end,
+  hl = { fg = utils.get_highlight("Type").fg, bold = true },
+}
+
 local FileNameBlock = {
   -- let's first set up some attributes needed by this component and it's children
   init = function(self)
@@ -82,12 +92,6 @@ M.FileNameBlock = utils.insert(FileNameBlock,
   { provider = '%<' }-- this means that the statusline is cut here when there's not enough space
 )
 
-M.FileType = {
-  provider = function()
-    return string.upper(vim.bo.filetype)
-  end,
-  hl = { fg = utils.get_highlight("Type").fg, bold = true },
-}
 
 M.FileSize = {
   provider = function()

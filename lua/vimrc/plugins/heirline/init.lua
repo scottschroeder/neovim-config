@@ -155,6 +155,8 @@ local winline = {
         -- init = check_display_winbar,
         -- require("vimrc.plugins.heirline.files").FileType,
         -- TODO project name
+        require("vimrc.plugins.heirline.files").FileType,
+        Space,
         hl = function() return { bg = palette.backgrounds()[3] } end,
         require("vimrc.plugins.heirline.files").FileNameBlock,
         Align,
