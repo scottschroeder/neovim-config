@@ -17,6 +17,9 @@ M.FileType = {
   provider = function(self)
     return "[" .. self.filetype .. "]"
   end,
+  condition = function(self)
+    return self.filetype ~= ""
+  end,
   hl = { fg = utils.get_highlight("Type").fg, bold = true },
 }
 
