@@ -115,6 +115,8 @@ end
 
 map("n", "<M-q>", magic_quickfix, { desc = "Magic Quickfix" })
 map("n", "<C-q>", diagnostic_quickfix, { desc = "Diagnostic Quickfix" })
+map("n", "]q", ":cn<CR>", { desc = "Next Quickfix" })
+map("n", "[q", ":cp<CR>", { desc = "Prev Quickfix" })
 
 return {
   magic_quickfix = magic_quickfix,
