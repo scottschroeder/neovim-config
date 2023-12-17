@@ -1,5 +1,17 @@
 # neovim-config
 
+## Development / Testing
+
+```bash
+docker build -t neovim-config .
+docker run -v $(pwd):/home/manager/.config/nvim -it neovim-config
+```
+
+or just run `nvim` directly
+```bash
+docker run -v $(pwd):/home/manager/.config/nvim -it neovim-config nvim
+```
+
 ## TODO
 Ideas: https://neovimcraft.com/
 
