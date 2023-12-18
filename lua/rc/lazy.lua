@@ -4,14 +4,14 @@ local lazypath = string.format('%s/lazy/lazy.nvim', vim.fn.stdpath('data'))
 
 local download_lazy = function()
   log.info("downloading lazy")
-  vim.fn.system {
+  vim.fn.system({
     "git",
     "clone",
     "--filter=blob:none",
-    "--single-branch",
     "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
     lazypath,
-  }
+  })
 end
 
 local has_lazy = function()

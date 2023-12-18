@@ -9,7 +9,7 @@
 -- User configuration section
 local default_config = {
   -- Name of the plugin. Prepended to log messages
-  plugin = 'vimrc',
+  plugin = 'rc',
 
   -- Should print the output to neovim while running
   use_console = true,
@@ -34,7 +34,7 @@ local default_config = {
     { name = "fatal", hl = "ErrorMsg", },
   },
 
-  chop_path = "vimrc",
+  chop_path = "rc",
 
   -- Can limit the number of decimals displayed for floats
   float_precision = 0.01,
