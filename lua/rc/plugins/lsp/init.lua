@@ -20,5 +20,8 @@ return {
     "lsp",
     dir = vim.fn.stdpath("config") .. "/lua/" .. "lsp",
     dependencies = { "neovim/nvim-lspconfig" },
+    config = function()
+      require("lsp")
+    end
   },
 }
