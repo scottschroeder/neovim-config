@@ -5,6 +5,7 @@ return {
   { "hrsh7th/cmp-cmdline" },
   { "hrsh7th/cmp-nvim-lua" },
   { "hrsh7th/cmp-nvim-lsp" },
+  { "saadparwaiz1/cmp_luasnip" },
   { "hrsh7th/cmp-nvim-lsp-document-symbol" },
   { "petertriho/cmp-git",                  dependencies = "nvim-lua/plenary.nvim" },
   {
@@ -97,10 +98,21 @@ return {
             return vim_item
           end,
         },
+        -- snippet = {
+        --   -- REQUIRED - you must specify a snippet engine
+        --   expand = function(args)
+        --     require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+        --   end,
+        -- },
         snippet = {
-          -- REQUIRED - you must specify a snippet engine
           expand = function(args)
-            require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+            local indent_nodes = true
+            if vim.api.nvim_get_option_value("filetype", { buf = 0 }) == "dart" then
+              indent_nodes = false
+            end
+            require("luasnip").lsp_expand(args.body, {
+              indent = indent_nodes,
+            })
           end,
         },
         window = {

@@ -1,7 +1,6 @@
 return {
   { "nvim-tree/nvim-web-devicons",     lazy = true },
   { "nvim-lua/plenary.nvim",           lazy = true },
-  { "nvim-treesitter/nvim-treesitter", lazy = true },
   { "j-hui/fidget.nvim",
     config = function()
       require("fidget").setup({})
