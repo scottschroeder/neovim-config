@@ -1,7 +1,6 @@
 local map_prefix = require("rc.utils.map").prefix
 local map = require("rc.utils.map").map
 
-LOG("lsp init")
 -- Generic LSP commands
 map_prefix("<leader>l", "LSP")
 map("n", "<leader>ls", ":LspInfo<CR>", { desc = "Info" })
@@ -24,3 +23,4 @@ for _, server_name in ipairs(additional_servers) do
 end
 
 require("lsp.lang.golang")
+require("lsp.lang.lua")

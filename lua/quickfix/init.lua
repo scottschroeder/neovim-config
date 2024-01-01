@@ -2,12 +2,21 @@ local map = require("rc.utils.map").map
 local log = require("rc.log")
 
 
-local open_quickfix = function ()
-    vim.api.nvim_command("botright cwindow")
+local open_quickfix = function()
+  vim.api.nvim_command("botright cwindow")
 end
 
 local function close_quickfix()
   vim.cmd([[cclose]])
+end
+
+local function set_qf_open_if_content()
+  local qfitems = vim.fn.getqflist()
+  if #qfitems > 0 then
+    open_quickfix()
+  else
+    close_quickfix()
+  end
 end
 
 local function severity_lsp_to_vim(severity)
@@ -17,20 +26,23 @@ local function severity_lsp_to_vim(severity)
   return severity
 end
 
-local get_diagnostics = function (opts)
+local get_diagnostics = function(opts)
   -- Opt handling from vim.lisp.diagnostic.set_qflist
   opts = opts or {}
   if opts.severity then
     opts.severity = severity_lsp_to_vim(opts.severity)
   elseif opts.severity_limit then
-    opts.severity = {min=severity_lsp_to_vim(opts.severity_limit)}
+    opts.severity = { min = severity_lsp_to_vim(opts.severity_limit) }
   end
 
   if not opts.client_id then
     local buf_clients = vim.lsp.buf_get_clients(0)
-    for k, _ in pairs(buf_clients) do
-      opts.namespace = vim.lsp.diagnostic.get_namespace(k)
-      break
+    for k, c in pairs(buf_clients) do
+      if c["name"] ~= "copilot" then
+        opts.namespace = vim.lsp.diagnostic.get_namespace(k)
+        break
+      else
+      end
     end
   else
     opts.namespace = vim.lsp.diagnostic.get_namespace(opts.client_id)
@@ -57,14 +69,33 @@ local is_open = function(qftype)
   return get_win_info(qftype) ~= nil
 end
 
-local magic_quickfix = function (opts)
+local load_diagnostics_to_quickfix = function()
+  -- Fetch diagnostics: Try errors only first, but then fallback to all diagnostics.
+  local errors = get_diagnostics({ severity = vim.diagnostic.severity.ERROR })
+  local diagnostics = {}
+  if next(errors) ~= nil then
+    diagnostics = errors
+  else
+    diagnostics = get_diagnostics({})
+  end
+
+  vim.fn.setqflist({}, ' ', { title = "", items = {} })
+
+  if #diagnostics == 0 then
+    return
+  end
+
+  local title = "Diagnostics"
+  local items = vim.diagnostic.toqflist(diagnostics)
+  vim.fn.setqflist({}, ' ', { title = title, items = items })
+end
+
+local toggle_quickfix = function(opts)
   log.trace("run magic quickfix")
   opts = opts or {}
 
   -- Extract a few options to select behavior
   local toggle = vim.F.if_nil(opts.toggle, true)
-  local force_diagnostics = vim.F.if_nil(opts.force_diagnostics, false)
-  local open = vim.F.if_nil(opts.open, true)
 
   -- close qf if its open
   if toggle and is_open() then
@@ -73,50 +104,25 @@ local magic_quickfix = function (opts)
   end
 
   -- if qf has items, open qf
-  if not force_diagnostics then
-    local old_items = vim.fn.getqflist()
-    if #old_items > 0 then
-      if open then
-        open_quickfix()
-      end
-      return
-    end
+  local prev_qf = vim.fn.getqflist()
+  if #prev_qf == 0 then
+    load_diagnostics_to_quickfix()
   end
 
-  -- Fetch diagnostics: Try errors only first, but then fallback to all diagnostics.
-  local errors = get_diagnostics({severity = vim.diagnostic.severity.ERROR})
-  local diagnostics = {}
-  if next(errors) ~= nil then
-    diagnostics = errors
-  else
-    diagnostics = get_diagnostics({})
-  end
-
-  -- If there is nothing to display, close qf
-  if next(diagnostics) == nil then
-    close_quickfix()
-    return
-  end
-
-  -- Set the qf to our diagnostics
-  local title = opts.title or "Diagnostics"
-  local items = vim.diagnostic.toqflist(diagnostics)
-  vim.fn.setqflist({}, ' ', {title=title, items=items})
-  if open then
-    open_quickfix()
-  end
+  set_qf_open_if_content()
 end
 
-local diagnostic_quickfix = function (opts)
-  opts = opts or {}
-  opts["force_diagnostics"] = true
-  magic_quickfix(opts)
+
+local diagnostic_quickfix = function()
+  load_diagnostics_to_quickfix()
+  set_qf_open_if_content()
 end
+
 
 
 return {
-  magic_quickfix = magic_quickfix,
+  magic_quickfix = toggle_quickfix,
   open_quickfix = open_quickfix,
   close_quickfix = close_quickfix,
+  diagnostic_quickfix = diagnostic_quickfix,
 }
-

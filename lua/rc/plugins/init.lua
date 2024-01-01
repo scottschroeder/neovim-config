@@ -9,6 +9,7 @@ return {
   },
   { "ggandor/lightspeed.nvim",         dependencies = "tpope/vim-repeat" },
   { 'stevearc/dressing.nvim' },         -- appearance of the vim.ui.select & vim.ui.input modals
+  { 'norcalli/nvim-colorizer.lua', config = function() require("colorizer").setup({}) end }, -- highlight color codes
   {
     "quickfix",
     enabled = true,

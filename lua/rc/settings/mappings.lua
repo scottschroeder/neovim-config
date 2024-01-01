@@ -21,6 +21,7 @@ map("n", "<leader>o", ":only<CR>", { noremap = true, desc = "Close Everything El
 -- one that's getting synced.
 map({ "n", "v" }, "<Leader>y", '"+y', { desc = "Yank to Clipboard" })
 
+map({ "n", "v" }, "<Leader>/", ':let @/ = ""<CR>', { silent = true, desc = "Clear Search" })
 
 map_prefix("<leader>g", "Git Helpers")
 
@@ -31,3 +32,8 @@ map("n", "<leader>tc", ":tabclose<CR>", { noremap = true, desc = "Close Tab" })
 map("n", "<leader>to", ":tabonly<CR>", { noremap = true, desc = "Close all other tabs" })
 map("n", "]t", ":tabn<CR>", { noremap = true, desc = "TabNext" })
 map("n", "[t", ":tabp<CR>", { noremap = true, desc = "TabPrev" })
+
+-- Diagnostics
+map({ "n" }, "]d", vim.diagnostic.goto_next, { desc = "go to next diagnostic" })
+map({ "n" }, "[d", vim.diagnostic.goto_prev, { desc = "go to prev diagnostic" })
+map({ "n" }, "L", vim.diagnostic.open_float, { desc = "show line diagnostics" })

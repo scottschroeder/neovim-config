@@ -14,8 +14,6 @@ local in_tmux = function()
 end
 
 
-opt("o", "termguicolors", true) -- full GUI colors
-
 -- if in_tmux() then
 --   opt("o", "background", "dark")
 -- else
