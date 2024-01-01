@@ -1,18 +1,25 @@
 local nvim_lsp = require('lspconfig')
 local buf_map = require('rc.utils.map').buf_map
-local map_prefix = require('rc.utils.map').map_prefix
+local map_prefix = require('rc.utils.map').prefix
 local log = require("rc.log")
 
 local code_action = function()
   local ok, actions_preview = pcall(require, "actions-preview")
   if ok then
-    actions_preview.code_action()
+    actions_preview.code_actions()
   else
     vim.lsp.buf.code_action()
   end
 end
 
 local on_attach = function(client, bufnr)
+
+  local ok_inlay, lsp_inlayhints = pcall(require, "lsp-inlayhints")
+  if ok_inlay then
+    lsp_inlayhints.on_attach(client, bufnr)
+  end
+
+
   if client.server_capabilities.documentSymbolProvider then
     local ok, navic = pcall(require, "nvim-navic")
     if ok then
@@ -20,7 +27,7 @@ local on_attach = function(client, bufnr)
     end
   end
 
-  local function buf_set_keymap(mode, lhs, rhs, desc)
+  local buf_set_keymap = function(mode, lhs, rhs, desc)
     buf_map(bufnr, mode, lhs, rhs, { desc = desc })
   end
 

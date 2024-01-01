@@ -18,6 +18,7 @@
   "kommentary": { "branch": "main", "commit": "d5a111a3bc4109a8f913a5863c9092b3b3801482" },
   "lazy.nvim": { "branch": "main", "commit": "96584866b9c5e998cbae300594d0ccfd0c464627" },
   "lightspeed.nvim": { "branch": "main", "commit": "fcc72d8a4d5f4ebba62d8a3a0660f88f1b5c3b05" },
+  "lsp-inlayhints.nvim": { "branch": "main", "commit": "d981f65c9ae0b6062176f0accb9c151daeda6f16" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "9453e3d6cd2ca45d96e20f343e8f1b927364b630" },
   "mason.nvim": { "branch": "main", "commit": "41e75af1f578e55ba050c863587cffde3556ffa6" },
   "nvim-bqf": { "branch": "main", "commit": "bdc2a4e5bb670b3c0e33ada9c0eec636d93a0748" },

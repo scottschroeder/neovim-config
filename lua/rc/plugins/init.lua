@@ -2,7 +2,11 @@ return {
   { "nvim-tree/nvim-web-devicons",     lazy = true },
   { "nvim-lua/plenary.nvim",           lazy = true },
   { "nvim-treesitter/nvim-treesitter", lazy = true },
-  { "j-hui/fidget.nvim" },
+  { "j-hui/fidget.nvim",
+    config = function()
+      require("fidget").setup({})
+    end
+  },
   { "ggandor/lightspeed.nvim",         dependencies = "tpope/vim-repeat" },
   { 'stevearc/dressing.nvim' },         -- appearance of the vim.ui.select & vim.ui.input modals
   {
