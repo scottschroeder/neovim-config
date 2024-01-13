@@ -19,7 +19,32 @@ return {
               title = "speeddial.nvim",
               vcs_root = "~/src/github/scottschroeder/speeddial.nvim",
             }
-          }
+          },
+          {
+            project = {
+              title = "Hab Config",
+              root = "~/src/github/scottschroeder/hab/configs",
+              vcs_root = "~/src/github/scottschroeder/hab",
+            }
+          },
+          {
+            git = {
+              root = "~/src/github",
+              source = "GitHub"
+            }
+          },
+          {
+            git = {
+              root = "~/src/local",
+              source = "local"
+            }
+          },
+          -- {
+          --   git = {
+          --     root = "~/src",
+          --     source = "git"
+          --   }
+          -- },
         }
       })
 
