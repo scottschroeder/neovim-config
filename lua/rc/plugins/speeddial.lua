@@ -4,22 +4,32 @@ return {
     dir = "~/src/github/scottschroeder/speeddial.nvim",
     dependencies = "nvim-lua/plenary.nvim",
     config = function()
+      local map = require("rc.utils.map").map
+
       require("speeddial").setup({
         sources = {
           {
             project = {
-              name = "Demo",
-              vcs_root = "~/src/local/neovim-config",
+              title = "Neovim Config",
+              vcs_root = "~/src/github/scottschroeder/neovim-config",
             }
           },
           {
             project = {
-              name = "Demo2",
-              vcs_root = "~/src/local/neovim-config2",
+              title = "speeddial.nvim",
+              vcs_root = "~/src/github/scottschroeder/speeddial.nvim",
             }
           }
         }
       })
+
+      map("n", "<leader>p", function()
+        require("speeddial").select({
+          after = function()
+            require('telescope.builtin').find_files({ find_command = { 'rg', '--files', '--hidden', '-g', '!.git' } })
+          end
+        })
+      end, {})
     end
   },
 }
