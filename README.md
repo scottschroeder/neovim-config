@@ -12,7 +12,25 @@ or just run `nvim` directly
 docker run -v $(pwd):/home/manager/.config/nvim -it neovim-config nvim
 ```
 
-## TODO
+
+# Documenting Setup
+
+## Spell checking
+
+- `z=` for suggestions
+- `]s` or `[s` to jump to next/previous misspelled word
+- `zg` add word to dictionary (spell good)
+- `zug` undo add to dictionary
+- `zw` mark word as wrong
+- `zG` add word to tmp dictionary
+
+#### Manually edit the spell dictionary
+```
+:e ~/.config/nvim/spell/en.utf-8.add
+:mkspell! %
+```
+
+# TODO
 Ideas: https://neovimcraft.com/
 
 

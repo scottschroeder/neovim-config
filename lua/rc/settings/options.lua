@@ -33,9 +33,12 @@ opt("b", "softtabstop", tabwidth)
 opt("b", "shiftwidth", tabwidth)
 opt("o", "smarttab", true)
 opt("b", "expandtab", true)
-opt("o", "pastetoggle", "<F12>")
+-- opt("o", "pastetoggle", "<F12>")
 
 opt("b", "spelllang", "en_us")
+opt("b", "spelloptions", "camel")
+opt("b", "spellcapcheck", "")
+opt("w", "spell", true)
 
 vim.cmd("syntax enable")
 vim.cmd("syntax on")
