@@ -37,18 +37,26 @@ local cmp_underscore = function(entry1, entry2)
   end
 end
 
-local copilot_last = function(entry1, entry2)
-  local e1_copilot = entry1.source.name == "copilot"
-  local e2_copilot = entry2.source.name == "copilot"
-  if e1_copilot == e2_copilot then
+local copilot_buffer_last = function(entry1, entry2)
+  local s1 = entry1.source.name
+  local s2 = entry2.source.name
+  if not (s1 == "copilot" or s2 == "copilot" or s1 == "buffer" or s2 == "buffer") then
+    return nil
+  elseif s1 == s2 then
     return nil
   end
-  return e2_copilot
+
+  if s1 == "copilot" and s2 == "buffer" then
+    return true
+  elseif s1 == "buffer" and s2 == "copilot" then
+    return false
+  end
+  return s2 == "buffer" or s2 == "copilot"
 end
 
 
 M.comparators = {
-  copilot_last,
+  copilot_buffer_last,
   cmp.config.compare.offset,
   cmp.config.compare.exact,
   cmp.config.compare.score,

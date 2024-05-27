@@ -34,6 +34,7 @@ return {
             -- { name = 'nvim_lua' },
           },
           {
+            { name = 'copilot' },
             { name = 'buffer' },
           }
         ),
@@ -68,6 +69,17 @@ return {
           documentation = cmp.config.window.bordered(),
         },
         formatting = require("rc.plugins.cmp.formatting").formatting,
+      })
+
+
+      cmp.setup.filetype('markdown', {
+        sources = cmp.config.sources({
+          { name = 'nvim_lsp' },
+          { name = 'path' },
+          { name = 'luasnip' },
+          { name = 'copilot' },
+          { name = 'buffer' },
+        })
       })
     end
   },
