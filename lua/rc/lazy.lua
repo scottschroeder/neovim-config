@@ -31,6 +31,11 @@ local setup_lazy = function()
   vim.opt.runtimepath:prepend(lazypath)
 
   require("lazy").setup("rc.plugins", {
+    change_detection = {
+      -- automatically check for config file changes and reload the ui
+      enabled = false,
+      notify = true, -- get a notification when changes are found
+    },
     -- ui = {
     --   icons = {
     --     cmd = "⌘",
