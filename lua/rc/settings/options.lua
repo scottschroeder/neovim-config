@@ -33,12 +33,20 @@ opt("b", "softtabstop", tabwidth)
 opt("b", "shiftwidth", tabwidth)
 opt("o", "smarttab", true)
 opt("b", "expandtab", true)
--- opt("o", "pastetoggle", "<F12>")
 
+-- Spelling
 opt("b", "spelllang", "en_us")
 opt("b", "spelloptions", "camel")
 opt("b", "spellcapcheck", "")
 opt("w", "spell", true)
+
+-- Code Folding
+opt("w", "foldmethod", "expr")
+opt("w", "foldmethod", "manual")
+opt("w", "foldcolumn", "0")
+opt("w", "foldlevel", 99)
+opt("w", "foldexpr", "nvim_treesitter#foldexpr()")
+
 
 vim.cmd("syntax enable")
 vim.cmd("syntax on")
