@@ -89,19 +89,7 @@ local handlers = {
     local text = get_node_text(node, 0)
     return { transform(text, info) }
   end,
-}                         --}}}
-
-vim.treesitter.query.set( --{{{
-  "go",
-  "LuaSnip_Result",
-  [[
-    [
-      (method_declaration result: (_) @id)
-      (function_declaration result: (_) @id)
-      (func_literal result: (_) @id)
-    ]
-  ]]
-)                                       --}}}
+}                                       --}}}
 
 local function return_value_nodes(info) --{{{
   local cursor_node = ts_utils.get_node_at_cursor()
@@ -123,7 +111,7 @@ local function return_value_nodes(info) --{{{
     return
   end
 
-  local query = vim.treesitter.get_query("go", "LuaSnip_Result")
+  local query = vim.treesitter.query.get("go", "return-snippet")
   for _, node in query:iter_captures(function_node, 0) do
     if handlers[node:type()] then
       return handlers[node:type()](node, info)
@@ -183,7 +171,7 @@ function M.is_in_test_function() --{{{
   return M.is_in_test_file() and M.is_in_function()
 end                              --}}}
 
-local charset = {} -- Random String {{{
+local charset = {}               -- Random String {{{
 for i = 48, 57 do
   table.insert(charset, string.char(i))
 end

@@ -5,22 +5,13 @@ M.get_package_name = function(bufnr)
   local tree = parser:parse()[1]
   local root = tree:root()
 
-  vim.treesitter.query.set(
-    "go",
-    "PackageNameExtract",
-    [[ (package_clause
-    (package_identifier) @packagename
-    )]]
+  local query = assert(
+    vim.treesitter.query.get("go", "package-name"),
+    "No query"
   )
 
-  local query = vim.treesitter.query.get("go", "PackageNameExtract")
-  if query == nil then
-    return nil
-  end
-
   for _, node in query:iter_captures(root, 0) do
-    local txt = vim.treesitter.get_node_text(node, 0)
-    return txt
+    return vim.treesitter.get_node_text(node, 0)
   end
 
   return nil
