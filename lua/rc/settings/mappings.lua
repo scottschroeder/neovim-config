@@ -37,3 +37,13 @@ map("n", "[t", ":tabp<CR>", { noremap = true, desc = "TabPrev" })
 map({ "n" }, "]d", vim.diagnostic.goto_next, { desc = "go to next diagnostic" })
 map({ "n" }, "[d", vim.diagnostic.goto_prev, { desc = "go to prev diagnostic" })
 map({ "n" }, "L", vim.diagnostic.open_float, { desc = "show line diagnostics" })
+usercmd("Scratch", function()
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_set_current_buf(buf)
+end)
+
+
+-- This doesn't really work as expected
+map({ "n" }, "<leader>ss", function()
+  vim.cmd("Lazy reload LuaSnip")
+end, { desc = "reload lua snippets" })
