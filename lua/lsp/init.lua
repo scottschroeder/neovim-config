@@ -13,7 +13,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 
-local additional_servers = { "bashls", "dockerls", "dotls", "graphql", "jsonls", "terraformls", "pyright" }
+local additional_servers = { "bashls", "dockerls", "dotls", "graphql", "jsonls", "pyright" }
 
 for _, server_name in ipairs(additional_servers) do
   require('lspconfig')[server_name].setup {
@@ -24,3 +24,4 @@ end
 
 require("lsp.lang.golang")
 require("lsp.lang.lua")
+require("lsp.lang.terraform")
