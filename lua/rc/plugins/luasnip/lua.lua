@@ -1,3 +1,4 @@
+require("luasnip.session.snippet_collection").clear_snippets("lua")
 local ls = require("luasnip")
 local ls = require("luasnip")
 local types = require("luasnip.util.types")

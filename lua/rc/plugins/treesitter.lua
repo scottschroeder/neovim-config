@@ -12,6 +12,7 @@ return {
         "cpp",
         "css",
         "go",
+        "hcl",
         "html",
         "javascript",
         "json",
@@ -22,6 +23,7 @@ return {
         "regex",
         "rust",
         "sql",
+        "terraform",
         "toml",
       },
       highlight = {
