@@ -3,9 +3,6 @@
 require('lspconfig').gopls.setup {
   on_attach = function(c, b)
     require("lsp.attach").on_attach(c, b)
-    -- if ok_inlay_hints then
-    --   inlay_hints.on_attach(c, b)
-    -- end
   end,
   capabilities = require("lsp.capabilities").capabilities,
   settings = {

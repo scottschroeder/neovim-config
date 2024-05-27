@@ -14,12 +14,6 @@ end
 
 local on_attach = function(client, bufnr)
 
-  local ok_inlay, lsp_inlayhints = pcall(require, "lsp-inlayhints")
-  if ok_inlay then
-    lsp_inlayhints.on_attach(client, bufnr)
-  end
-
-
   if client.server_capabilities.documentSymbolProvider then
     local ok, navic = pcall(require, "nvim-navic")
     if ok then
@@ -31,6 +25,14 @@ local on_attach = function(client, bufnr)
     buf_map(bufnr, mode, lhs, rhs, { desc = desc })
   end
 
+  if client.server_capabilities.inlayHintProvider then
+    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr }) -- Set the default as true
+    buf_set_keymap({ "n" }, "<leader>lh", function()
+      local current_setting = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
+      vim.lsp.inlay_hint.enable(not current_setting, { bufnr = bufnr })
+    end, "toggle inlay hints")
+  end
+
 
   map_prefix("g", "GOTO", { buffer = bufnr })
   buf_set_keymap({ "n" }, "K", vim.lsp.buf.hover, "show hover documentation")
@@ -38,7 +40,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap({ "n" }, "gt", vim.lsp.buf.type_definition, "go to type definition")
   buf_set_keymap({ "n" }, "gi", vim.lsp.buf.implementation, "go to implementation")
   buf_set_keymap({ "n" }, "gr", vim.lsp.buf.references, "go to references")
-  buf_set_keymap({ "n" }, "<leader>lr", ":LspRestart<CR>", { desc = "Restart" })
+  buf_set_keymap({ "n" }, "<leader>lr", ":LspRestart<CR>", "Restart")
 
 
   buf_set_keymap({ "n" }, "<F2>", vim.lsp.buf.rename, "rename at point")
