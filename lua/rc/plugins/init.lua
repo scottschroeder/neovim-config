@@ -20,4 +20,17 @@ return {
     map("n", "[q", ":cp<CR>", { desc = "Prev Quickfix" })
   end
   ),
+  require("rc.utils.miniplugin").define_config("golang", function()
+    local golang = require("golang")
+    local map = require("rc.utils.map").map
+    local cmd = require("rc.utils.map").cmd
+
+
+    cmd("GoTestSwitch", golang.switch_implementation_and_test,
+      { desc = "Switch between test and implementation file" })
+
+    map("n", "<leader>gt", golang.switch_implementation_and_test,
+      { desc = "Switch between test and implementation file" })
+  end
+  ),
 }

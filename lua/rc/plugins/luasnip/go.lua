@@ -41,6 +41,44 @@ local not_in_func = {
   condition = not_in_function,
 }
 
+local subtest_case = function()
+  local example = [[tests := map[string]struct {
+		input int
+    expected int
+	}{
+		"double": {
+      input: 2,
+      expected: 4,
+		},
+	}
+	for tn, tt := range tests {
+		t.Run(tn, func(t *testing.T) {
+			assert.Equalf(t, tt.expected, tt.input * 2, "could not double %d", tt.input)
+		})
+	}]]
+
+  local lines = {}
+  for line in example:gmatch("([^\n]*)\n?") do
+    lines[#lines + 1] = line
+  end
+
+  return lines
+end
+
+local snippet_tfn = snippet("tfn",
+  fmt(
+    [[
+              func Test{}(t *testing.T) {{
+                {}
+                {}
+              }}
+            ]],
+    {
+      i(1, "MySystemUnderTest"),
+      i(0),
+      c(2, { t(""), t(subtest_case()) }),
+    }
+  ))
 
 ls.add_snippets("go", {
   snippet(
@@ -64,6 +102,7 @@ ls.add_snippets("go", {
           ]], ls.i(0)),
     not_in_func
   ),
+  snippet_tfn,
 
   snippet(
     { trig = "make", name = "Make", dscr = "Allocate map or slice" },
