@@ -198,15 +198,11 @@ return {
             { name = 'git' },     -- github
             { name = 'nvim_lsp' },
             { name = 'luasnip' }, -- For luasnip users.
-          },
-          {
             { name = 'copilot' },
-          },
-          {
             { name = 'nvim_lua' },
+            { name = 'path' },
           },
           {
-            { name = 'path' },
             { name = 'buffer' },
           })
       })
