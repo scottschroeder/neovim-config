@@ -1,0 +1,32 @@
+================================================================================
+INTRODUCTION                                                         *notes.txt*
+
+Notes about my own configuration
+
+================================================================================
+CONTENTS                                                        *notes.contents*
+
+
+  1. Spelling |NotesSpelling|
+
+
+================================================================================
+SPELLING                                                        *notes.spelling*
+
+- `z=` for suggestions
+- `]s` or `[s` to jump to next/previous misspelled word
+- `zg` add word to dictionary (spell good)
+- `zug` undo add to dictionary
+- `zw` mark word as wrong
+- `zG` add word to tmp dictionary
+
+
+--------------------------------------------------------------------------------
+DICTIONARY                                           *notes.spelling.dictionary*
+
+```
+:e ~/.config/nvim/spell/en.utf-8.add
+:mkspell! %
+```
+
+vim:tw=78:ts=8:ft=help:norl:
