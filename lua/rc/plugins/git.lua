@@ -23,8 +23,8 @@ return {
   {
     'ruifm/gitlinker.nvim',
     dependencies = 'nvim-lua/plenary.nvim',
-    lazy = true,
-    keys = "<leader>g",
+    lazy = false,
+    -- keys = "<leader>g",
     config = function()
       local gitlinker = require("gitlinker")
       gitlinker.setup({
