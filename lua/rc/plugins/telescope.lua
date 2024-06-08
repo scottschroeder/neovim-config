@@ -9,13 +9,8 @@ return {
       local actions = require("telescope.actions")
       local qf = require("quickfix")
 
-      local open_all_in_quickfix = function(...)
-        actions.send_to_qflist(...)
-        qf.open_quickfix()
-      end
-
-      local open_selected_in_quickfix = function(...)
-        actions.send_selected_to_qflist(...)
+      local open_smart_in_quickfix = function(...)
+        actions.smart_send_to_qflist(...)
         qf.open_quickfix()
       end
 
@@ -24,12 +19,10 @@ return {
           -- sorting_strategy = "ascending", -- https://github.com/nvim-telescope/telescope.nvim/issues/2667
           mappings = {
             i = {
-              ["<C-q>"] = open_selected_in_quickfix,
-              ["<M-q>"] = open_all_in_quickfix,
+              ["<M-q>"] = open_smart_in_quickfix,
             },
             n = {
-              ["<C-q>"] = open_selected_in_quickfix,
-              ["<M-q>"] = open_all_in_quickfix,
+              ["<M-q>"] = open_smart_in_quickfix,
             },
           }
         },
