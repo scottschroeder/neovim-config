@@ -60,7 +60,7 @@ return {
         require("rc.log").warn("ripgrep not found, not setting some telescope bindings")
       end
 
-      -- map("n", "<leader>lt", require('telescope.builtin').lsp_dynamic_workspace_symbols, { desc = "Search Symbols" })
+      map("n", "<leader>lt", require('telescope.builtin').lsp_dynamic_workspace_symbols, { desc = "Search Symbols" })
       -- -- TODO why didn't the cmd function work?
       -- vim.api.nvim_create_user_command("Files",
       --   function()
