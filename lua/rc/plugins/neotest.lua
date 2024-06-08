@@ -6,6 +6,7 @@ return {
     "antoinemadec/FixCursorHold.nvim",
     "nvim-treesitter/nvim-treesitter",
     "nvim-neotest/neotest-go",
+    'mrcjkb/rustaceanvim',
   },
   config = function()
     local map = require("rc.utils.map").map
@@ -38,6 +39,8 @@ return {
         require("neotest-go")({
           recursive_run = true
         }),
+
+        require('rustaceanvim.neotest'),
       },
     })
 
