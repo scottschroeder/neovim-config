@@ -41,6 +41,8 @@ return {
           '%.git%-credentials',
           'credentials%.json',
           '%.log',
+          '%.tfplan',
+          '%.tfstate',
           '%.azure/',
           '%.aws/',
           '%.gcp/',
