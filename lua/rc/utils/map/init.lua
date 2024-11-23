@@ -14,24 +14,23 @@ local keybind = function(mode, lhs, rhs, opts)
   --
   -- https://github.com/neovim/neovim/blob/master/runtime/pack/dist/opt/matchit/plugin/matchit.vim#L85
   if has_whichkey and mode ~= "" then
-    opts.mode = mode
     local desc = opts.desc or "UNKNOWN"
-    whichkey.register({
-      [lhs] = { rhs, desc }
-    }, opts)
+    opts.desc = nil
+    local whichkey_spec = { lhs, rhs, desc = desc, mode = mode }
+    for k, v in pairs(opts) do
+      whichkey_spec[k] = v
+    end
+
+    whichkey.add(whichkey_spec)
   else
     vim.keymap.set(mode, lhs, rhs, opts)
   end
 end
 
 local prefix = function(lhs, name, opts)
-  if opts == nil then
-    opts = {}
-  end
+  opts = opts or {}
   if has_whichkey then
-    whichkey.register({
-      [lhs] = { name = name }
-    }, opts)
+    whichkey.add({ lhs, group = name, icon = opts.icon })
   end
 end
 

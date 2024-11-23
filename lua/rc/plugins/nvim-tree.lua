@@ -12,7 +12,7 @@ return {
       end
 
       local map = require("rc.utils.map").map
-      map("n", "<Leader>k", toggle_builtin, { desc = "NvimTree" })
+      map("n", "<Leader>k", toggle_builtin, { desc = "NvimTree", icon="" })
 
       require("nvim-tree").setup {
         update_cwd          = true,

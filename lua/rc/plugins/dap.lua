@@ -13,8 +13,8 @@ return {
 
     local map = require("rc.utils.map").map
     local map_prefix = require("rc.utils.map").prefix
-    map_prefix("<leader>D", "[D]ebug")
-    map_prefix("<leader>DB", "[D]ebug [B]reakpoints")
+    map_prefix("<leader>D", "[D]ebug", { icon = "" })
+    map_prefix("<leader>DB", "[D]ebug [B]reakpoints", { icon = "" })
 
     -- TODO
     -- Ideally this would be some telescope selector with memory

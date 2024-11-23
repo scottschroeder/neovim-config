@@ -2,7 +2,7 @@ local map_prefix = require("rc.utils.map").prefix
 local map = require("rc.utils.map").map
 
 -- Generic LSP commands
-map_prefix("<leader>l", "LSP")
+map_prefix("<leader>l", "LSP", {icon="λ"})
 map("n", "<leader>ls", ":LspInfo<CR>", { desc = "Info" })
 
 

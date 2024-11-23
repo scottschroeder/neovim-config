@@ -15,6 +15,48 @@ docker run -v $(pwd):/home/manager/.config/nvim -it neovim-config nvim
 
 # Documenting Setup
 
+## View Icons
+
+```
+:NvimWebDeviconsHiTest
+```
+
+```lua
+-- 󰆧
+-- 
+-- 󰗀
+--  git
+--  git diff
+-- 󰜘 git commit
+--  gitlab
+-- 󰡨 docker
+--  book
+-- λ lambda
+--  terraform
+--  test
+--   vim
+--   vault
+--  browser
+--  settings gear
+--  settings dials
+--  settings wrench
+--  keys
+--  star
+--  shell
+--  shell prompt
+-- 󰚩 robot
+-- 󰒃 security / shield
+--  tmux
+--  apple
+-- 󰣇 arch
+--  linux
+--
+--  file
+--  golang
+--  python
+--  rust
+--  lua
+```
 ## Spell checking
 
 - `z=` for suggestions
