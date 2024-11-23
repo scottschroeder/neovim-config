@@ -18,6 +18,7 @@ return {
         "json",
         "ledger",
         "lua",
+        "luadoc",
         "php",
         "python",
         "regex",
@@ -25,6 +26,8 @@ return {
         "sql",
         "terraform",
         "toml",
+        "vim",
+        "vimdoc",
       },
       highlight = {
         enable = true,
