@@ -30,7 +30,7 @@ end
 local prefix = function(lhs, name, opts)
   opts = opts or {}
   if has_whichkey then
-    whichkey.add({ lhs, group = name, icon = opts.icon })
+    whichkey.add({ lhs, group = name, icon = opts.icon, mode = {"n", "v"} })
   end
 end
 

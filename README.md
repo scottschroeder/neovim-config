@@ -61,6 +61,8 @@ docker run -v $(pwd):/home/manager/.config/nvim -it neovim-config nvim
 
 ## Diffs and Conflict Resolution
 
+Inspiration from https://www.naseraleisa.com/posts/diff#deep-diffing-comparing-against-one-or-more-commits
+
 Open the diff menu
 ```
 <leader>d
@@ -71,7 +73,16 @@ Open the diff menu
 - conflict resolution `<leader>dc`
     - lhs `<leader>dch`
     - rhs `<leader>dcl`
+- History
+    - whole repo `<leader>dhr`
+    - this file `<leader>dhf` (in visual mode tracks just highlighted section)
 
+#### Markdown diffs
+
+```diff
++ line added
+- line removed
+```
 
 ## Spell checking
 

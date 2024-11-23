@@ -48,7 +48,7 @@ return {
             { "n", "]x",             actions.next_conflict,                 { desc = "In the merge-tool: jump to the next conflict" } },
             { "n", diffleader("co"), actions.conflict_choose("ours"),       { desc = "Choose the OURS version of a conflict" } },
             { "n", diffleader("ch"), actions.conflict_choose("ours"),       { desc = "LEFT" } },
-            { "n", diffleader("cl"), actions.conflict_choose("theirs"),       { desc = "RIGHT" } },
+            { "n", diffleader("cl"), actions.conflict_choose("theirs"),     { desc = "RIGHT" } },
             { "n", diffleader("ct"), actions.conflict_choose("theirs"),     { desc = "Choose the THEIRS version of a conflict" } },
             { "n", diffleader("cb"), actions.conflict_choose("base"),       { desc = "Choose the BASE version of a conflict" } },
             { "n", diffleader("ca"), actions.conflict_choose("all"),        { desc = "Choose all the versions of a conflict" } },
@@ -175,6 +175,11 @@ return {
 
       map("n", "<Leader>dd", ":DiffviewOpen<CR>", { desc = "Diff" })
       map("n", "<Leader>dO", ":DiffviewOpen origin/HEAD<CR>", { desc = "Diff Origin" })
+
+      map_prefix(diffleader("h"), "History", { icon = "󰜘" })
+      map("n", "<Leader>dhr", ":DiffviewFileHistory<CR>", { desc = "Repo" })
+      map("n", "<Leader>dhf", ":DiffviewFileHistory --follow %<CR>", { desc = "File" })
+      map("v", "<Leader>dhf", ":'<,'>DiffviewFileHistory --follow<CR>", { desc = "Selection" })
     end
   },
   {

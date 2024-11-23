@@ -11,6 +11,7 @@ return {
         "c",
         "cpp",
         "css",
+        "diff",
         "go",
         "hcl",
         "html",
