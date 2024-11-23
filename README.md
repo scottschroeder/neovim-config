@@ -57,6 +57,22 @@ docker run -v $(pwd):/home/manager/.config/nvim -it neovim-config nvim
 --  rust
 --  lua
 ```
+
+
+## Diffs and Conflict Resolution
+
+Open the diff menu
+```
+<leader>d
+```
+
+- diff current working tree `<leader>dd`
+- diff origin HEAD `<leader>dO`
+- conflict resolution `<leader>dc`
+    - lhs `<leader>dch`
+    - rhs `<leader>dcl`
+
+
 ## Spell checking
 
 - `z=` for suggestions
