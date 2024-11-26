@@ -31,7 +31,7 @@ return {
     end
 
     ui.setup()
-    require("nvim-dap-virtual-text").setup()
+    require("nvim-dap-virtual-text").setup({})
 
     local custom_debug = {
       type = "go",
@@ -41,9 +41,24 @@ return {
       args = get_custom_arg,
       env = get_custom_env,
     }
+
+    local attach_headless = {
+      type = "delveone",
+      name = "Attach Remote ONE",
+      mode = "remote",
+      request = "attach",
+    }
+
+    dap.adapters.delveone = {
+      type = 'server',
+      host = '127.0.0.1',
+      port = '39231'
+    }
+
     require("dap-go").setup()
 
     table.insert(dap.configurations.go, custom_debug)
+    table.insert(dap.configurations.go, attach_headless)
 
 
     map("n", "<leader>Db", function()
