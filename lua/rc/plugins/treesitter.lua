@@ -1,6 +1,6 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  lazy = true,
+  lazy = false,
   build = ":TSUpdate",
   config = function()
     local ts_config = require("nvim-treesitter.configs")
@@ -22,6 +22,7 @@ return {
         "luadoc",
         "php",
         "python",
+        "query",
         "regex",
         "rust",
         "sql",
@@ -30,6 +31,8 @@ return {
         "vim",
         "vimdoc",
       },
+      sync_install = true,
+      auto_install = false,
       highlight = {
         enable = true,
         use_languagetree = true
