@@ -47,3 +47,7 @@ end)
 map({ "n" }, "<leader>ss", function()
   vim.cmd("Lazy reload LuaSnip")
 end, { desc = "reload lua snippets" })
+
+map({ "n" }, "<leader>sX", "<cmd>source %<CR>", { desc = "reload lua module" })
+map({ "n" }, "<leader>sx", ":.lua<CR>", { desc = "run lua under cursor" })
+map({ "v" }, "<leader>sx", ":lua<CR>", { desc = "run lua visual selection" })
