@@ -96,17 +96,33 @@ M.FileNameBlock = utils.insert(FileNameBlock,
 )
 
 
+local human_readable_filesize = function(fsize)
+  local suffix = { 'B', 'K', 'M', 'G', 'T', 'P', 'E' }
+  local nil_value = "∅B"
+
+  if fsize < 0 then
+    -- Indicate that this is not a file
+    return nil_value
+  end
+
+  local i = 1
+  while fsize > 1000 do
+    i = i + 1
+    fsize = fsize / 1000
+  end
+
+  if i == 1 then
+    -- Plain number of bytes, without fraction
+    return string.format("%i%s", fsize, suffix[i])
+  end
+
+  return string.format("%.2f%s", fsize, suffix[i])
+end
+
 M.FileSize = {
   provider = function()
-    -- stackoverflow, compute human readable file size
-    local suffix = { 'b', 'k', 'M', 'G', 'T', 'P', 'E' }
     local fsize = vim.fn.getfsize(vim.api.nvim_buf_get_name(0))
-    fsize = (fsize < 0 and 0) or fsize
-    if fsize <= 0 then
-      return "0" .. suffix[1]
-    end
-    local i = math.floor((math.log(fsize) / math.log(1024)))
-    return string.format("%.2g%s", fsize / math.pow(1024, i), suffix[i])
+    return human_readable_filesize(fsize)
   end
 }
 
