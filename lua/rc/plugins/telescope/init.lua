@@ -55,12 +55,21 @@ return {
           end,
           { desc = "Telescope Find Files" }
         )
-        map("n", "<C-g>", require('telescope.builtin').live_grep, { desc = "Live Grep" })
+        map("n", "<C-g>", function()
+          local opts = require("telescope.themes").get_ivy()
+          require("rc.plugins.telescope.multigrep").live_multigrep(opts)
+          -- require('telescope.builtin').live_grep(opts)
+        end, { desc = "Live Grep" })
       else
         require("rc.log").warn("ripgrep not found, not setting some telescope bindings")
       end
 
       map("n", "<leader>lt", require('telescope.builtin').lsp_dynamic_workspace_symbols, { desc = "Search Symbols" })
+      map("n", "<leader>sP", function()
+        require('telescope.builtin').find_files({
+          cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy")
+        })
+      end, { desc = "Find Neovim Plugin Files" })
       -- -- TODO why didn't the cmd function work?
       -- vim.api.nvim_create_user_command("Files",
       --   function()
