@@ -131,68 +131,45 @@ local should_ignore_window = function()
   return false
 end
 
-local check_display_winbar = function()
-  if vim.opt_local.winbar == nil then
-    return false
-  end
-
-  if should_ignore_window() then
-    vim.opt_local.winbar = nil
-    return false
-  end
-  return true
-end
-
 local winline = {
-    fallthrough = false,
-    {
-        condition = should_ignore_window,
-        init = function()
-          vim.opt_local.winbar = nil
-        end
-    },
-    {
-        -- condition = check_display_winbar,
-        -- init = check_display_winbar,
-        -- require("rc.plugins.heirline.files").FileType,
-        -- TODO project name
-        require("rc.plugins.heirline.files").FileType,
-        Space,
-        hl = function() return { bg = palette.backgrounds()[3] } end,
-        require("rc.plugins.heirline.files").FileNameBlock,
-        Align,
-        require("rc.plugins.heirline.git").GitChanges,
-    },
+  fallthrough = false,
+  {
+    require("rc.plugins.heirline.files").FileType,
+    Space,
+    hl = function() return { bg = palette.backgrounds()[3] } end,
+    require("rc.plugins.heirline.files").FileNameBlock,
+    Align,
+    require("rc.plugins.heirline.git").GitChanges,
+  },
 }
 
-local function define_autogroup()
-  local au_group = vim.api.nvim_create_augroup("vimrc_winbar_disable", { clear = true })
-
-  vim.api.nvim_create_autocmd(
-      { "User" },
-      {
-          pattern = "HeirlineInitWinbar",
-          callback = function(args)
-            local buf = args.buf
-            local buftype = vim.tbl_contains(
-                    { "prompt", "nofile", "help", "quickfix" },
-                    vim.bo[buf].buftype
-                )
-            local filetype = vim.tbl_contains({ "gitcommit", "fugitive" }, vim.bo[buf].filetype)
-            if buftype or filetype then
-              vim.opt_local.winbar = nil
-            end
-          end,
-          desc = "disable winbar for certain windows",
-          group = au_group,
-      }
-  )
-end
-
-define_autogroup()
-
 heirline.setup({
-    statusline = statusline,
-    winbar = winline,
-    -- winline_ignore_tree = winline_ignore_tree,
+  statusline = statusline,
+  winbar = winline,
+  -- winline_ignore_tree = winline_ignore_tree,
+  opts = {
+    disable_winbar_cb = function(args)
+      local bufname = vim.api.nvim_buf_get_name(0)
+
+      if bufname:match('NvimTree_%d+$') then
+        return true
+      end
+
+      local winconfig = vim.api.nvim_win_get_config(0)
+      if winconfig.relative ~= "" then
+        return true
+      end
+
+      local buf = args.buf
+      local buftype = vim.tbl_contains(
+        { "prompt", "nofile", "help", "quickfix" },
+        vim.bo[buf].buftype
+      )
+      local filetype = vim.tbl_contains({ "gitcommit", "fugitive" }, vim.bo[buf].filetype)
+      if buftype or filetype then
+        return true
+      end
+      return false
+    end,
+  }
 })
