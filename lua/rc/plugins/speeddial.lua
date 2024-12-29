@@ -30,12 +30,13 @@ return {
           {
             git = {
               root = "~/src/github",
+              depth = 2,
               source = "GitHub"
             }
           },
           {
             git = {
-              root = "~/src/local",
+              base = "~/src/local",
               source = "local"
             }
           },
