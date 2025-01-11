@@ -29,7 +29,7 @@ return {
           },
           {
             git = {
-              root = "~/src/github",
+              base = "~/src/github",
               depth = 2,
               source = "GitHub"
             }
