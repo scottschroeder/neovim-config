@@ -69,15 +69,15 @@ M.comparators = {
   cmp_underscore,
 
   compare_kind_with_priority({
+    -- Free Objects
+    types.lsp.CompletionItemKind.Variable,
+    types.lsp.CompletionItemKind.Function,
+
     -- Direct Children
     types.lsp.CompletionItemKind.EnumMember,
     types.lsp.CompletionItemKind.Field,
     types.lsp.CompletionItemKind.Method,
     types.lsp.CompletionItemKind.Property,
-
-    -- Free Objects
-    types.lsp.CompletionItemKind.Variable,
-    types.lsp.CompletionItemKind.Function,
 
     -- Types
     types.lsp.CompletionItemKind.Struct,

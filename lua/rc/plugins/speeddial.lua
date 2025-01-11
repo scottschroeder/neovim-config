@@ -52,6 +52,15 @@ return {
       map("n", "<leader>p", function()
         require("speeddial").select({
           after = function()
+            local ok, harpoon = pcall(require, "harpoon")
+            if ok then
+              local hlist = harpoon:list()
+              if hlist:length() > 0 then
+                hlist:select(1)
+                return
+              end
+            end
+
             require('telescope.builtin').find_files({ find_command = { 'rg', '--files', '--hidden', '-g', '!.git' } })
           end
         })

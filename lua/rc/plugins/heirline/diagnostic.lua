@@ -27,8 +27,8 @@ M.Diagnostics = {
   static = {
     error_icon = get_defined_sign_or("DiagnosticSignError", ""),
     warn_icon = get_defined_sign_or("DiagnosticSignWarn", ""),
-    info_icon = get_defined_sign_or("DiagnosticSignInfo", ""),
-    hint_icon = get_defined_sign_or("DiagnosticSignHint", ""),
+    info_icon = get_defined_sign_or("DiagnosticSignInfo", ""),
+    hint_icon = get_defined_sign_or("DiagnosticSignHint", ""),
     healthy_icon = "",
   },
 

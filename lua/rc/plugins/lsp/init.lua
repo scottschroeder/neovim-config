@@ -21,11 +21,8 @@ return {
       require("lsp-inlayhints").setup({})
     end
   },
-  { "neovim/nvim-lspconfig" },
   {
-    "lsp",
-    dir = vim.fn.stdpath("config") .. "/lua/" .. "lsp",
-    dependencies = { "neovim/nvim-lspconfig" },
+    "neovim/nvim-lspconfig",
     config = function()
       require("lsp")
     end
