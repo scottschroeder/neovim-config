@@ -6,8 +6,11 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim', 'quickfix', 'nvim-telescope/telescope-fzf-native.nvim' },
     config = function()
       local map = require("rc.utils.map").map
+      local map_prefix = require("rc.utils.map").prefix
       local actions = require("telescope.actions")
       local qf = require("quickfix")
+
+      map_prefix("<leader>F", "Find")
 
       local open_smart_in_quickfix = function(...)
         actions.smart_send_to_qflist(...)
@@ -70,6 +73,12 @@ return {
           cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy")
         })
       end, { desc = "Find Neovim Plugin Files" })
+
+      map("n", "<leader>Fh", require('telescope.builtin').help_tags, { desc = "Neovim Help" })
+      map("n", "<leader>Fr", require('telescope.builtin').resume, { desc = "Resume last picker" })
+      map("n", "<leader>Fb", require('telescope.builtin').buffers, { desc = "Buffers" })
+
+
       -- -- TODO why didn't the cmd function work?
       -- vim.api.nvim_create_user_command("Files",
       --   function()
