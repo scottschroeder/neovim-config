@@ -20,6 +20,11 @@ return {
     map("n", "[q", ":cp<CR>", { desc = "Prev Quickfix" })
   end
   ),
+  require("rc.utils.miniplugin").define_config("autoresize", function()
+    local az = require("autoresize")
+    az.setup()
+  end
+  ),
   require("rc.utils.miniplugin").define_config("golang", function()
     local golang = require("golang")
     local map = require("rc.utils.map").map
