@@ -45,7 +45,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 
 local rewrite_gopls_inlay_hint = function(value)
   local text = value.label[1].value
-  if text:find("^%[github%.com.*%.%.%.$") ~= nil then
+  if text:find("^%[%*?github%.com.*%.%.%.$") ~= nil then
     value.label[1].value = "[...]"
   end
 end
