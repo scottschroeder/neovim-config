@@ -7,7 +7,13 @@ return {
       require("fidget").setup({})
     end
   },
-  { "ggandor/lightspeed.nvim",     dependencies = "tpope/vim-repeat" },
+  {
+    "ggandor/leap.nvim",
+    dependencies = "tpope/vim-repeat",
+    config = function()
+      require("leap").create_default_mappings()
+    end
+  },
   { 'stevearc/dressing.nvim' },                                                              -- appearance of the vim.ui.select & vim.ui.input modals
   { 'norcalli/nvim-colorizer.lua', config = function() require("colorizer").setup({}) end }, -- highlight color codes
   require("rc.utils.miniplugin").define_config("quickfix", function()
