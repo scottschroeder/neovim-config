@@ -42,6 +42,8 @@ usercmd("Scratch", function()
   vim.api.nvim_set_current_buf(buf)
 end)
 
+map({ "n" }, "<leader>lR", require("rc.settings.functions").reload_all,
+  { desc = "Reload all open buffers, discard all changes" })
 
 -- This doesn't really work as expected
 map({ "n" }, "<leader>ss", function()

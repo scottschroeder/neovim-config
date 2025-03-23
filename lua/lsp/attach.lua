@@ -13,7 +13,6 @@ local code_action = function()
 end
 
 local on_attach = function(client, bufnr)
-
   if client.server_capabilities.documentSymbolProvider then
     local ok, navic = pcall(require, "nvim-navic")
     if ok then
@@ -41,6 +40,10 @@ local on_attach = function(client, bufnr)
   buf_set_keymap({ "n" }, "gi", vim.lsp.buf.implementation, "go to implementation")
   buf_set_keymap({ "n" }, "gr", vim.lsp.buf.references, "go to references")
   buf_set_keymap({ "n" }, "<leader>lr", ":LspRestart<CR>", "Restart")
+  buf_set_keymap({ "n" }, "<leader>lR", function()
+    require("rc.settings.functions").reload_all()
+    vim.cmd("LspRestart")
+  end, "Reload all buffers & Restart LSP")
 
 
   buf_set_keymap({ "n" }, "<F2>", vim.lsp.buf.rename, "rename at point")
