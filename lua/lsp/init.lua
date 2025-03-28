@@ -87,7 +87,7 @@ vim.lsp.handlers[methods.textDocument_inlayHint] = function(err, result, ctx, co
   inlay_hint_handler(err, result, ctx, config)
 end
 
-local additional_servers = { "bashls", "dockerls", "dotls", "graphql", "jsonls", "pyright" }
+local additional_servers = { "bashls", "dockerls", "dotls", "graphql", "jsonls", "pyright", "openscad_ls" }
 
 for _, server_name in ipairs(additional_servers) do
   require('lspconfig')[server_name].setup {
