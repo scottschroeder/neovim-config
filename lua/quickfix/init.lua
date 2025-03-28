@@ -36,7 +36,9 @@ local get_diagnostics = function(opts)
   end
 
   if not opts.client_id then
-    local buf_clients = vim.lsp.buf_get_clients(0)
+    local buf_clients = vim.lsp.get_clients({
+      bufnr = 0
+    })
     for k, c in pairs(buf_clients) do
       if c["name"] ~= "copilot" then
         opts.namespace = vim.lsp.diagnostic.get_namespace(k)

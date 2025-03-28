@@ -13,7 +13,10 @@ M.LSPActive = {
   -- Or complicate things a bit and get the servers names
   provider  = function()
     local names = {}
-    for i, server in pairs(vim.lsp.buf_get_clients(0)) do
+    local buf_clients = vim.lsp.get_clients({
+      bufnr = 0
+    })
+    for i, server in pairs(buf_clients) do
       table.insert(names, server.name)
     end
     return " [" .. table.concat(names, " ") .. "]"
