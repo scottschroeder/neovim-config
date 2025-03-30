@@ -49,6 +49,8 @@ return {
 
     map("n", "<leader>gt", golang.switch_implementation_and_test,
       { desc = "Switch between test and implementation file" })
+    map("n", "<leader>lp", golang.public_private_swap,
+      { desc = "Toggle Public/Private Visability" })
   end
   ),
 }

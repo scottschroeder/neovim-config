@@ -42,6 +42,37 @@ local function get_file_name(opts)
   }
 end
 
+local function toggle_first_char_case(str)
+  if str == "" then return str end
+  local first = str:sub(1, 1)
+  local toggled
+  if first:match("%l") then     -- if lowercase
+    toggled = first:upper()
+  elseif first:match("%u") then -- if uppercase
+    toggled = first:lower()
+  else
+    toggled = first -- non-alphabetical characters remain unchanged
+  end
+  return toggled .. str:sub(2)
+end
+
+local get_identifier = function()
+  local node = vim.treesitter.get_node()
+  if not node then return end
+  local ident = vim.treesitter.get_node_text(node, 0)
+  local is_ident = vim.tbl_contains({
+      "pakcage_identifier",
+      "field_identifier",
+      "type_identifier",
+      "identifier",
+    },
+    node:type())
+  if is_ident then
+    return ident
+  end
+  return nil
+end
+
 local new_test_file = function(packagename)
   return {
     "package " .. packagename,
@@ -69,5 +100,24 @@ M.switch_implementation_and_test = function()
     end
   end
 end
+
+
+local public_private_swap = function()
+  local buf_clients = vim.lsp.get_clients({
+    bufnr = 0
+  })
+
+  local ident = get_identifier()
+  if ident == nil then
+    return
+  end
+
+  local flipped = toggle_first_char_case(ident)
+
+  vim.lsp.buf.rename(flipped)
+end
+
+M.get_identifier = get_identifier
+M.public_private_swap = public_private_swap
 
 return M
