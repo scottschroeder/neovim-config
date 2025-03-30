@@ -12,10 +12,11 @@ return {
   version = '1.*',
   config = function()
     local cmp = require('blink.cmp')
+    -- local log = require("rc.log")
     cmp.setup({
       enabled = function()
-        -- return not vim.tbl_contains({ "markdown" }, vim.bo.filetype)
-        return true
+        -- log.info("buftype", vim.bo.buftype, "filetype", vim.bo.filetype)
+        return not vim.tbl_contains({ "DressingInput", "TelescopePrompt" }, vim.bo.filetype)
       end,
 
       -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
