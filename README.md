@@ -84,6 +84,16 @@ Open the diff menu
 - line removed
 ```
 
+#### Markdown Table
+
+| Month    | Savings |
+| -------- | ------- |
+| January  | $250    |
+| February | $80     |
+| March    | $420    |
+
+
+
 ## Spell checking
 
 - `z=` for suggestions
