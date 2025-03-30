@@ -35,28 +35,6 @@ map("n", "<leader>lL", function()
   )
 end, { desc = "Change LSP Log Level" })
 
-local show_diagnostics = true
-local set_diagnostic_virtual_text = function(value)
-  if value then
-    vim.diagnostic.config({
-      virtual_text = false,
-      virtual_lines = true,
-    })
-  else
-    vim.diagnostic.config({
-      virtual_text = false,
-      virtual_lines = false,
-    })
-  end
-end
-
-set_diagnostic_virtual_text(true)
-
-map("n", "<leader>ld", function()
-  show_diagnostics = not show_diagnostics
-  set_diagnostic_virtual_text(show_diagnostics)
-end, { desc = "toggle virtual line diagnostics" })
-
 
 
 -- severity_sort means that errors are reported before warnings and hints

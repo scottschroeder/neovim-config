@@ -19,9 +19,16 @@ return {
   require("rc.utils.miniplugin").define_config("quickfix", function()
     local qf = require("quickfix")
     local map = require("rc.utils.map").map
+    local diagnostics = require("diagnostics")
 
-    map("n", "<M-q>", qf.magic_quickfix, { desc = "Magic Quickfix" })
-    map("n", "<C-q>", qf.diagnostic_quickfix, { desc = "Diagnostic Quickfix" })
+    map("n", "<M-q>", function()
+      diagnostics.set_line_mode(false)
+      qf.magic_quickfix()
+    end, { desc = "Magic Quickfix" })
+    map("n", "<C-q>", function()
+      diagnostics.set_line_mode(true)
+      qf.diagnostic_quickfix()
+    end, { desc = "Diagnostic Quickfix" })
     map("n", "]q", ":cn<CR>", { desc = "Next Quickfix" })
     map("n", "[q", ":cp<CR>", { desc = "Prev Quickfix" })
   end
