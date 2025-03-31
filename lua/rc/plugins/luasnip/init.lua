@@ -8,6 +8,7 @@ return {
     local map = require("rc.utils.map").map
 
 
+    -- Overruled by blink.cmp
     map({ "i", "s" }, "<C-k>", function()
         if ls.expand_or_jumpable() then
           ls.expand_or_jump()
@@ -16,6 +17,7 @@ return {
       { desc = "expand/jump snippet" }
     )
 
+    -- Overruled by blink.cmp
     map({ "i", "s" }, "<C-j>", function()
       if ls.jumpable(-1) then
         ls.jump(-1)
