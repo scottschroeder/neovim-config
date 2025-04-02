@@ -4,13 +4,28 @@ local ts_utils = require("nvim-treesitter.ts_utils")
 local ts_locals = require("nvim-treesitter.locals")
 local rep = require("luasnip.extras").rep
 local ai = require("luasnip.nodes.absolute_indexer")
+local log = require("rc.log")
+
+---@class InfoData
+---@field index integer
+---@field err_name string
+
+---@class SnippetNode
 
 ---Transform makes a node from the given text.
-local function transform(text, info) --{{{
+---@param text string the return type
+---@param info InfoData
+---@return SnippetNode
+local function transform(text, info)
+  ---@param template string
+  ---@param default string
+  ---@return SnippetNode
   local string_sn = function(template, default)
     info.index = info.index + 1
     return ls.sn(info.index, fmt(template, ls.i(1, default)))
   end
+  ---@param default string
+  ---@return SnippetNode
   local new_sn = function(default)
     return string_sn("{}", default)
   end
@@ -67,17 +82,32 @@ local function transform(text, info) --{{{
   end
 
   return ls.t(text)
-end --}}}
+end
+
+---@param info InfoData
+---@return SnippetNode[]
+local make_panic_snippets = function(info)
+  return {
+    ls.t("panic(" .. info.err_name .. ")"),
+    ls.sn(nil, fmt('panic(fmt.Sprintf("{}: %s", {}))', { ls.i(1), ls.t(info.err_name), })),
+  }
+end
 
 local get_node_text = vim.treesitter.get_node_text
 local handlers = {
-  --{{{
+  ---@param node TSNode
+  ---@param info InfoData
+  ---@return SnippetNode[]
   parameter_list = function(node, info)
     local result = {}
 
     local count = node:named_child_count()
     for idx = 0, count - 1 do
-      table.insert(result, transform(get_node_text(node:named_child(idx), 0), info))
+      local child = node:named_child(idx)
+      if child == nil then
+        break
+      end
+      table.insert(result, transform(get_node_text(child, 0), info))
       if idx ~= count - 1 then
         table.insert(result, ls.t({ ", " }))
       end
@@ -85,47 +115,95 @@ local handlers = {
 
     return result
   end,
+  ---@param node TSNode
+  ---@param info InfoData
+  ---@return SnippetNode[]
   type_identifier = function(node, info)
     local text = get_node_text(node, 0)
     return { transform(text, info) }
   end,
-}                                       --}}}
+}
 
-local function return_value_nodes(info) --{{{
-  local cursor_node = ts_utils.get_node_at_cursor()
+--- @return TSNode|nil
+local get_current_function_node = function()
+  local cursor_node = vim.treesitter.get_node()
+  -- local cursor_node = ts_utils.get_node_at_cursor()
+  if cursor_node == nil then
+    return nil
+  end
   local scope_tree = ts_locals.get_scope_tree(cursor_node, 0)
-
-  local function_node
   for _, scope in ipairs(scope_tree) do
     if
         scope:type() == "function_declaration"
         or scope:type() == "method_declaration"
         or scope:type() == "func_literal"
     then
-      function_node = scope
-      break
+      return scope
     end
   end
+  return nil
+end
 
-  if not function_node then
-    return
+--- @return TSNode|nil
+local get_function_return_node = function()
+  local current_function = get_current_function_node()
+  if current_function == nil then
+    log.error("not in a function")
+    return nil
   end
 
-  local query = vim.treesitter.query.get("go", "return-snippet")
-  for _, node in query:iter_captures(function_node, 0) do
-    if handlers[node:type()] then
-      return handlers[node:type()](node, info)
+  for node, s in current_function:iter_children() do
+    if s == "result" then
+      return node
     end
   end
-end --}}}
+  return nil
+end
+
+---@param info InfoData
+---@return SnippetNode[]|nil
+local snippets_for_return_values = function(info)
+  local node = get_function_return_node()
+  if node == nil then
+    return nil
+  end
+
+  if handlers[node:type()] then
+    return handlers[node:type()](node, info)
+  end
+  return nil
+end
+
+---@param info InfoData
+---@return SnippetNode
+local return_value_nodes = function(info)
+  local handle_choices = {}
+
+  local return_statement = { ls.i(1, "return ") }
+  info.index = 1
+  local return_values = snippets_for_return_values(info)
+  if return_values ~= nil then
+    for _, item in ipairs(return_values) do
+      table.insert(return_statement, item)
+    end
+    table.insert(handle_choices, ls.sn(1, return_statement)
+    )
+  end
+
+  local panic_choices = make_panic_snippets(info)
+  for _, item in ipairs(panic_choices) do
+    table.insert(handle_choices, item)
+  end
+
+  return ls.sn(1, { ls.c(1, handle_choices) })
+end
 
 local M = {}
 
----Transforms the given arguments into nodes wrapped in a snippet node.
-M.make_return_nodes = function(args) --{{{
+M.make_return_nodes = function(args)
   local info = { index = 0, err_name = args[1][1] }
-  return ls.sn(nil, return_value_nodes(info))
-end --}}}
+  return ls.sn(nil, { return_value_nodes(info) })
+end
 
 ---Runs the command in shell.
 -- @param command string
@@ -141,22 +219,10 @@ end --}}}
 
 
 ---Returns true if the cursor in a function body.
--- @return boolean
-function M.is_in_function() --{{{
-  local current_node = ts_utils.get_node_at_cursor()
-  if not current_node then
-    return false
-  end
-  local expr = current_node
-
-  while expr do
-    if expr:type() == "function_declaration" or expr:type() == "method_declaration" then
-      return true
-    end
-    expr = expr:parent()
-  end
-  return false
-end --}}}
+---@return boolean
+function M.is_in_function()
+  return get_current_function_node() ~= nil
+end
 
 ---Returns true if the cursor in a test file.
 -- @return boolean
@@ -229,4 +295,3 @@ M.mirror_t_run_funcs = function(args) --{{{
 end --}}}
 
 return M
-

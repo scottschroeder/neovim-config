@@ -83,14 +83,17 @@ local snippet_tfn = snippet("tfn",
   ))
 
 ls.add_snippets("go", {
+
   snippet(
-    { trig = "ife", name = "If error", dscr = "If error, return wrapped" },
-    fmt("if {} != nil {{\n\treturn {}\n}}\n{}", {
+    { trig = "ife", name = "handle error", dscr = "Handle a golang error" },
+    fmt("if {} != nil {{\n\t{}\n}}\n{}", {
       ls.i(1, "err"),
       ls.d(2, util.make_return_nodes, { 1 }),
       ls.i(0),
     }),
-    in_func
+    {
+      show_condition = util.is_in_function,
+    }
   ),
 
   snippet(
