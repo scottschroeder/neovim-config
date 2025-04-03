@@ -25,6 +25,13 @@ return {
     end, { desc = "luasnip jump(-1)" }
     )
 
+    map({ "i", "s" }, "<C-y>", function()
+      while ls.jumpable(1) do
+        ls.jump(1)
+      end
+    end, { desc = "accept snippet as-is" }
+    )
+
     map({ "i", "s" }, "<C-l>", function()
       if ls.choice_active() then
         ls.change_choice(1)
