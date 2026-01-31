@@ -124,4 +124,8 @@ end
 M.get_identifier = get_identifier
 M.public_private_swap = public_private_swap
 
+-- Exported for testing
+M.toggle_first_char_case = toggle_first_char_case
+M.new_test_file = new_test_file
+
 return M
