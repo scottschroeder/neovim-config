@@ -2,7 +2,7 @@
 --
 local do_import_on_save = true
 
-require('lspconfig').gopls.setup {
+vim.lsp.config('gopls', {
   on_attach = function(c, b)
     require("lsp.attach").on_attach(c, b)
     local buf_map = require('rc.utils.map').buf_map
@@ -60,4 +60,5 @@ require('lspconfig').gopls.setup {
       }
     },
   },
-}
+})
+vim.lsp.enable('gopls')

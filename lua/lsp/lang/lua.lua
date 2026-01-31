@@ -28,7 +28,7 @@ local log = require("rc.log")
 -- table.insert(runtime_path, "lua/?.lua")
 -- table.insert(runtime_path, "lua/?/init.lua")
 
-require('lspconfig').lua_ls.setup {
+vim.lsp.config('lua_ls', {
   -- cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
   -- root_dir = require("lspconfig.util").find_git_root,
   on_attach = require("lsp.attach").on_attach,
@@ -59,4 +59,5 @@ require('lspconfig').lua_ls.setup {
       },
     }
   }
-}
+})
+vim.lsp.enable('lua_ls')

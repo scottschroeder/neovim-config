@@ -68,10 +68,11 @@ end
 local additional_servers = { "bashls", "dockerls", "dotls", "graphql", "jsonls", "pyright", "openscad_ls" }
 
 for _, server_name in ipairs(additional_servers) do
-  require('lspconfig')[server_name].setup {
+  vim.lsp.config(server_name, {
     on_attach = require("lsp.attach").on_attach,
     capabilities = require("lsp.capabilities").capabilities,
-  }
+  })
+  vim.lsp.enable(server_name)
 end
 
 require("lsp.lang.golang")
