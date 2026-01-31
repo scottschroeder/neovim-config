@@ -1,59 +1,63 @@
+-- Safely load local overrides (gitignored)
+local ok, local_config = pcall(require, "rc.plugins.speeddial_local")
+if not ok then local_config = {} end
+
+-- Base sources (committed)
+local base_sources = {
+  {
+    project = {
+      title = "Neovim Config",
+      vcs_root = "~/src/github/scottschroeder/neovim-config",
+    }
+  },
+  {
+    project = {
+      title = "Hab Config",
+      root = "~/src/github/scottschroeder/hab/configs",
+      vcs_root = "~/src/github/scottschroeder/hab",
+    }
+  },
+  {
+    project = {
+      title = "speeddial.nvim",
+      vcs_root = "~/src/github/scottschroeder/speeddial.nvim",
+    }
+  },
+  {
+    git = {
+      base = "~/src/github",
+      depth = 2,
+      source = "GitHub"
+    }
+  },
+  {
+    git = {
+      base = "~/src/local",
+      source = "local"
+    }
+  },
+}
+
+-- Merge local sources after base
+local sources = vim.list_extend(vim.deepcopy(base_sources), local_config.sources or {})
+
 return {
   {
     "scottschroeder/speeddial.nvim",
-    dir = "~/src/github/scottschroeder/speeddial.nvim",
+    dir = local_config.dir, -- nil if no local config (uses default from GitHub)
     dependencies = "nvim-lua/plenary.nvim",
     config = function()
       local map = require("rc.utils.map").map
 
       require("speeddial").setup({
-        sources = {
-          {
-            project = {
-              title = "Neovim Config",
-              vcs_root = "~/src/github/scottschroeder/neovim-config",
-            }
-          },
-          {
-            project = {
-              title = "speeddial.nvim",
-              vcs_root = "~/src/github/scottschroeder/speeddial.nvim",
-            }
-          },
-          {
-            project = {
-              title = "Hab Config",
-              root = "~/src/github/scottschroeder/hab/configs",
-              vcs_root = "~/src/github/scottschroeder/hab",
-            }
-          },
-          {
-            git = {
-              base = "~/src/github",
-              depth = 2,
-              source = "GitHub"
-            }
-          },
-          {
-            git = {
-              base = "~/src/local",
-              source = "local"
-            }
-          },
-          -- {
-          --   git = {
-          --     root = "~/src",
-          --     source = "git"
-          --   }
-          -- },
-        }
+        sources = sources
       })
 
       map("n", "<leader>p", function()
         require("speeddial").select({
           after = function()
-            local ok, harpoon = pcall(require, "harpoon")
-            if ok then
+            local harpoon_ok, harpoon = pcall(require, "harpoon")
+            if harpoon_ok then
               local hlist = harpoon:list()
               if hlist:length() > 0 then
                 hlist:select(1)

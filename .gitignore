@@ -1,3 +1,4 @@
 plugin
 .luarc.json
 spell/*
+lua/rc/plugins/speeddial_local.lua
