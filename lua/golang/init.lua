@@ -1,14 +1,18 @@
 local M = {}
 
 M.get_package_name = function(bufnr)
-  local parser = vim.treesitter.get_parser(bufnr, "go")
+  local ok, parser = pcall(vim.treesitter.get_parser, bufnr, "go")
+  if not ok or not parser then
+    return nil
+  end
+
   local tree = parser:parse()[1]
   local root = tree:root()
 
-  local query = assert(
-    vim.treesitter.query.get("go", "package-name"),
-    "No query"
-  )
+  local query = vim.treesitter.query.get("go", "package-name")
+  if not query then
+    return nil
+  end
 
   for _, node in query:iter_captures(root, 0) do
     return vim.treesitter.get_node_text(node, 0)
