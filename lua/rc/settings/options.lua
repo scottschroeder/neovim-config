@@ -41,7 +41,6 @@ opt("b", "spellcapcheck", "")
 opt("w", "spell", true)
 
 -- Code Folding
-opt("w", "foldmethod", "expr")
 opt("w", "foldmethod", "manual")
 opt("w", "foldcolumn", "0")
 opt("w", "foldlevel", 99)

@@ -55,7 +55,7 @@ end
 
 return {
   toggle_diagnostics = toggle_diagnostics,
-  togle_line_mode = toggle_line_mode,
+  toggle_line_mode = toggle_line_mode,
   set_line_mode = set_line_mode,
   setup = setup,
 }

@@ -21,99 +21,36 @@ vim.opt.laststatus = 3
 local palette = require("rc.settings.color.palette")
 local colors = palette.colors.simple
 
--- local colors = require("rc.plugins.heirline.colors").colors
--- local filename = {
---   provider = "statusline: %f",
---   hl = {
---     fg = colors.dark_red,
---     bg = colors.blue
---   },
---   condition = function()
---     return true
---   end,
---   on_click = {
---     callback = function(self, minwid, nclicks, button)
---       log.warn("don't touch my garbage!")
---     end,
---     name = "click_anywhere_statusline",
---   },
--- }
---
-
 local Align = { provider = "%=" }
 local Space = { provider = " " }
 local surround_round = { "", "" }
 local forward_arrow = ""
 
-local function bold_if_active(component)
-  local hl = function()
-    local color
-    log.info(is_active(), os.time())
-    if (math.floor(os.time()) % 2) == 0 then
-      color = colors.red
-    else
-      color = colors.green
-    end
-
-    return {
-        bold = is_active(),
-        fg = color,
-    }
-  end
-
-  return {
-      {
-          condition = is_active,
-          hl = function()
-            return {
-                fg = colors.orange,
-                bg = palette.backgrounds()[3],
-                bold = true,
-                force = true,
-            }
-          end,
-          component
-      },
-      {
-          condition = function()
-            return not is_active()
-          end,
-          component
-      },
-  }
-  -- return {
-  --   hl = function()
-  --     return {bold = is_active()}
-  --   end,
-  --   component
-  -- }
-end
-
 local statusline = {
-    hl = function() return { bg = palette.backgrounds()[3] } end,
-    require("rc.plugins.heirline.mode").ViMode,
-    Space,
-    require("rc.plugins.heirline.lsp").LSPActive,
-    Space,
-    -- require("rc.plugins.heirline.lsp").LSPMessages,
-    require("rc.plugins.heirline.diagnostic").Diagnostics,
-    -- Space,
-    -- surround({ '[', ']' }, nil, require("rc.plugins.heirline.project").ProjectName),
-    Space,
-    require("rc.plugins.heirline.lsp").Navic,
-    Align,
-    require("rc.plugins.heirline.git").GitBranch,
-    Space,
-    require("rc.plugins.heirline.files").Ruler,
-    require("rc.plugins.heirline.files").ScrollBar,
-    Space,
-    surround({ '[', ']' }, nil, require("rc.plugins.heirline.files").FileSize),
+  hl = function() return { bg = palette.backgrounds()[3] } end,
+  require("rc.plugins.heirline.mode").ViMode,
+  Space,
+  require("rc.plugins.heirline.lsp").LSPActive,
+  Space,
+  -- require("rc.plugins.heirline.lsp").LSPMessages,
+  require("rc.plugins.heirline.diagnostic").Diagnostics,
+  -- Space,
+  -- surround({ '[', ']' }, nil, require("rc.plugins.heirline.project").ProjectName),
+  Space,
+  require("rc.plugins.heirline.lsp").Navic,
+  Align,
+  require("rc.plugins.heirline.git").GitBranch,
+  Space,
+  require("rc.plugins.heirline.files").Ruler,
+  require("rc.plugins.heirline.files").ScrollBar,
+  Space,
+  surround({ '[', ']' }, nil, require("rc.plugins.heirline.files").FileSize),
 }
 
 local should_ignore_window = function()
   if buffer_matches({
-          buftype = { "nofile", "prompt", "help", "quickfix" },
-          filetype = { "^git.*", "fugitive" },
+        buftype = { "nofile", "prompt", "help", "quickfix" },
+        filetype = { "^git.*", "fugitive" },
       }) then
     return true
   end
