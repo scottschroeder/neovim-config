@@ -109,6 +109,10 @@ return {
       ui.eval(nil, { enter = true })
     end, { desc = "Inspect variable under cursor" })
 
+    map("n", "<leader>Dw", function()
+      ui.elements.watches.add(nil)
+    end, { desc = "watch variable" })
+
     dap.listeners.before.attach.dapui_config = function()
       ui.open()
     end

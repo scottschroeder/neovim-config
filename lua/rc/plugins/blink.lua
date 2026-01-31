@@ -58,7 +58,11 @@ return {
       -- elsewhere in your config, without redefining it, due to `opts_extend`
       sources = {
         default = { 'lsp', 'path', 'snippets', 'buffer', 'copilot' },
+        per_filetype = {
+          sql = { 'snippets', 'dadbod', 'buffer', 'copilot' }
+        },
         providers = {
+          dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
           copilot = {
             name = "AI",
             module = "blink-copilot",
