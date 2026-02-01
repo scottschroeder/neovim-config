@@ -65,7 +65,7 @@ local get_identifier = function()
   if not node then return end
   local ident = vim.treesitter.get_node_text(node, 0)
   local is_ident = vim.tbl_contains({
-      "pakcage_identifier",
+      "package_identifier",
       "field_identifier",
       "type_identifier",
       "identifier",
@@ -127,5 +127,6 @@ M.public_private_swap = public_private_swap
 -- Exported for testing
 M.toggle_first_char_case = toggle_first_char_case
 M.new_test_file = new_test_file
+M.get_file_name = get_file_name
 
 return M
