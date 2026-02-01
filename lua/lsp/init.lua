@@ -78,3 +78,17 @@ end
 require("lsp.lang.golang")
 require("lsp.lang.lua")
 require("lsp.lang.terraform")
+
+-- Re-trigger FileType for buffers that were loaded before LSP was configured.
+-- This handles the case where `vim file.rs` is run and FileType fires before
+-- vim.lsp.enable() creates its autocommands.
+vim.schedule(function()
+  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_loaded(bufnr) then
+      local ft = vim.bo[bufnr].filetype
+      if ft and ft ~= "" then
+        vim.api.nvim_exec_autocmds("FileType", { buffer = bufnr })
+      end
+    end
+  end
+end)
