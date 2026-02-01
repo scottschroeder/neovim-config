@@ -42,6 +42,8 @@ usercmd("Scratch", function()
   vim.api.nvim_set_current_buf(buf)
 end)
 
+usercmd("BufferDebug", require("rc.settings.functions").buffer_debug, { desc = "Open buffer debug split" })
+
 map({ "n" }, "<leader>lR", require("rc.settings.functions").reload_all,
   { desc = "Reload all open buffers, discard all changes" })
 
