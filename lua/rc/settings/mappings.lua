@@ -53,3 +53,18 @@ end, { desc = "reload lua snippets" })
 map({ "n" }, "<leader>sX", "<cmd>source %<CR>", { desc = "reload lua module" })
 map({ "n" }, "<leader>sx", ":.lua<CR>", { desc = "run lua under cursor" })
 map({ "v" }, "<leader>sx", ":lua<CR>", { desc = "run lua visual selection" })
+
+usercmd("WrapToggle", function()
+  vim.wo.wrap = not vim.wo.wrap
+  vim.wo.linebreak = vim.wo.wrap
+end)
+
+usercmd("WrapOn", function()
+  vim.wo.wrap = true
+  vim.wo.linebreak = true
+end)
+
+usercmd("WrapOff", function()
+  vim.wo.wrap = false
+  vim.wo.linebreak = false
+end)
