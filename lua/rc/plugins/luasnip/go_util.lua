@@ -1,7 +1,5 @@
 local ls = require("luasnip")
 local fmt = require("luasnip.extras.fmt").fmt
-local ts_utils = require("nvim-treesitter.ts_utils")
-local ts_locals = require("nvim-treesitter.locals")
 local rep = require("luasnip.extras").rep
 local ai = require("luasnip.nodes.absolute_indexer")
 local log = require("rc.log")
@@ -124,6 +122,16 @@ local handlers = {
   end,
 }
 
+local get_scope_tree = function(cursor_node)
+  local scope_tree = {}
+  local current = cursor_node
+  while current do
+    table.insert(scope_tree, current)
+    current = current:parent()
+  end
+  return scope_tree
+end
+
 --- @return TSNode|nil
 local get_current_function_node = function()
   local cursor_node = vim.treesitter.get_node()
@@ -131,7 +139,7 @@ local get_current_function_node = function()
   if cursor_node == nil then
     return nil
   end
-  local scope_tree = ts_locals.get_scope_tree(cursor_node, 0)
+  local scope_tree = get_scope_tree(cursor_node)
   for _, scope in ipairs(scope_tree) do
     if
         scope:type() == "function_declaration"

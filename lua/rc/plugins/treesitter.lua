@@ -3,7 +3,14 @@ return {
   lazy = false,
   build = ":TSUpdate",
   config = function()
-    local ts_config = require("nvim-treesitter.configs")
+    local ok, ts_config = pcall(require, "nvim-treesitter.configs")
+    if not ok then
+      ok, ts_config = pcall(require, "nvim-treesitter.config")
+    end
+    if not ok then
+      require("rc.log").error("nvim-treesitter config module not found")
+      return
+    end
 
     ts_config.setup({
       ensure_installed = {
