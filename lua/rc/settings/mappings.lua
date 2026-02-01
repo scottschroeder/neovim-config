@@ -57,14 +57,14 @@ map({ "v" }, "<leader>sx", ":lua<CR>", { desc = "run lua visual selection" })
 usercmd("WrapToggle", function()
   vim.wo.wrap = not vim.wo.wrap
   vim.wo.linebreak = vim.wo.wrap
-end)
+end, {desc = "Toggle the buffer wrapping mode"})
 
 usercmd("WrapOn", function()
   vim.wo.wrap = true
   vim.wo.linebreak = true
-end)
+end, {desc = "Enable the buffer wrapping mode"})
 
 usercmd("WrapOff", function()
   vim.wo.wrap = false
   vim.wo.linebreak = false
-end)
+end, {desc = "Disable the buffer wrapping mode"})
