@@ -59,9 +59,12 @@ return {
             local harpoon_ok, harpoon = pcall(require, "harpoon")
             if harpoon_ok then
               local hlist = harpoon:list()
-              if hlist:length() > 0 then
-                hlist:select(1)
-                return
+              for i, item in ipairs(hlist.items or {}) do
+                local path = item and item.value
+                if path and vim.fn.filereadable(vim.fn.expand(path)) == 1 then
+                  hlist:select(i)
+                  return
+                end
               end
             end
 
