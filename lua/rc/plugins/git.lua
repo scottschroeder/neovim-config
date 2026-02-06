@@ -18,6 +18,7 @@ return {
       local map_prefix = require("rc.utils.map").prefix
 
       local actions = require("diffview.actions")
+      local git = require("rc.plugins.git.git")
       local diff_picker = require("rc.plugins.git.picker")
 
       local open_ref_diff = function(ref, mode)
@@ -188,7 +189,14 @@ return {
 
 
       map("n", "<Leader>dd", ":DiffviewOpen<CR>", { desc = "Diff Uncommited Changes" })
-      map("n", "<Leader>dO", ":DiffviewOpen origin/HEAD<CR>", { desc = "Diff Origin" })
+      map("n", "<Leader>dO", function()
+        local ref = git.smart_pr_base_ref()
+        if not ref then
+          vim.notify("No smart PR base found (expected stack ref, origin/main, or origin/master)", vim.log.levels.WARN)
+          return
+        end
+        open_ref_diff(ref, "pr")
+      end, { desc = "Diff Smart PR" })
       map("n", "<Leader>dp", function() open_picker_diff("pr") end, { desc = "Diff PR" })
       map("n", "<Leader>db", function() open_picker_diff("full") end, { desc = "Diff Base" })
 

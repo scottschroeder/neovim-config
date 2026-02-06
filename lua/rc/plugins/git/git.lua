@@ -78,6 +78,37 @@ function M.stack_candidates()
   return dedupe(out)
 end
 
+function M.is_ancestor(ancestor, descendant)
+  vim.fn.system({
+    "git",
+    "merge-base",
+    "--is-ancestor",
+    ancestor,
+    descendant,
+  })
+  return vim.v.shell_error == 0
+end
+
+function M.smart_pr_base_ref()
+  local stack_ref = M.stack_candidates()[1]
+
+  local trunk = nil
+  if M.resolve_commit_sha("origin/main") then
+    trunk = "origin/main"
+  elseif M.resolve_commit_sha("origin/master") then
+    trunk = "origin/master"
+  end
+
+  if stack_ref then
+    if trunk and M.is_ancestor(stack_ref, trunk) then
+      return trunk
+    end
+    return stack_ref
+  end
+
+  return trunk
+end
+
 function M.all_recent_refs()
   local lines = git_lines({
     "for-each-ref",

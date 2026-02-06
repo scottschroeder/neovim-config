@@ -69,7 +69,7 @@ Open the diff menu
 ```
 
 - diff current working tree `<leader>dd`
-- diff origin HEAD `<leader>dO`
+- diff smart PR base `<leader>dO`
 - conflict resolution `<leader>dc`
     - lhs `<leader>dch`
     - rhs `<leader>dcl`
