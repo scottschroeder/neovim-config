@@ -18,6 +18,20 @@ return {
       local map_prefix = require("rc.utils.map").prefix
 
       local actions = require("diffview.actions")
+      local diff_picker = require("rc.plugins.git.picker")
+
+      local open_ref_diff = function(ref, mode)
+        local range = mode == "pr" and (ref .. "...HEAD") or (ref .. "..HEAD")
+        local args = { "-u", "--imply-local", range }
+        vim.notify("DiffviewOpen " .. table.concat(args, " "), vim.log.levels.DEBUG)
+        vim.cmd({ cmd = "DiffviewOpen", args = args })
+      end
+
+      local open_picker_diff = function(mode)
+        diff_picker.select_diff_ref(function(ref)
+          open_ref_diff(ref, mode)
+        end)
+      end
 
       local diffleader_prefix = "<leader>d"
       map_prefix(diffleader_prefix, "Diff", { icon = "" })
@@ -173,8 +187,10 @@ return {
       })
 
 
-      map("n", "<Leader>dd", ":DiffviewOpen<CR>", { desc = "Diff" })
+      map("n", "<Leader>dd", ":DiffviewOpen<CR>", { desc = "Diff Uncommited Changes" })
       map("n", "<Leader>dO", ":DiffviewOpen origin/HEAD<CR>", { desc = "Diff Origin" })
+      map("n", "<Leader>dp", function() open_picker_diff("pr") end, { desc = "Diff PR" })
+      map("n", "<Leader>db", function() open_picker_diff("full") end, { desc = "Diff Base" })
 
       map_prefix(diffleader("h"), "History", { icon = "󰜘" })
       map("n", "<Leader>dhr", ":DiffviewFileHistory<CR>", { desc = "Repo" })
