@@ -22,6 +22,7 @@ map("n", "<leader>o", ":only<CR>", { noremap = true, desc = "Close Everything El
 map({ "n", "v" }, "<Leader>y", '"+y', { desc = "Yank to Clipboard" })
 
 map({ "n", "v" }, "<Leader>/", ':let @/ = ""<CR>', { silent = true, desc = "Clear Search" })
+map("n", "<F4>", ":checktime<CR>", { desc = "Check file changed on disk" })
 
 map_prefix("<leader>g", "Git Helpers")
 
