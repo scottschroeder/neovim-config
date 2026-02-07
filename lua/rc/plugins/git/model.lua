@@ -150,8 +150,14 @@ function M.build_options(grouped_items, clipboard_ref)
         table.insert(options, {
           ref = selected.primary_ref,
           primary_ref = selected.primary_ref,
+          primary_type = selected.primary_type,
           aliases = selected.aliases,
           sha = selected.sha,
+          short_sha = selected.short_sha,
+          date = selected.date,
+          age = selected.age,
+          is_stack = selected.is_stack,
+          source = "clipboard",
           label = "clipboard: " .. M.format_option_label(selected),
         })
         seen_by_sha[selected.sha] = true
@@ -160,7 +166,15 @@ function M.build_options(grouped_items, clipboard_ref)
       if not seen_by_sha[clipboard_ref.sha] then
         table.insert(options, {
           ref = clipboard_ref.ref,
+          primary_ref = clipboard_ref.ref,
+          primary_type = "ref",
+          aliases = { clipboard_ref.ref },
           sha = clipboard_ref.sha,
+          short_sha = clipboard_ref.short_sha,
+          date = "",
+          age = "",
+          is_stack = false,
+          source = "clipboard",
           label = string.format("clipboard: %s [%s]", clipboard_ref.ref, clipboard_ref.short_sha),
         })
         seen_by_sha[clipboard_ref.sha] = true
@@ -173,8 +187,14 @@ function M.build_options(grouped_items, clipboard_ref)
       table.insert(options, {
         ref = item.primary_ref,
         primary_ref = item.primary_ref,
+        primary_type = item.primary_type,
         aliases = item.aliases,
         sha = item.sha,
+        short_sha = item.short_sha,
+        date = item.date,
+        age = item.age,
+        is_stack = item.is_stack,
+        source = "recent",
         label = M.format_option_label(item),
       })
       seen_by_sha[item.sha] = true
