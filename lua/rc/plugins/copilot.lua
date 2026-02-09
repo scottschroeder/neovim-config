@@ -27,29 +27,28 @@ return {
 
         -- Search the entire filepath and ignore any of the following
         local matches = {
-          '%.env',
-          '%.pem',
-          '%.key',
-          '%.p12',
-          '%.jks',
-          '%.sqlite',
-          '%.db',
-          '%.json',
-          '%.csv',
-          '%.bak',
-          '%.old',
-          '%.git%-credentials',
-          'credentials%.json',
-          '%.log',
-          '%.tfplan',
-          '%.tfstate',
-          '%.azure/',
-          '%.aws/',
-          '%.gcp/',
-          '%.kube/',
-          '%.ssh/',
-          'secret',
-
+          "%.env",
+          "%.pem",
+          "%.key",
+          "%.p12",
+          "%.jks",
+          "%.sqlite",
+          "%.db",
+          "%.json",
+          "%.csv",
+          "%.bak",
+          "%.old",
+          "%.git%-credentials",
+          "credentials%.json",
+          "%.log",
+          "%.tfplan",
+          "%.tfstate",
+          "%.azure/",
+          "%.aws/",
+          "%.gcp/",
+          "%.kube/",
+          "%.ssh/",
+          "secret",
         }
 
         for _, match in ipairs(matches) do
@@ -65,7 +64,7 @@ return {
       local is_copilot_enabled = function()
         local filepath = vim.api.nvim_buf_get_name(0)
         local filename = vim.fs.basename(filepath)
-        local filetype = string.lower(vim.api.nvim_buf_get_option(0, 'filetype'))
+        local filetype = string.lower(vim.api.nvim_buf_get_option(0, "filetype"))
 
         local enabled = copilot_rules(filepath, filename, filetype)
 
@@ -74,12 +73,12 @@ return {
       end
 
       copilot.setup({
-        panel = { enabled = false, },
-        suggestion = { enabled = false, },
+        panel = { enabled = false },
+        suggestion = { enabled = false },
         filetypes = {
           ["*"] = is_copilot_enabled,
         },
-        copilot_node_command = 'node', -- Node.js version must be > 18.x
+        copilot_node_command = "node", -- Node.js version must be > 18.x
         server_opts_overrides = {
           settings = {
             advanced = {
@@ -89,9 +88,9 @@ return {
                 ["*"] = true,
               },
             },
-          }
+          },
         },
       })
-    end
+    end,
   },
 }

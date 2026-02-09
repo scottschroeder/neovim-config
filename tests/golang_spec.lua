@@ -30,9 +30,9 @@ describe("new_test_file", function()
     assert.equals("package mypackage", result[1])
     assert.equals("", result[2])
     assert.equals("import (", result[3])
-    assert.equals("\t\"testing\"", result[4])
+    assert.equals('\t"testing"', result[4])
     assert.equals("", result[5])
-    assert.equals("\t\"github.com/stretchr/testify/assert\"", result[6])
+    assert.equals('\t"github.com/stretchr/testify/assert"', result[6])
     assert.equals(")", result[7])
   end)
 
@@ -54,7 +54,9 @@ describe("get_file_name", function()
   end)
 
   it("returns test file path for implementation file", function()
-    vim.api.nvim_buf_get_name = function() return "/path/to/foo.go" end
+    vim.api.nvim_buf_get_name = function()
+      return "/path/to/foo.go"
+    end
     local result = golang.get_file_name()
     assert.equals("/path/to/foo_test.go", result.test_file)
     assert.equals("/path/to/foo.go", result.implementation_file)
@@ -62,7 +64,9 @@ describe("get_file_name", function()
   end)
 
   it("returns implementation file path for test file", function()
-    vim.api.nvim_buf_get_name = function() return "/path/to/foo_test.go" end
+    vim.api.nvim_buf_get_name = function()
+      return "/path/to/foo_test.go"
+    end
     local result = golang.get_file_name()
     assert.equals("/path/to/foo_test.go", result.test_file)
     assert.equals("/path/to/foo.go", result.implementation_file)
@@ -70,7 +74,9 @@ describe("get_file_name", function()
   end)
 
   it("handles nested directory paths", function()
-    vim.api.nvim_buf_get_name = function() return "/deeply/nested/path/to/bar.go" end
+    vim.api.nvim_buf_get_name = function()
+      return "/deeply/nested/path/to/bar.go"
+    end
     local result = golang.get_file_name()
     assert.equals("/deeply/nested/path/to/bar_test.go", result.test_file)
     assert.equals("/deeply/nested/path/to/bar.go", result.implementation_file)
@@ -78,7 +84,9 @@ describe("get_file_name", function()
   end)
 
   it("handles nested directory paths for test files", function()
-    vim.api.nvim_buf_get_name = function() return "/deeply/nested/path/to/bar_test.go" end
+    vim.api.nvim_buf_get_name = function()
+      return "/deeply/nested/path/to/bar_test.go"
+    end
     local result = golang.get_file_name()
     assert.equals("/deeply/nested/path/to/bar_test.go", result.test_file)
     assert.equals("/deeply/nested/path/to/bar.go", result.implementation_file)

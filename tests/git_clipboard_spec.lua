@@ -31,10 +31,14 @@ describe("git clipboard find_valid_ref", function()
 
     assert.equals("master", clipboard.find_valid_ref({ "master" }, resolve, { min_hex_len = 5 }).ref)
     assert.equals("0.3.4", clipboard.find_valid_ref({ "0.3.4" }, resolve, { min_hex_len = 5 }).ref)
-    assert.equals("936376c1c8e13ef6658ff4b71372c7431beb28a6",
-      clipboard.find_valid_ref({ "936376c1c8e13ef6658ff4b71372c7431beb28a6" }, resolve, { min_hex_len = 5 }).ref)
-    assert.equals("936376c1c8e13ef6658f",
-      clipboard.find_valid_ref({ "936376c1c8e13ef6658f" }, resolve, { min_hex_len = 5 }).ref)
+    assert.equals(
+      "936376c1c8e13ef6658ff4b71372c7431beb28a6",
+      clipboard.find_valid_ref({ "936376c1c8e13ef6658ff4b71372c7431beb28a6" }, resolve, { min_hex_len = 5 }).ref
+    )
+    assert.equals(
+      "936376c1c8e13ef6658f",
+      clipboard.find_valid_ref({ "936376c1c8e13ef6658f" }, resolve, { min_hex_len = 5 }).ref
+    )
     assert.equals("93637", clipboard.find_valid_ref({ "93637" }, resolve, { min_hex_len = 5 }).ref)
   end)
 

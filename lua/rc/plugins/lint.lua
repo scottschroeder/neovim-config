@@ -3,7 +3,7 @@ return {
   config = function()
     local lint = require("lint")
     lint.linters_by_ft = {
-      go = { 'golangcilint' },
+      go = { "golangcilint" },
     }
     local augroup = vim.api.nvim_create_augroup("background lint", {})
 

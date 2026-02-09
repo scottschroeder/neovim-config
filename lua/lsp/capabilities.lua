@@ -15,5 +15,5 @@ local gen_cap = function()
 end
 
 return {
-  capabilities = gen_cap()
+  capabilities = gen_cap(),
 }

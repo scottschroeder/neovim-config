@@ -79,7 +79,7 @@ M.ViMode = {
       r = "orange",
       ["!"] = "red",
       t = "red",
-    }
+    },
   },
   -- We can now access the value of mode() that, by now, would have been
   -- computed by `init()` and use it to index our strings dictionary.
@@ -95,7 +95,7 @@ M.ViMode = {
   hl = function(self)
     local mode = self.mode:sub(1, 1) -- get only the first mode character
     local mode_color = palette.colors.simple[self.mode_color_names[mode]]
-    return { fg = mode_color, bold = true, }
+    return { fg = mode_color, bold = true }
   end,
 }
 

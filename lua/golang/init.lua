@@ -47,10 +47,12 @@ local function get_file_name(opts)
 end
 
 local function toggle_first_char_case(str)
-  if str == "" then return str end
+  if str == "" then
+    return str
+  end
   local first = str:sub(1, 1)
   local toggled
-  if first:match("%l") then     -- if lowercase
+  if first:match("%l") then -- if lowercase
     toggled = first:upper()
   elseif first:match("%u") then -- if uppercase
     toggled = first:lower()
@@ -62,15 +64,16 @@ end
 
 local get_identifier = function()
   local node = vim.treesitter.get_node()
-  if not node then return end
+  if not node then
+    return
+  end
   local ident = vim.treesitter.get_node_text(node, 0)
   local is_ident = vim.tbl_contains({
-      "package_identifier",
-      "field_identifier",
-      "type_identifier",
-      "identifier",
-    },
-    node:type())
+    "package_identifier",
+    "field_identifier",
+    "type_identifier",
+    "identifier",
+  }, node:type())
   if is_ident then
     return ident
   end
@@ -82,9 +85,9 @@ local new_test_file = function(packagename)
     "package " .. packagename,
     "",
     "import (",
-    "\t\"testing\"",
+    '\t"testing"',
     "",
-    "\t\"github.com/stretchr/testify/assert\"",
+    '\t"github.com/stretchr/testify/assert"',
     ")",
     "",
     "",
@@ -105,10 +108,9 @@ M.switch_implementation_and_test = function()
   end
 end
 
-
 local public_private_swap = function()
   local buf_clients = vim.lsp.get_clients({
-    bufnr = 0
+    bufnr = 0,
   })
 
   local ident = get_identifier()

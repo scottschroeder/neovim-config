@@ -7,15 +7,15 @@ local autoload_lsp_servers = function()
     -- "rust_analyzer",
   }
 
-  if vim.fn.executable('go') == 1 then
+  if vim.fn.executable("go") == 1 then
     table.insert(ensure_installed, "gopls")
   end
 
-  if vim.fn.executable('unzip') == 1 then
+  if vim.fn.executable("unzip") == 1 then
     table.insert(ensure_installed, "terraformls")
   end
 
-  if vim.fn.executable('npm') == 1 then
+  if vim.fn.executable("npm") == 1 then
     -- table.insert(ensure_installed, "")
   end
 
@@ -32,19 +32,19 @@ return {
           icons = {
             package_installed = "✓",
             package_pending = "➜",
-            package_uninstalled = "✗"
-          }
-        }
+            package_uninstalled = "✗",
+          },
+        },
       })
-    end
+    end,
   },
   {
     "williamboman/mason-lspconfig.nvim",
     dependencies = { "williamboman/mason.nvim" },
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = autoload_lsp_servers()
+        ensure_installed = autoload_lsp_servers(),
       })
-    end
+    end,
   },
 }

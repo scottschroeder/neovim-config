@@ -3,10 +3,9 @@ return {
     "kosayoda/nvim-lightbulb",
     config = function()
       require("nvim-lightbulb").setup({
-        autocmd = { enabled = true }
+        autocmd = { enabled = true },
       })
-    end
-
+    end,
   },
   -- { "RishabhRD/nvim-lsputils", dependencies = "RishabhRD/popfix" },
   {
@@ -19,12 +18,12 @@ return {
     "lvimuser/lsp-inlayhints.nvim",
     config = function()
       require("lsp-inlayhints").setup({})
-    end
+    end,
   },
   {
     "neovim/nvim-lspconfig",
     config = function()
       require("lsp")
-    end
+    end,
   },
 }

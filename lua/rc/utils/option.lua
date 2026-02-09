@@ -1,19 +1,19 @@
 local scopes = { o = vim.o, b = vim.bo, w = vim.wo }
 
 local function table_to_vim_string(value)
-  local values = ''
+  local values = ""
   for k, v in pairs(value) do
     if k == 1 then
       values = values .. v
     else
-      values = values .. ',' .. v
+      values = values .. "," .. v
     end
   end
   return values
 end
 
 local function opt(scope, key, value)
-  if type(value) == 'table' then
+  if type(value) == "table" then
     value = table_to_vim_string(value)
   end
 
@@ -24,5 +24,5 @@ local function opt(scope, key, value)
 end
 
 return {
-  opt = opt
+  opt = opt,
 }

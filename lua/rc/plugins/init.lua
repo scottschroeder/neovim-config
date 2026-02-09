@@ -1,23 +1,28 @@
 return {
   { "nvim-tree/nvim-web-devicons", lazy = true },
-  { "nvim-lua/plenary.nvim",       lazy = true },
+  { "nvim-lua/plenary.nvim", lazy = true },
   {
     "j-hui/fidget.nvim",
     config = function()
       require("fidget").setup({})
-    end
+    end,
   },
   {
     url = "https://codeberg.org/andyg/leap.nvim",
     dependencies = "tpope/vim-repeat",
     config = function()
-      vim.keymap.set({ 'n', 'x', 'o' }, 's', '<Plug>(leap-forward)')
-      vim.keymap.set({ 'n', 'x', 'o' }, 'S', '<Plug>(leap-backward)')
-      vim.keymap.set({ 'n', 'x', 'o' }, 'gs', '<Plug>(leap-from-window)')
-    end
+      vim.keymap.set({ "n", "x", "o" }, "s", "<Plug>(leap-forward)")
+      vim.keymap.set({ "n", "x", "o" }, "S", "<Plug>(leap-backward)")
+      vim.keymap.set({ "n", "x", "o" }, "gs", "<Plug>(leap-from-window)")
+    end,
   },
-  { 'stevearc/dressing.nvim' },                                                              -- appearance of the vim.ui.select & vim.ui.input modals
-  { 'norcalli/nvim-colorizer.lua', config = function() require("colorizer").setup({}) end }, -- highlight color codes
+  { "stevearc/dressing.nvim" }, -- appearance of the vim.ui.select & vim.ui.input modals
+  {
+    "norcalli/nvim-colorizer.lua",
+    config = function()
+      require("colorizer").setup({})
+    end,
+  }, -- highlight color codes
   require("rc.utils.miniplugin").define_config("quickfix", function()
     local qf = require("quickfix")
     local map = require("rc.utils.map").map
@@ -33,26 +38,24 @@ return {
     end, { desc = "Diagnostic Quickfix" })
     map("n", "]q", ":cn<CR>", { desc = "Next Quickfix" })
     map("n", "[q", ":cp<CR>", { desc = "Prev Quickfix" })
-  end
-  ),
+  end),
   require("rc.utils.miniplugin").define_config("autoresize", function()
     local az = require("autoresize")
     az.setup()
-  end
-  ),
+  end),
   require("rc.utils.miniplugin").define_config("golang", function()
     local golang = require("golang")
     local map = require("rc.utils.map").map
     local cmd = require("rc.utils.map").cmd
 
+    cmd("GoTestSwitch", golang.switch_implementation_and_test, { desc = "Switch between test and implementation file" })
 
-    cmd("GoTestSwitch", golang.switch_implementation_and_test,
-      { desc = "Switch between test and implementation file" })
-
-    map("n", "<leader>gt", golang.switch_implementation_and_test,
-      { desc = "Switch between test and implementation file" })
-    map("n", "<leader>lp", golang.public_private_swap,
-      { desc = "Toggle Public/Private Visability" })
-  end
-  ),
+    map(
+      "n",
+      "<leader>gt",
+      golang.switch_implementation_and_test,
+      { desc = "Switch between test and implementation file" }
+    )
+    map("n", "<leader>lp", golang.public_private_swap, { desc = "Toggle Public/Private Visability" })
+  end),
 }

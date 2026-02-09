@@ -1,6 +1,8 @@
 -- Safely load local overrides (gitignored)
 local ok, local_config = pcall(require, "rc.plugins.speeddial_local")
-if not ok then local_config = {} end
+if not ok then
+  local_config = {}
+end
 
 -- Base sources (committed)
 local base_sources = {
@@ -8,33 +10,33 @@ local base_sources = {
     project = {
       title = "Neovim Config",
       vcs_root = "~/src/github/scottschroeder/neovim-config",
-    }
+    },
   },
   {
     project = {
       title = "Hab Config",
       root = "~/src/github/scottschroeder/hab/configs",
       vcs_root = "~/src/github/scottschroeder/hab",
-    }
+    },
   },
   {
     project = {
       title = "speeddial.nvim",
       vcs_root = "~/src/github/scottschroeder/speeddial.nvim",
-    }
+    },
   },
   {
     git = {
       base = "~/src/github",
       depth = 2,
-      source = "GitHub"
-    }
+      source = "GitHub",
+    },
   },
   {
     git = {
       base = "~/src/local",
-      source = "local"
-    }
+      source = "local",
+    },
   },
 }
 
@@ -50,7 +52,7 @@ return {
       local map = require("rc.utils.map").map
 
       require("speeddial").setup({
-        sources = sources
+        sources = sources,
       })
 
       map("n", "<leader>p", function()
@@ -68,10 +70,10 @@ return {
               end
             end
 
-            require('telescope.builtin').find_files({ find_command = { 'rg', '--files', '--hidden', '-g', '!.git' } })
-          end
+            require("telescope.builtin").find_files({ find_command = { "rg", "--files", "--hidden", "-g", "!.git" } })
+          end,
         })
       end, {})
-    end
+    end,
   },
 }

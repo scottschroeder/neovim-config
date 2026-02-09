@@ -412,69 +412,71 @@ local function make_diff_ref_picker(options, callback)
     })
   end
 
-  pickers.new({}, {
-    prompt_title = "Diff base ref",
-    results_title = "Recent refs",
-    layout_strategy = "vertical",
-    layout_config = {
-      width = 0.97,
-      height = 0.95,
-      prompt_position = "top",
-      preview_height = 0.45,
-      mirror = true,
-    },
-    finder = finders.new_table({
-      results = telescope_entries,
-      entry_maker = function(entry)
-        return entry
-      end,
-    }),
-    sorter = stable_substring_sorter(),
-    previewer = commit_show_previewer(),
-    attach_mappings = function(prompt_bufnr, map)
-      clear_modified(prompt_bufnr)
-      vim.api.nvim_create_autocmd({ "TextChangedI", "TextChanged" }, {
-        buffer = prompt_bufnr,
-        callback = function()
-          clear_modified(prompt_bufnr)
+  pickers
+    .new({}, {
+      prompt_title = "Diff base ref",
+      results_title = "Recent refs",
+      layout_strategy = "vertical",
+      layout_config = {
+        width = 0.97,
+        height = 0.95,
+        prompt_position = "top",
+        preview_height = 0.45,
+        mirror = true,
+      },
+      finder = finders.new_table({
+        results = telescope_entries,
+        entry_maker = function(entry)
+          return entry
         end,
-      })
-
-      local close_prompt = function()
+      }),
+      sorter = stable_substring_sorter(),
+      previewer = commit_show_previewer(),
+      attach_mappings = function(prompt_bufnr, map)
         clear_modified(prompt_bufnr)
-        actions.close(prompt_bufnr)
-      end
+        vim.api.nvim_create_autocmd({ "TextChangedI", "TextChanged" }, {
+          buffer = prompt_bufnr,
+          callback = function()
+            clear_modified(prompt_bufnr)
+          end,
+        })
 
-      map("i", "<Esc>", close_prompt)
-      map("i", "<C-c>", close_prompt)
-      map("n", "q", close_prompt)
-      map("n", "<Esc>", close_prompt)
-
-      actions.select_default:replace(function()
-        local entry = action_state.get_selected_entry()
-        clear_modified(prompt_bufnr)
-        actions.close(prompt_bufnr)
-
-        if not entry or not entry.value then
-          return
+        local close_prompt = function()
+          clear_modified(prompt_bufnr)
+          actions.close(prompt_bufnr)
         end
 
-        local choice = entry.value
-        if choice.ref then
-          callback(model.resolve_choice_ref(choice, git.resolve_commit_sha))
-          return
-        end
+        map("i", "<Esc>", close_prompt)
+        map("i", "<C-c>", close_prompt)
+        map("n", "q", close_prompt)
+        map("n", "<Esc>", close_prompt)
 
-        vim.ui.input({ prompt = "Commit or ref: " }, function(input)
-          if not input or input == "" then
+        actions.select_default:replace(function()
+          local entry = action_state.get_selected_entry()
+          clear_modified(prompt_bufnr)
+          actions.close(prompt_bufnr)
+
+          if not entry or not entry.value then
             return
           end
-          callback(input)
+
+          local choice = entry.value
+          if choice.ref then
+            callback(model.resolve_choice_ref(choice, git.resolve_commit_sha))
+            return
+          end
+
+          vim.ui.input({ prompt = "Commit or ref: " }, function(input)
+            if not input or input == "" then
+              return
+            end
+            callback(input)
+          end)
         end)
-      end)
-      return true
-    end,
-  }):find()
+        return true
+      end,
+    })
+    :find()
 end
 
 function M.select_diff_ref(callback)

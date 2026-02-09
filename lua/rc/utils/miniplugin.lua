@@ -1,6 +1,5 @@
 local M = {}
 
-
 M.define_config = function(name, f)
   return {
     name,

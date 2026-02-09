@@ -67,7 +67,8 @@ local subtest_case = function()
   return lines
 end
 
-local snippet_tfn = snippet("tfn",
+local snippet_tfn = snippet(
+  "tfn",
   fmt(
     [[
               func Test{}(t *testing.T) {{
@@ -80,7 +81,8 @@ local snippet_tfn = snippet("tfn",
       i(0),
       c(2, { t(""), t(subtest_case()) }),
     }
-  ))
+  )
+)
 
 ls.add_snippets("go", {
 
@@ -98,13 +100,16 @@ ls.add_snippets("go", {
 
   snippet(
     { trig = "main", name = "Main", dscr = "Create a main function" },
-    fmta([[
+    fmta(
+      [[
           package main
 
           func main() {
             <>
           }
-          ]], ls.i(0)),
+          ]],
+      ls.i(0)
+    ),
     not_in_func
   ),
   snippet_tfn,

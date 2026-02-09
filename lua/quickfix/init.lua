@@ -1,7 +1,6 @@
 local map = require("rc.utils.map").map
 local log = require("rc.log")
 
-
 local open_quickfix = function()
   vim.api.nvim_command("botright cwindow")
 end
@@ -20,7 +19,7 @@ local function set_qf_open_if_content()
 end
 
 local function severity_lsp_to_vim(severity)
-  if type(severity) == 'string' then
+  if type(severity) == "string" then
     severity = vim.lsp.protocol.DiagnosticSeverity[severity]
   end
   return severity
@@ -37,7 +36,7 @@ local get_diagnostics = function(opts)
 
   if not opts.client_id then
     local buf_clients = vim.lsp.get_clients({
-      bufnr = 0
+      bufnr = 0,
     })
     for k, c in pairs(buf_clients) do
       if c["name"] ~= "copilot" then
@@ -81,7 +80,7 @@ local load_diagnostics_to_quickfix = function()
     diagnostics = get_diagnostics({})
   end
 
-  vim.fn.setqflist({}, ' ', { title = "", items = {} })
+  vim.fn.setqflist({}, " ", { title = "", items = {} })
 
   if #diagnostics == 0 then
     return
@@ -89,7 +88,7 @@ local load_diagnostics_to_quickfix = function()
 
   local title = "Diagnostics"
   local items = vim.diagnostic.toqflist(diagnostics)
-  vim.fn.setqflist({}, ' ', { title = title, items = items })
+  vim.fn.setqflist({}, " ", { title = title, items = items })
 end
 
 local toggle_quickfix = function(opts)
@@ -114,13 +113,10 @@ local toggle_quickfix = function(opts)
   set_qf_open_if_content()
 end
 
-
 local diagnostic_quickfix = function()
   load_diagnostics_to_quickfix()
   set_qf_open_if_content()
 end
-
-
 
 return {
   magic_quickfix = toggle_quickfix,

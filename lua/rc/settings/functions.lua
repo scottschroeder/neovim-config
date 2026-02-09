@@ -1,6 +1,5 @@
 M = {}
 
-
 M.reload_all = function()
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
     if vim.api.nvim_buf_is_loaded(buf) then
@@ -116,7 +115,10 @@ M.buffer_debug = function()
   add_line(lines, ("buftype: %s"):format(vim.api.nvim_get_option_value("buftype", { buf = target_buf })))
   add_line(lines, ("bufhidden: %s"):format(vim.api.nvim_get_option_value("bufhidden", { buf = target_buf })))
   add_line(lines, ("swapfile: %s"):format(tostring(vim.api.nvim_get_option_value("swapfile", { buf = target_buf }))))
-  add_line(lines, ("modifiable: %s"):format(tostring(vim.api.nvim_get_option_value("modifiable", { buf = target_buf }))))
+  add_line(
+    lines,
+    ("modifiable: %s"):format(tostring(vim.api.nvim_get_option_value("modifiable", { buf = target_buf })))
+  )
   add_line(lines, ("readonly: %s"):format(tostring(vim.api.nvim_get_option_value("readonly", { buf = target_buf }))))
   add_line(lines, ("winid: %d"):format(target_win))
   add_line(lines, ("winnr: %s"):format(tostring(vim.fn.win_id2win(target_win))))
@@ -136,8 +138,5 @@ M.buffer_debug = function()
   vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
   vim.api.nvim_set_option_value("modifiable", false, { buf = buf })
 end
-
-
-
 
 return M

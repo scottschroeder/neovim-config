@@ -1,5 +1,4 @@
-return
-{
+return {
   "sainnhe/gruvbox-material",
   config = function()
     local palette = require("rc.settings.color.palette")
@@ -25,5 +24,5 @@ return
     -- }
 
     palette.set_colorscheme("gruvbox-material")
-  end
+  end,
 }

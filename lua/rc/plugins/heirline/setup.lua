@@ -27,7 +27,9 @@ local surround_round = { "", "" }
 local forward_arrow = ""
 
 local statusline = {
-  hl = function() return { bg = palette.backgrounds()[3] } end,
+  hl = function()
+    return { bg = palette.backgrounds()[3] }
+  end,
   require("rc.plugins.heirline.mode").ViMode,
   Space,
   require("rc.plugins.heirline.lsp").LSPActive,
@@ -44,19 +46,21 @@ local statusline = {
   require("rc.plugins.heirline.files").Ruler,
   require("rc.plugins.heirline.files").ScrollBar,
   Space,
-  surround({ '[', ']' }, nil, require("rc.plugins.heirline.files").FileSize),
+  surround({ "[", "]" }, nil, require("rc.plugins.heirline.files").FileSize),
 }
 
 local should_ignore_window = function()
-  if buffer_matches({
-        buftype = { "nofile", "prompt", "help", "quickfix" },
-        filetype = { "^git.*", "fugitive" },
-      }) then
+  if
+    buffer_matches({
+      buftype = { "nofile", "prompt", "help", "quickfix" },
+      filetype = { "^git.*", "fugitive" },
+    })
+  then
     return true
   end
 
   local bufname = vim.api.nvim_buf_get_name(0)
-  if bufname:match('NvimTree_%d+$') then
+  if bufname:match("NvimTree_%d+$") then
     return true
   end
 
@@ -73,7 +77,9 @@ local winline = {
   {
     require("rc.plugins.heirline.files").FileType,
     Space,
-    hl = function() return { bg = palette.backgrounds()[3] } end,
+    hl = function()
+      return { bg = palette.backgrounds()[3] }
+    end,
     require("rc.plugins.heirline.files").FileNameBlock,
     Align,
     require("rc.plugins.heirline.git").GitChanges,
@@ -88,7 +94,7 @@ heirline.setup({
     disable_winbar_cb = function(args)
       local bufname = vim.api.nvim_buf_get_name(0)
 
-      if bufname:match('NvimTree_%d+$') then
+      if bufname:match("NvimTree_%d+$") then
         return true
       end
 
@@ -98,15 +104,12 @@ heirline.setup({
       end
 
       local buf = args.buf
-      local buftype = vim.tbl_contains(
-        { "prompt", "nofile", "help", "quickfix" },
-        vim.bo[buf].buftype
-      )
+      local buftype = vim.tbl_contains({ "prompt", "nofile", "help", "quickfix" }, vim.bo[buf].buftype)
       local filetype = vim.tbl_contains({ "gitcommit", "fugitive" }, vim.bo[buf].filetype)
       if buftype or filetype then
         return true
       end
       return false
     end,
-  }
+  },
 })

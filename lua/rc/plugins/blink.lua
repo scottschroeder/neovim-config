@@ -1,17 +1,17 @@
 -- TODO
 -- Copilot suggestions to be at the end of the list
 return {
-  'saghen/blink.cmp',
+  "saghen/blink.cmp",
   -- optional: provides snippets for the snippet source
   dependencies = {
     "fang2hou/blink-copilot",
-    { 'L3MON4D3/LuaSnip', version = 'v2.*' },
+    { "L3MON4D3/LuaSnip", version = "v2.*" },
   },
 
   -- use a release tag to download pre-built binaries
-  version = '1.*',
+  version = "1.*",
   config = function()
-    local cmp = require('blink.cmp')
+    local cmp = require("blink.cmp")
     -- local log = require("rc.log")
     cmp.setup({
       enabled = function()
@@ -32,15 +32,15 @@ return {
       --
       -- See :h blink-cmp-config-keymap for defining your own keymap
       keymap = {
-        preset = 'default',
-        ['<C-k>'] = { 'snippet_forward', 'fallback' },
-        ['<C-j'] = { 'snippet_backward', 'fallback' },
+        preset = "default",
+        ["<C-k>"] = { "snippet_forward", "fallback" },
+        ["<C-j"] = { "snippet_backward", "fallback" },
       },
 
       appearance = {
         -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
         -- Adjusts spacing to ensure icons are aligned
-        nerd_font_variant = 'mono'
+        nerd_font_variant = "mono",
       },
 
       -- (Default) Only show the documentation popup when manually triggered
@@ -50,16 +50,16 @@ return {
         menu = {
           draw = {
             columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind", "source_name", gap = 1 } },
-          }
-        }
+          },
+        },
       },
 
       -- Default list of enabled providers defined so that you can extend it
       -- elsewhere in your config, without redefining it, due to `opts_extend`
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer', 'copilot' },
+        default = { "lsp", "path", "snippets", "buffer", "copilot" },
         per_filetype = {
-          sql = { 'snippets', 'dadbod', 'buffer', 'copilot' }
+          sql = { "snippets", "dadbod", "buffer", "copilot" },
         },
         providers = {
           dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
@@ -71,18 +71,16 @@ return {
           },
         },
       },
-      snippets = { preset = 'luasnip' },
+      snippets = { preset = "luasnip" },
       signature = { enabled = true },
       -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
       -- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
       -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
       --
       -- See the fuzzy documentation for more information
-      fuzzy = { implementation = "prefer_rust_with_warning" }
-    }
-
-    )
-  end
+      fuzzy = { implementation = "prefer_rust_with_warning" },
+    })
+  end,
   -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
   -- build = 'cargo build --release',
   -- If you use nix, you can build from source using latest nightly rust with:

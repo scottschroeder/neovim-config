@@ -14,26 +14,38 @@ local events = require("luasnip.util.events")
 local fmt = require("luasnip.extras.fmt").fmt
 local rep = require("luasnip.extras").rep
 
-local util = require('rc.plugins.luasnip.util')
+local util = require("rc.plugins.luasnip.util")
 
 ls.add_snippets("all", {
-    snippet({ trig = "curtime", dscr = "insert the current date/time" }, f(function()
-      return os.date "%D - %H:%M"
-    end)),
-    snippet({ trig = "time", dscr = "current time" }, f(function()
-      return os.date "%H:%M:%S"
-    end)),
-    snippet({ trig = "date", dscr = "current date" }, f(function()
-      return os.date "%Y-%m-%d"
-    end)),
-    snippet({ trig = "uuid", wordTrig = true, dscr = "insert UUID" }, f(function()
+  snippet(
+    { trig = "curtime", dscr = "insert the current date/time" },
+    f(function()
+      return os.date("%D - %H:%M")
+    end)
+  ),
+  snippet(
+    { trig = "time", dscr = "current time" },
+    f(function()
+      return os.date("%H:%M:%S")
+    end)
+  ),
+  snippet(
+    { trig = "date", dscr = "current date" },
+    f(function()
+      return os.date("%Y-%m-%d")
+    end)
+  ),
+  snippet(
+    { trig = "uuid", wordTrig = true, dscr = "insert UUID" },
+    f(function()
       return util.uuid()
-    end)),
+    end)
+  ),
 
-    snippet({
-        trig = "wombat-autosnippet",
-        dscr = "explode the wombat",
-        snippetType = "autosnippet",
-    }, t("hat wobble")),
-    ls.parser.parse_snippet("expand", "-- this is what was expanded!"),
+  snippet({
+    trig = "wombat-autosnippet",
+    dscr = "explode the wombat",
+    snippetType = "autosnippet",
+  }, t("hat wobble")),
+  ls.parser.parse_snippet("expand", "-- this is what was expanded!"),
 })

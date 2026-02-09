@@ -2,7 +2,6 @@ local map = require("rc.utils.map").map
 local map_prefix = require("rc.utils.map").prefix
 local usercmd = require("rc.utils.map").cmd
 
-
 map("", "<C-h>", "<C-w>h", { desc = "move window left" })
 map("", "<C-j>", "<C-w>j", { desc = "move window down" })
 map("", "<C-k>", "<C-w>k", { desc = "move window up" })
@@ -26,7 +25,6 @@ map("n", "<F4>", ":checktime<CR>", { desc = "Check file changed on disk" })
 
 map_prefix("<leader>g", "Git Helpers")
 
-
 map_prefix("<leader>t", "Tabs")
 map("n", "<leader>ta", ":$tabnew<CR>", { noremap = true, desc = "New Tab" })
 map("n", "<leader>tc", ":tabclose<CR>", { noremap = true, desc = "Close Tab" })
@@ -45,8 +43,12 @@ end)
 
 usercmd("BufferDebug", require("rc.settings.functions").buffer_debug, { desc = "Open buffer debug split" })
 
-map({ "n" }, "<leader>lR", require("rc.settings.functions").reload_all,
-  { desc = "Reload all open buffers, discard all changes" })
+map(
+  { "n" },
+  "<leader>lR",
+  require("rc.settings.functions").reload_all,
+  { desc = "Reload all open buffers, discard all changes" }
+)
 
 -- This doesn't really work as expected
 map({ "n" }, "<leader>ss", function()
@@ -60,14 +62,14 @@ map({ "v" }, "<leader>sx", ":lua<CR>", { desc = "run lua visual selection" })
 usercmd("WrapToggle", function()
   vim.wo.wrap = not vim.wo.wrap
   vim.wo.linebreak = vim.wo.wrap
-end, {desc = "Toggle the buffer wrapping mode"})
+end, { desc = "Toggle the buffer wrapping mode" })
 
 usercmd("WrapOn", function()
   vim.wo.wrap = true
   vim.wo.linebreak = true
-end, {desc = "Enable the buffer wrapping mode"})
+end, { desc = "Enable the buffer wrapping mode" })
 
 usercmd("WrapOff", function()
   vim.wo.wrap = false
   vim.wo.linebreak = false
-end, {desc = "Disable the buffer wrapping mode"})
+end, { desc = "Disable the buffer wrapping mode" })

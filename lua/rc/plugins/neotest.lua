@@ -6,7 +6,7 @@ return {
     "antoinemadec/FixCursorHold.nvim",
     "nvim-treesitter/nvim-treesitter",
     "nvim-neotest/neotest-go",
-    'mrcjkb/rustaceanvim',
+    "mrcjkb/rustaceanvim",
   },
   config = function()
     local map = require("rc.utils.map").map
@@ -14,14 +14,12 @@ return {
 
     map_prefix("<leader>T", "[T]ests")
 
-
     -- The diagnostics are not working
     local neotest_ns = vim.api.nvim_create_namespace("neotest")
     vim.diagnostic.config({
       virtual_text = {
         format = function(diagnostic)
-          local message =
-              diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
+          local message = diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
           return message
         end,
       },
@@ -37,15 +35,15 @@ return {
       },
       adapters = {
         require("neotest-go")({
-          recursive_run = true
+          recursive_run = true,
         }),
 
-        require('rustaceanvim.neotest'),
+        require("rustaceanvim.neotest"),
       },
     })
 
     map("n", "<leader>TT", function()
       neotest.summary.toggle()
     end, { desc = "Toggle Tests" })
-  end
+  end,
 }

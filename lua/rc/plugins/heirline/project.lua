@@ -4,8 +4,7 @@ local utils = require("heirline.utils")
 local M = {}
 
 M.ProjectName = {
-  init = function(self)
-  end,
+  init = function(self) end,
   condition = function(self)
     return false
     -- TODO
@@ -20,7 +19,7 @@ M.ProjectName = {
   end,
   provider = function(self)
     return self.name
-  end
+  end,
 }
 
 return M

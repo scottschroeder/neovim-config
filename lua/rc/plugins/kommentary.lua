@@ -1,5 +1,4 @@
-return
-{
+return {
   "b3nj5m1n/kommentary",
   config = function()
     local map = require("rc.utils.map").map
@@ -13,7 +12,7 @@ return
     require("kommentary")
     vim.g.kommentary_create_default_mappings = false
 
-    map("n", "<M-/>", '<Plug>kommentary_line_default', { desc = "Comment Toggle" })
-    map("v", "<M-/>", '<Plug>kommentary_visual_default', { desc = "Comment Toggle" })
-  end
+    map("n", "<M-/>", "<Plug>kommentary_line_default", { desc = "Comment Toggle" })
+    map("v", "<M-/>", "<Plug>kommentary_visual_default", { desc = "Comment Toggle" })
+  end,
 }

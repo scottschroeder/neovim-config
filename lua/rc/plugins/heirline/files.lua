@@ -42,7 +42,7 @@ local FileIcon = {
   end,
   hl = function(self)
     return { fg = self.icon_color }
-  end
+  end,
 }
 
 local FileName = {
@@ -50,7 +50,9 @@ local FileName = {
     -- first, trim the pattern relative to the current directory. For other
     -- options, see :h filename-modifers
     local filename = vim.fn.fnamemodify(self.filename, ":.")
-    if filename == "" then return "[No Name]" end
+    if filename == "" then
+      return "[No Name]"
+    end
     -- now, if the filename would occupy more than 1/4th of the available
     -- space, we trim the file path to its initials
     -- See Flexible Components section below for dynamic truncation
@@ -64,13 +66,25 @@ local FileName = {
 
 local FileFlags = {
   {
-    provider = function() if vim.bo.modified then return "[+]" end end,
-    hl = function() return { fg = colors.green } end
-
-  }, {
-    provider = function() if (not vim.bo.modifiable) or vim.bo.readonly then return "" end end,
-    hl = function() return { fg = colors.orange } end
-  }
+    provider = function()
+      if vim.bo.modified then
+        return "[+]"
+      end
+    end,
+    hl = function()
+      return { fg = colors.green }
+    end,
+  },
+  {
+    provider = function()
+      if (not vim.bo.modifiable) or vim.bo.readonly then
+        return ""
+      end
+    end,
+    hl = function()
+      return { fg = colors.orange }
+    end,
+  },
 }
 
 -- Now, let's say that we want the filename color to change if the buffer is
@@ -88,16 +102,16 @@ local FileNameModifer = {
 }
 
 -- let's add the children to our FileNameBlock component
-M.FileNameBlock = utils.insert(FileNameBlock,
+M.FileNameBlock = utils.insert(
+  FileNameBlock,
   FileIcon,
   utils.insert(FileNameModifer, FileName), -- a new table where FileName is a child of FileNameModifier
   unpack(FileFlags), -- A small optimisation, since their parent does nothing
-  { provider = '%<' }-- this means that the statusline is cut here when there's not enough space
+  { provider = "%<" } -- this means that the statusline is cut here when there's not enough space
 )
 
-
 local human_readable_filesize = function(fsize)
-  local suffix = { 'B', 'K', 'M', 'G', 'T', 'P', 'E' }
+  local suffix = { "B", "K", "M", "G", "T", "P", "E" }
   local nil_value = "∅B"
 
   if fsize < 0 then
@@ -123,7 +137,7 @@ M.FileSize = {
   provider = function()
     local fsize = vim.fn.getfsize(vim.api.nvim_buf_get_name(0))
     return human_readable_filesize(fsize)
-  end
+  end,
 }
 
 M.FileLastModified = {
@@ -131,7 +145,7 @@ M.FileLastModified = {
   provider = function()
     local ftime = vim.fn.getftime(vim.api.nvim_buf_get_name(0))
     return (ftime > 0) and os.date("%c", ftime)
-  end
+  end,
 }
 
 M.Ruler = {
@@ -144,7 +158,7 @@ M.Ruler = {
 
 M.ScrollBar = {
   static = {
-    sbar = { '▁', '▂', '▃', '▄', '▅', '▆', '▇', '█' }
+    sbar = { "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" },
     -- Another variant, because the more choice the better.
     -- sbar = { '🭶', '🭷', '🭸', '🭹', '🭺', '🭻' }
   },
@@ -154,7 +168,9 @@ M.ScrollBar = {
     local i = math.floor((curr_line - 1) / lines * #self.sbar) + 1
     return string.rep(self.sbar[i], 2)
   end,
-  hl = function() return { fg = colors.blue, bg = palette.ui().bright_bg } end,
+  hl = function()
+    return { fg = colors.blue, bg = palette.ui().bright_bg }
+  end,
 }
 
 return M

@@ -128,8 +128,16 @@ function M.format_option_label(item)
   local alias_text = #aliases > 0 and (" (" .. table.concat(aliases, ", ") .. ")") or ""
   local stack_text = item.is_stack and "[stack] " or ""
   local kind = type_label[item.primary_type] or "ref"
-  return string.format("%s %s[%s] %s%s %s (%s)", item.short_sha, stack_text, kind, item.primary_ref, alias_text,
-    item.date, item.age)
+  return string.format(
+    "%s %s[%s] %s%s %s (%s)",
+    item.short_sha,
+    stack_text,
+    kind,
+    item.primary_ref,
+    alias_text,
+    item.date,
+    item.age
+  )
 end
 
 function M.build_options(grouped_items, clipboard_ref)

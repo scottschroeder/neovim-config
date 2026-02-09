@@ -1,5 +1,5 @@
 return {
-  'stevearc/oil.nvim',
+  "stevearc/oil.nvim",
   -- dependencies = { { "echasnovski/mini.icons", opts = {} } },
   dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
   config = function()
@@ -26,5 +26,5 @@ return {
     local map = require("rc.utils.map").map
 
     map("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
-  end
+  end,
 }

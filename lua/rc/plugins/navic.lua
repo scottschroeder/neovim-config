@@ -39,7 +39,6 @@ return {
         highlight = false,
         separator = " > ",
       })
-    end
-
-  }
+    end,
+  },
 }

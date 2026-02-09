@@ -14,17 +14,18 @@ return {
         end
 
         if
-            vim.fn.getbufvar(buf, "&modifiable") == 1 and
-            utils.not_in(vim.fn.getbufvar(buf, "&filetype"), { "oil", "octo", "harpoon" }) then
+          vim.fn.getbufvar(buf, "&modifiable") == 1
+          and utils.not_in(vim.fn.getbufvar(buf, "&filetype"), { "oil", "octo", "harpoon" })
+        then
           return true -- met condition(s), can save
         end
-        return false  -- can't save
+        return false -- can't save
       end
 
       require("auto-save").setup({
         write_all_buffers = true,
         condition = is_autosave,
       })
-    end
+    end,
   },
 }

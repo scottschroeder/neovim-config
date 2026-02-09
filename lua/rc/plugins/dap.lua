@@ -21,7 +21,9 @@ return {
     -- I could also make this a `.dapconfigs` directory per-project
     local get_custom_arg = function()
       return {
-        "foo", "bar", "baz"
+        "foo",
+        "bar",
+        "baz",
       }
     end
     local get_custom_env = function()
@@ -50,16 +52,15 @@ return {
     }
 
     dap.adapters.delveone = {
-      type = 'server',
-      host = '127.0.0.1',
-      port = '39231'
+      type = "server",
+      host = "127.0.0.1",
+      port = "39231",
     }
 
     require("dap-go").setup()
 
     table.insert(dap.configurations.go, custom_debug)
     table.insert(dap.configurations.go, attach_headless)
-
 
     map("n", "<leader>Db", function()
       dap.toggle_breakpoint()

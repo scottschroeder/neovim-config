@@ -2,7 +2,7 @@ local log = require("rc.log")
 
 local function expand_to_lines(str)
   local result = {}
-  for line in str:gmatch '[^\n]+' do
+  for line in str:gmatch("[^\n]+") do
     table.insert(result, line)
   end
   return result
@@ -22,4 +22,3 @@ function _G.INSPECT(...)
   local objects = vim.tbl_map(vim.inspect, { ... })
   scratch(unpack(objects))
 end
-

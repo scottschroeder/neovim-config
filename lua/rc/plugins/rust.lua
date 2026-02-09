@@ -1,7 +1,7 @@
 return {
-  'mrcjkb/rustaceanvim',
-  version = '^4', -- Recommended
-  lazy = false,   -- This plugin is already lazy
+  "mrcjkb/rustaceanvim",
+  version = "^4", -- Recommended
+  lazy = false, -- This plugin is already lazy
   config = function()
     local log = require("rc.log")
     local buf_map = require("rc.utils.map").buf_map
@@ -9,15 +9,14 @@ return {
 
     vim.g.rustaceanvim = {
       -- Plugin configuration
-      tools = {
-      },
+      tools = {},
       -- LSP configuration
       server = {
         on_attach = function(client, bufnr)
           require("lsp.attach").on_attach(client, bufnr)
-          buf_map(bufnr, { "n", "v" }, "gD", function() vim.cmd.RustLsp('openDocs') end,
-            { desc = "Open Rust Documentation" })
-
+          buf_map(bufnr, { "n", "v" }, "gD", function()
+            vim.cmd.RustLsp("openDocs")
+          end, { desc = "Open Rust Documentation" })
 
           local function remove_unused_imports()
             -- Create a range covering the entire file
@@ -26,7 +25,9 @@ return {
 
             -- Request code actions synchronously
             local responses = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 1000)
-            if not responses or vim.tbl_isempty(responses) then return end
+            if not responses or vim.tbl_isempty(responses) then
+              return
+            end
 
             -- Apply the first matching "removeUnusedImports" action we find
             for client_id, res in pairs(responses) do
@@ -41,13 +42,12 @@ return {
             end
           end
 
-          buf_map(bufnr, { "n", "v" }, "<Leader>lai", remove_unused_imports,
-            { desc = "remove unused imports" })
+          buf_map(bufnr, { "n", "v" }, "<Leader>lai", remove_unused_imports, { desc = "remove unused imports" })
         end,
         capabilities = capabilities,
         default_settings = {
           -- rust-analyzer language server configuration
-          ['rust-analyzer'] = {
+          ["rust-analyzer"] = {
             assist = {
               importGranularity = "crate",
               importPrefix = "self",
@@ -61,14 +61,14 @@ return {
             cargo = {
               loadOutDirsFromCheck = true,
               buildScripts = {
-                enable = true
+                enable = true,
               },
             },
             procMacro = {
-              enable = true
+              enable = true,
             },
             checkOnSave = {
-              command = "clippy"
+              command = "clippy",
             },
           },
         },
@@ -79,5 +79,5 @@ return {
         --   codelldb_path, liblldb_path)
       },
     }
-  end
+  end,
 }

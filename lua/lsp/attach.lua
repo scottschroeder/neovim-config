@@ -1,6 +1,6 @@
-local nvim_lsp = require('lspconfig')
-local buf_map = require('rc.utils.map').buf_map
-local map_prefix = require('rc.utils.map').prefix
+local nvim_lsp = require("lspconfig")
+local buf_map = require("rc.utils.map").buf_map
+local map_prefix = require("rc.utils.map").prefix
 local log = require("rc.log")
 
 local code_action = function()
@@ -32,7 +32,6 @@ local on_attach = function(client, bufnr)
     end, "toggle inlay hints")
   end
 
-
   map_prefix("g", "GOTO", { buffer = bufnr })
   buf_set_keymap({ "n" }, "K", vim.lsp.buf.hover, "show hover documentation")
   buf_set_keymap({ "n" }, "gd", vim.lsp.buf.definition, "go to definition")
@@ -44,7 +43,6 @@ local on_attach = function(client, bufnr)
     require("rc.settings.functions").reload_all()
     vim.cmd("LspRestart")
   end, "Reload all buffers & Restart LSP")
-
 
   buf_set_keymap({ "n" }, "<F2>", vim.lsp.buf.rename, "rename at point")
 

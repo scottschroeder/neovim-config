@@ -1,6 +1,6 @@
 local log = require("rc.log")
 
-local lazypath = string.format('%s/lazy/lazy.nvim', vim.fn.stdpath('data'))
+local lazypath = string.format("%s/lazy/lazy.nvim", vim.fn.stdpath("data"))
 
 local download_lazy = function()
   log.info("downloading lazy")
@@ -17,7 +17,6 @@ end
 local has_lazy = function()
   return vim.loop.fs_stat(lazypath)
 end
-
 
 local setup_lazy = function()
   if not has_lazy() then

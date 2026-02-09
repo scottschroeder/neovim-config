@@ -57,7 +57,7 @@ local function transform(text, info)
     info.index = info.index + 1
     return ls.c(info.index, {
       ls.t(info.err_name),
-      ls.sn(nil, fmt('fmt.Errorf("{}: %w", {})', { ls.i(1), ls.t(info.err_name), })),
+      ls.sn(nil, fmt('fmt.Errorf("{}: %w", {})', { ls.i(1), ls.t(info.err_name) })),
       ls.sn(nil, fmt('errors.Wrap({}, "{}")', { ls.t(info.err_name), ls.i(1) })),
     })
   elseif text == "bool" then
@@ -87,7 +87,7 @@ end
 local make_panic_snippets = function(info)
   return {
     ls.t("panic(" .. info.err_name .. ")"),
-    ls.sn(nil, fmt('panic(fmt.Sprintf("{}: %s", {}))', { ls.i(1), ls.t(info.err_name), })),
+    ls.sn(nil, fmt('panic(fmt.Sprintf("{}: %s", {}))', { ls.i(1), ls.t(info.err_name) })),
   }
 end
 
@@ -142,9 +142,9 @@ local get_current_function_node = function()
   local scope_tree = get_scope_tree(cursor_node)
   for _, scope in ipairs(scope_tree) do
     if
-        scope:type() == "function_declaration"
-        or scope:type() == "method_declaration"
-        or scope:type() == "func_literal"
+      scope:type() == "function_declaration"
+      or scope:type() == "method_declaration"
+      or scope:type() == "func_literal"
     then
       return scope
     end
@@ -194,8 +194,7 @@ local return_value_nodes = function(info)
     for _, item in ipairs(return_values) do
       table.insert(return_statement, item)
     end
-    table.insert(handle_choices, ls.sn(1, return_statement)
-    )
+    table.insert(handle_choices, ls.sn(1, return_statement))
   end
 
   local panic_choices = make_panic_snippets(info)
@@ -225,7 +224,6 @@ M.shell = function(command) --{{{
   return res
 end --}}}
 
-
 ---Returns true if the cursor in a function body.
 ---@return boolean
 function M.is_in_function()
@@ -243,9 +241,9 @@ end --}}}
 -- @return boolean
 function M.is_in_test_function() --{{{
   return M.is_in_test_file() and M.is_in_function()
-end                              --}}}
+end --}}}
 
-local charset = {}               -- Random String {{{
+local charset = {} -- Random String {{{
 for i = 48, 57 do
   table.insert(charset, string.char(i))
 end
@@ -260,7 +258,7 @@ M.random_string = function(length)
     return ""
   end
   return M.random_string(length - 1) .. charset[math.random(1, #charset)]
-end                                --}}}
+end --}}}
 
 M.snake_case = function(titlecase) --{{{
   -- lowercase the first letter otherwise it causes the result to start with an
@@ -269,7 +267,7 @@ M.snake_case = function(titlecase) --{{{
   return titlecase:gsub("%u", function(c)
     return "_" .. c:lower()
   end)
-end                             --}}}
+end --}}}
 
 M.create_t_run = function(args) --{{{
   return ls.c(1, {
@@ -284,7 +282,7 @@ M.create_t_run = function(args) --{{{
       })
     ),
   })
-end                                   --}}}
+end --}}}
 
 M.mirror_t_run_funcs = function(args) --{{{
   local strs = {}

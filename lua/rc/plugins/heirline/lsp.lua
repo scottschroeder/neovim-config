@@ -11,20 +11,20 @@ M.LSPActive = {
   -- provider = " [LSP]",
 
   -- Or complicate things a bit and get the servers names
-  provider  = function()
+  provider = function()
     local names = {}
     local buf_clients = vim.lsp.get_clients({
-      bufnr = 0
+      bufnr = 0,
     })
     for i, server in pairs(buf_clients) do
       table.insert(names, server.name)
     end
     return " [" .. table.concat(names, " ") .. "]"
   end,
-  hl        = function() return { fg = colors.green, bold = true } end,
+  hl = function()
+    return { fg = colors.green, bold = true }
+  end,
 }
-
-
 
 -- TODO is this broken because lsp-status is out-of-date?
 -- M.LSPMessages = {
@@ -44,7 +44,9 @@ M.Navic = {
     end
     return navic.get_location()
   end,
-  hl = function() return { fg = colors.gray0 } end,
+  hl = function()
+    return { fg = colors.gray0 }
+  end,
 }
 
 return M

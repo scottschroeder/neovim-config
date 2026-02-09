@@ -7,30 +7,25 @@ return {
     local ls = require("luasnip")
     local map = require("rc.utils.map").map
 
-
     -- Overruled by blink.cmp
     map({ "i", "s" }, "<C-k>", function()
-        if ls.expand_or_jumpable() then
-          ls.expand_or_jump()
-        end
-      end,
-      { desc = "expand/jump snippet" }
-    )
+      if ls.expand_or_jumpable() then
+        ls.expand_or_jump()
+      end
+    end, { desc = "expand/jump snippet" })
 
     -- Overruled by blink.cmp
     map({ "i", "s" }, "<C-j>", function()
       if ls.jumpable(-1) then
         ls.jump(-1)
       end
-    end, { desc = "luasnip jump(-1)" }
-    )
+    end, { desc = "luasnip jump(-1)" })
 
     map({ "i", "s" }, "<C-y>", function()
       while ls.jumpable(1) do
         ls.jump(1)
       end
-    end, { desc = "accept snippet as-is" }
-    )
+    end, { desc = "accept snippet as-is" })
 
     map({ "i", "s" }, "<C-l>", function()
       if ls.choice_active() then
@@ -57,8 +52,8 @@ return {
           active = {
             virt_text = { { "{Snippet}", "blue" } },
           },
-        }
-      }
+        },
+      },
     })
 
     -- ls.config.set_config({
@@ -91,5 +86,5 @@ return {
     -- if not has_go then
     --   log.warn("luasnip could not load golang snippets")
     -- end
-  end
+  end,
 }

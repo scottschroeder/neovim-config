@@ -41,7 +41,6 @@ M.Diagnostics = {
     self.infospace = self.hints > 0
     self.warnspace = self.info > 0 or self.infospace
     self.errorspace = self.warnings > 0 or self.warnspace
-
   end,
 
   {
@@ -51,32 +50,42 @@ M.Diagnostics = {
     provider = function(self)
       return not conditions.has_diagnostics() and self.healthy_icon
     end,
-    hl = function() return { fg = palette.diagnostic().healthy, bold = true } end,
+    hl = function()
+      return { fg = palette.diagnostic().healthy, bold = true }
+    end,
   },
   {
     provider = function(self)
       -- 0 is just another output, we can decide to print it or not!
       return self.errors > 0 and (append_space_if(self.error_icon .. self.errors, self.errorspace))
     end,
-    hl = function() return { fg = palette.diagnostic().error } end,
+    hl = function()
+      return { fg = palette.diagnostic().error }
+    end,
   },
   {
     provider = function(self)
       return self.warnings > 0 and (append_space_if(self.warn_icon .. self.warnings, self.warnspace))
     end,
-    hl = function() return { fg = palette.diagnostic().warn } end,
+    hl = function()
+      return { fg = palette.diagnostic().warn }
+    end,
   },
   {
     provider = function(self)
       return self.info > 0 and (append_space_if(self.info_icon .. self.info, self.infospace))
     end,
-    hl = function() return { fg = palette.diagnostic().info } end,
+    hl = function()
+      return { fg = palette.diagnostic().info }
+    end,
   },
   {
     provider = function(self)
       return self.hints > 0 and (self.hint_icon .. self.hints)
     end,
-    hl = function() return { fg = palette.diagnostic().hint } end,
+    hl = function()
+      return { fg = palette.diagnostic().hint }
+    end,
   },
   {
     provider = "]",

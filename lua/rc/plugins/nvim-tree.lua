@@ -8,39 +8,39 @@ return {
       local api = require("nvim-tree.api")
 
       local function toggle_builtin()
-        api.tree.toggle { find_file = false, focus = true }
+        api.tree.toggle({ find_file = false, focus = true })
       end
 
       local map = require("rc.utils.map").map
-      map("n", "<Leader>k", toggle_builtin, { desc = "NvimTree", icon="" })
+      map("n", "<Leader>k", toggle_builtin, { desc = "NvimTree", icon = "" })
 
-      require("nvim-tree").setup {
-        update_cwd          = true,
-        respect_buf_cwd     = true,
+      require("nvim-tree").setup({
+        update_cwd = true,
+        respect_buf_cwd = true,
         update_focused_file = {
           enable = true,
           update_cwd = false,
         },
-        filters             = {
+        filters = {
           -- custom = {
           --   '\\.git', 'node_modules', '\\.cache'
           -- }
         },
-        actions             = {
+        actions = {
           open_file = {
             window_picker = {
               -- ENABLE TO ASK WHICH WINDOW
               enable = false,
-            }
-          }
+            },
+          },
         },
-        renderer            = {
+        renderer = {
           highlight_git = true,
         },
-        diagnostics         = {
+        diagnostics = {
           enable = true,
-        }
-      }
-    end
-  }
+        },
+      })
+    end,
+  },
 }

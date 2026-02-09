@@ -10,11 +10,11 @@ opt("o", "updatetime", 250)
 
 opt("w", "signcolumn", "yes")
 opt("w", "list", true)
-opt("o", "listchars", { 'tab:▸░', 'trail:·', 'extends:»', 'precedes:«', 'nbsp:⣿' })
-opt("w", "number", true)     -- show line numbers
+opt("o", "listchars", { "tab:▸░", "trail:·", "extends:»", "precedes:«", "nbsp:⣿" })
+opt("w", "number", true) -- show line numbers
 opt("w", "numberwidth", 2)
 opt("w", "cursorline", true) -- cursor line is highlighted
-opt("o", "scrolloff", 3)     -- keep cursorline away from the edge
+opt("o", "scrolloff", 3) -- keep cursorline away from the edge
 opt("o", "lazyredraw", true)
 opt("o", "title", true)
 
@@ -23,7 +23,6 @@ opt("o", "smartcase", true)
 opt("o", "wildignorecase", true)
 opt("o", "wildmode", { "list:longest", "full" })
 opt("o", "wildignore", { "*.swp", "*.bak", "*.pyc", "*.class" })
-
 
 opt("w", "wrap", false)
 
@@ -45,7 +44,6 @@ opt("w", "foldmethod", "manual")
 opt("w", "foldcolumn", "0")
 opt("w", "foldlevel", 99)
 opt("w", "foldexpr", "nvim_treesitter#foldexpr()")
-
 
 vim.cmd("syntax enable")
 vim.cmd("syntax on")

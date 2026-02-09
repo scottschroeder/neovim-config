@@ -20,14 +20,12 @@ local set_diagnostic_display = function(opts)
   end
 end
 
-
 local update_diagnostic_display = function()
   set_diagnostic_display({
     enabled = show_diagnostics,
     virtual_lines = virtual_lines,
   })
 end
-
 
 local toggle_diagnostics = function()
   show_diagnostics = not show_diagnostics
@@ -51,7 +49,6 @@ local setup = function(opts)
 
   update_diagnostic_display()
 end
-
 
 return {
   toggle_diagnostics = toggle_diagnostics,

@@ -8,9 +8,9 @@ return {
     require("which-key").setup({
       plugins = {
         spelling = {
-          enabled = true
-        }
-      }
+          enabled = true,
+        },
+      },
     })
-  end
+  end,
 }

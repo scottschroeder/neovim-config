@@ -32,9 +32,7 @@ describe("git model parse_recent_ref_line", function()
   end)
 
   it("filters remote HEAD refs", function()
-    local parsed = model.parse_recent_ref_line(
-      "refs/remotes/origin/HEAD\tabc\t\t2026-02-01\t2 days ago"
-    )
+    local parsed = model.parse_recent_ref_line("refs/remotes/origin/HEAD\tabc\t\t2026-02-01\t2 days ago")
     assert.is_nil(parsed)
   end)
 
@@ -51,9 +49,30 @@ end)
 describe("git model group and options", function()
   it("prefers local branch over remote and tag for same sha", function()
     local recent = {
-      { ref = "origin/feature", sha = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", short_sha = "aaaaaaa", date = "2026-02-01", age = "1 day ago", ref_type = "remote_branch" },
-      { ref = "v1.0.0", sha = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", short_sha = "aaaaaaa", date = "2026-02-01", age = "1 day ago", ref_type = "tag" },
-      { ref = "feature", sha = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", short_sha = "aaaaaaa", date = "2026-02-01", age = "1 day ago", ref_type = "local_branch" },
+      {
+        ref = "origin/feature",
+        sha = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        short_sha = "aaaaaaa",
+        date = "2026-02-01",
+        age = "1 day ago",
+        ref_type = "remote_branch",
+      },
+      {
+        ref = "v1.0.0",
+        sha = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        short_sha = "aaaaaaa",
+        date = "2026-02-01",
+        age = "1 day ago",
+        ref_type = "tag",
+      },
+      {
+        ref = "feature",
+        sha = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        short_sha = "aaaaaaa",
+        date = "2026-02-01",
+        age = "1 day ago",
+        ref_type = "local_branch",
+      },
     }
 
     local grouped = model.group_recent_refs(recent, { "origin/feature" })

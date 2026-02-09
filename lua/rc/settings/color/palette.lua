@@ -36,20 +36,20 @@ local alacritty_colors = {
   bg = "#1d2021",
   line_bg = "#282828",
   lightbg = "#3C4048",
-  red = '#f2594b',
-  orange = '#f28534',
-  yellow = '#e9b143',
-  green = '#b0b846',
-  aqua = '#8bba7f',
-  blue = '#80aa9e',
-  purple = '#d3869b',
-  dark_red = '#af2528',
-  dark_orange = '#b94c07',
-  dark_yellow = '#b4730e',
-  dark_green = '#72761e',
-  dark_aqua = '#477a5b',
-  dark_blue = '#266b79',
-  dark_purple = '#924f79',
+  red = "#f2594b",
+  orange = "#f28534",
+  yellow = "#e9b143",
+  green = "#b0b846",
+  aqua = "#8bba7f",
+  blue = "#80aa9e",
+  purple = "#d3869b",
+  dark_red = "#af2528",
+  dark_orange = "#b94c07",
+  dark_yellow = "#b4730e",
+  dark_green = "#72761e",
+  dark_aqua = "#477a5b",
+  dark_blue = "#266b79",
+  dark_purple = "#924f79",
 }
 
 local gm_light_tmp = {
@@ -86,12 +86,8 @@ local gm_light_tmp = {
   orange = { "#b94c07", "130" },
   purple = { "#924f79", "96" },
   red = { "#af2528", "88" },
-  yellow = { "#b4730e", "136" }
+  yellow = { "#b4730e", "136" },
 }
-
-
-
-
 
 local gm_dark_tmp = {
   aqua = { "#8bba7f", "108" },
@@ -127,14 +123,13 @@ local gm_dark_tmp = {
   orange = { "#f28534", "208" },
   purple = { "#d3869b", "175" },
   red = { "#f2594b", "167" },
-  yellow = { "#e9b143", "214" }
+  yellow = { "#e9b143", "214" },
 }
 
 local raw_palette = {}
 local last_colorscheme = ""
 local last_background = ""
 local backgrounds = {}
-
 
 M.refresh_palette = function()
   if vim.g.colorscheme == last_colorscheme and vim.o.background == last_background then
@@ -276,15 +271,12 @@ end
 
 M.register_autogroup = function()
   local au_group = vim.api.nvim_create_augroup("my-palette-updater", { clear = true })
-  vim.api.nvim_create_autocmd(
-    { "WinEnter", "ColorScheme" },
-    {
-      pattern = "*",
-      callback = require("rc.settings.color.palette").refresh_palette,
-      desc = "refresh palette colors in case colorscheme / bg changed",
-      group = au_group,
-    }
-  )
+  vim.api.nvim_create_autocmd({ "WinEnter", "ColorScheme" }, {
+    pattern = "*",
+    callback = require("rc.settings.color.palette").refresh_palette,
+    desc = "refresh palette colors in case colorscheme / bg changed",
+    group = au_group,
+  })
 end
 
 return M
