@@ -15,10 +15,6 @@ local autoload_lsp_servers = function()
     table.insert(ensure_installed, "terraformls")
   end
 
-  if vim.fn.executable("npm") == 1 then
-    -- table.insert(ensure_installed, "")
-  end
-
   return ensure_installed
 end
 

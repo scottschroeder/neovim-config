@@ -3,7 +3,6 @@ return {
   version = "^4", -- Recommended
   lazy = false, -- This plugin is already lazy
   config = function()
-    local log = require("rc.log")
     local buf_map = require("rc.utils.map").buf_map
     local capabilities = require("lsp.capabilities").capabilities
 

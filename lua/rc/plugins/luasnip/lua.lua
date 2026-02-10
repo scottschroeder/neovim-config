@@ -1,6 +1,5 @@
 require("luasnip.session.snippet_collection").clear_snippets("lua")
 local ls = require("luasnip")
-local ls = require("luasnip")
 local types = require("luasnip.util.types")
 local snippet = ls.snippet
 local sn = ls.snippet_node
@@ -31,34 +30,7 @@ local snippet_req = snippet(
   })
 )
 
-local snippet_plugin_import = snippet(
-  "reqplugin",
-  fmt(
-    [[
-          local log = require("vimrc.log")
-          local ok, {} = pcall(require, "{}")
-          if not ok then
-            log.warn("unable to load {}")
-            return
-          end
-          {}
-        ]],
-    {
-      c(2, {
-        f(function(import_name)
-          return extract_import(import_name[1][1])
-        end, { 1 }),
-        i(1, "import_name"),
-      }),
-      i(1, "plugin"),
-      rep(1),
-      i(0),
-    }
-  )
-)
-
 ls.add_snippets("lua", {
   ls.parser.parse_snippet("lf", "local $1 = function($2)\n  $0\nend"),
   snippet_req,
-  -- snippet_plugin_import,
 })

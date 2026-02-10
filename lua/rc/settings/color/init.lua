@@ -9,10 +9,6 @@ local function try_colorschemes(colors)
   end
 end
 
-local in_tmux = function()
-  return os.getenv("TMUX") ~= nil
-end
-
 vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { link = "Red" })
 
 -- if in_tmux() then

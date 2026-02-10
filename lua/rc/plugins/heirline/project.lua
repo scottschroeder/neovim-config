@@ -1,11 +1,8 @@
-local conditions = require("heirline.conditions")
-local utils = require("heirline.utils")
-
 local M = {}
 
 M.ProjectName = {
-  init = function(self) end,
-  condition = function(self)
+  init = function() end,
+  condition = function()
     return false
     -- TODO
     -- self.name = "PROJECTNAME"

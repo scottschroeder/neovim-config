@@ -2,11 +2,9 @@ return {
   {
     "zbirenbaum/copilot.lua",
     config = function()
-      local log = require("rc.log")
-
       local copilot = require("copilot")
 
-      local copilot_rules = function(filepath, filename, filetype)
+      local copilot_rules = function(filepath, _filename, filetype)
         local ft = {
           yaml = true,
           markdown = true,

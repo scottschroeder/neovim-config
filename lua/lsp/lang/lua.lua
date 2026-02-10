@@ -1,5 +1,3 @@
-local log = require("rc.log")
-
 -- https://github.com/sumneko/lua-language-server/wiki/Build-and-Run-(Standalone)
 -- USER = vim.fn.expand('$USER')
 

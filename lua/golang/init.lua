@@ -14,7 +14,7 @@ M.get_package_name = function(bufnr)
     return nil
   end
 
-  for _, node in query:iter_captures(root, 0) do
+  for _, node in query:iter_captures(root, 0) do -- luacheck: ignore 512
     return vim.treesitter.get_node_text(node, 0)
   end
 
@@ -109,10 +109,6 @@ M.switch_implementation_and_test = function()
 end
 
 local public_private_swap = function()
-  local buf_clients = vim.lsp.get_clients({
-    bufnr = 0,
-  })
-
   local ident = get_identifier()
   if ident == nil then
     return

@@ -34,7 +34,7 @@ M.GitChanges = {
     condition = function(self)
       return self.has_changes
     end,
-    provider = function(self)
+    provider = function()
       return "("
     end,
     hl = { bold = true },

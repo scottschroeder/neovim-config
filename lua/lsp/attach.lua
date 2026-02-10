@@ -1,7 +1,5 @@
-local nvim_lsp = require("lspconfig")
 local buf_map = require("rc.utils.map").buf_map
 local map_prefix = require("rc.utils.map").prefix
-local log = require("rc.log")
 
 local code_action = function()
   local ok, actions_preview = pcall(require, "actions-preview")

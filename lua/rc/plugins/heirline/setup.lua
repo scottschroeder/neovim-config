@@ -1,30 +1,13 @@
-local log = require("rc.log")
-
--- local ok, heirline = require("vimrc.utils").safe_reloader("heirline")
--- if not ok then
---   return
--- end
 local heirline = require("heirline")
-
-local is_active = require("heirline.conditions").is_active
-local buffer_matches = require("heirline.conditions").buffer_matches
-local has_diagnostics = require("heirline.conditions").has_diagnostics
-local is_git_repo = require("heirline.conditions").is_git_repo
-local lsp_attached = require("heirline.conditions").lsp_attached
-
-local utils = require("heirline.utils")
 local surround = require("heirline.utils").surround
 
 -- Set the statusbar to be the entire bottom line, not per-window
 vim.opt.laststatus = 3
 
 local palette = require("rc.settings.color.palette")
-local colors = palette.colors.simple
 
 local Align = { provider = "%=" }
 local Space = { provider = " " }
-local surround_round = { "", "" }
-local forward_arrow = ""
 
 local statusline = {
   hl = function()
@@ -48,29 +31,6 @@ local statusline = {
   Space,
   surround({ "[", "]" }, nil, require("rc.plugins.heirline.files").FileSize),
 }
-
-local should_ignore_window = function()
-  if
-    buffer_matches({
-      buftype = { "nofile", "prompt", "help", "quickfix" },
-      filetype = { "^git.*", "fugitive" },
-    })
-  then
-    return true
-  end
-
-  local bufname = vim.api.nvim_buf_get_name(0)
-  if bufname:match("NvimTree_%d+$") then
-    return true
-  end
-
-  local winconfig = vim.api.nvim_win_get_config(0)
-  if winconfig.relative ~= "" then
-    return true
-  end
-
-  return false
-end
 
 local winline = {
   fallthrough = false,

@@ -52,7 +52,7 @@ local alacritty_colors = {
   dark_purple = "#924f79",
 }
 
-local gm_light_tmp = {
+local _gm_light_tmp = { -- luacheck: ignore 211
   aqua = { "#477a5b", "165" },
   bg0 = { "#fbf1c7", "229" },
   bg1 = { "#f4e8be", "228" },
@@ -89,7 +89,7 @@ local gm_light_tmp = {
   yellow = { "#b4730e", "136" },
 }
 
-local gm_dark_tmp = {
+local _gm_dark_tmp = { -- luacheck: ignore 211
   aqua = { "#8bba7f", "108" },
   bg0 = { "#282828", "235" },
   bg1 = { "#32302f", "236" },

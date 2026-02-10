@@ -1,4 +1,3 @@
-local map = require("rc.utils.map").map
 local log = require("rc.log")
 
 local open_quickfix = function()
@@ -42,7 +41,6 @@ local get_diagnostics = function(opts)
       if c["name"] ~= "copilot" then
         opts.namespace = vim.lsp.diagnostic.get_namespace(k)
         break
-      else
       end
     end
   else
@@ -73,7 +71,7 @@ end
 local load_diagnostics_to_quickfix = function()
   -- Fetch diagnostics: Try errors only first, but then fallback to all diagnostics.
   local errors = get_diagnostics({ severity = vim.diagnostic.severity.ERROR })
-  local diagnostics = {}
+  local diagnostics
   if next(errors) ~= nil then
     diagnostics = errors
   else

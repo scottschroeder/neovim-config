@@ -1,4 +1,4 @@
-M = {}
+local M = {}
 
 M.reload_all = function()
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do

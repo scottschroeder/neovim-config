@@ -33,6 +33,7 @@ return {
       end
 
       local map = require("rc.utils.map").map
+      local usercmd = require("rc.utils.map").cmd
       -- local map_prefix = require("rc.utils.map").prefix
       -- map_prefix("<Leader>\\", "Harpoon", { icon = "" })
 
@@ -56,7 +57,7 @@ return {
       map("n", "<Leader>4", function()
         harpoon:list():select(4)
       end, { desc = "Harpoon 4" })
-      -- map("n", "<Leader>\\\\", function() toggle_telescope(harpoon:list()) end, { desc = "Menu" })
+      usercmd("HarpoonPicker", function() toggle_telescope(harpoon:list()) end, { desc = "Menu" })
     end,
   },
 }

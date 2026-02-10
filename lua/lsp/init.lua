@@ -1,7 +1,6 @@
 local map_prefix = require("rc.utils.map").prefix
 local map = require("rc.utils.map").map
 local methods = vim.lsp.protocol.Methods
-local log = require("rc.log")
 
 -- Generic LSP commands
 map_prefix("<leader>l", "LSP", { icon = "λ" })

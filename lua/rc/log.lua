@@ -51,7 +51,7 @@ end
 -- {{{ NO NEED TO CHANGE
 local log = {}
 
-local unpack = unpack or table.unpack
+local unpack = unpack or table.unpack -- luacheck: ignore 143
 
 log.new = function(config, standalone)
   config = vim.tbl_deep_extend("force", default_config, config)
@@ -62,7 +62,7 @@ log.new = function(config, standalone)
   if standalone then
     obj = log
   else
-    obj = {}
+    obj = {} -- luacheck: ignore
   end
 
   local levels = {}

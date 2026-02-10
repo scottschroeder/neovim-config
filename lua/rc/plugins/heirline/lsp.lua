@@ -16,7 +16,7 @@ M.LSPActive = {
     local buf_clients = vim.lsp.get_clients({
       bufnr = 0,
     })
-    for i, server in pairs(buf_clients) do
+    for _, server in pairs(buf_clients) do
       table.insert(names, server.name)
     end
     return " [" .. table.concat(names, " ") .. "]"

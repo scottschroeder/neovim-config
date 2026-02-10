@@ -1,4 +1,4 @@
-local scopes = { o = vim.o, b = vim.bo, w = vim.wo }
+local scopes = { o = vim.o, b = vim.bo, w = vim.wo } -- luacheck: ignore 241
 
 local function table_to_vim_string(value)
   local values = ""
