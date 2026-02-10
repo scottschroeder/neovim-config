@@ -7,17 +7,21 @@ on:
       - master
 
 jobs:
-  lint:
+  fmt-check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install StyLua
+        run: cargo install stylua
+
       - name: Check formatting
-        uses: JohnnyMorganz/stylua-action@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          version: latest
-          args: --check lua/ init.lua tests/ after/
+        run: make fmt-check
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
       - name: Install Luacheck
         run: |

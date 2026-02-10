@@ -57,7 +57,9 @@ return {
       map("n", "<Leader>4", function()
         harpoon:list():select(4)
       end, { desc = "Harpoon 4" })
-      usercmd("HarpoonPicker", function() toggle_telescope(harpoon:list()) end, { desc = "Menu" })
+      usercmd("HarpoonPicker", function()
+        toggle_telescope(harpoon:list())
+      end, { desc = "Menu" })
     end,
   },
 }
