@@ -1,4 +1,7 @@
 notes.contents	notes.txt	/*notes.contents*
+notes.diffs	notes.txt	/*notes.diffs*
+notes.diffs.conflicts	notes.txt	/*notes.diffs.conflicts*
+notes.diffs.history	notes.txt	/*notes.diffs.history*
 notes.spelling	notes.txt	/*notes.spelling*
 notes.spelling.dictionary	notes.txt	/*notes.spelling.dictionary*
 notes.txt	notes.txt	/*notes.txt*

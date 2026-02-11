@@ -1,32 +1,53 @@
 ================================================================================
 INTRODUCTION                                                         *notes.txt*
 
-Notes about my own configuration
+Notes about my own configuration.
 
 ================================================================================
 CONTENTS                                                        *notes.contents*
 
-
-  1. Spelling |NotesSpelling|
-
+  1. Spelling ................................ |notes.spelling|
+  2. Diffs & Conflicts ....................... |notes.diffs|
 
 ================================================================================
 SPELLING                                                        *notes.spelling*
 
-- `z=` for suggestions
-- `]s` or `[s` to jump to next/previous misspelled word
-- `zg` add word to dictionary (spell good)
+- `z=`  for suggestions
+- `]s`  jump to next misspelled word
+- `[s`  jump to previous misspelled word
+- `zg`  add word to dictionary (spell good)
 - `zug` undo add to dictionary
-- `zw` mark word as wrong
-- `zG` add word to tmp dictionary
-
+- `zw`  mark word as wrong
+- `zG`  add word to tmp dictionary
 
 --------------------------------------------------------------------------------
 DICTIONARY                                           *notes.spelling.dictionary*
+>
+    :e ~/.config/nvim/spell/en.utf-8.add
+    :mkspell! %
+<
 
-```
-:e ~/.config/nvim/spell/en.utf-8.add
-:mkspell! %
-```
+================================================================================
+DIFFS & CONFLICTS                                                  *notes.diffs*
+
+Open the diff menu with `<leader>d`
+
+  Diff working tree .................. `<leader>dd`
+  Diff smart PR base ................. `<leader>dO`
+
+--------------------------------------------------------------------------------
+CONFLICT RESOLUTION                                      *notes.diffs.conflicts*
+
+  Open conflict picker ............... `<leader>dc`
+  Choose left (ours) ................. `<leader>dch`
+  Choose right (theirs) .............. `<leader>dcl`
+
+--------------------------------------------------------------------------------
+HISTORY                                                    *notes.diffs.history*
+
+  Whole repo history ................. `<leader>dhr`
+  Current file history ............... `<leader>dhf`
+
+  In visual mode, `<leader>dhf` tracks only the highlighted section.
 
 vim:tw=78:ts=8:ft=help:norl:
