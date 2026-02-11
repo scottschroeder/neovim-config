@@ -8,6 +8,7 @@ return {
       local map = require("rc.utils.map").map
       local map_prefix = require("rc.utils.map").prefix
       local actions = require("telescope.actions")
+      local action_state = require("telescope.actions.state")
       local qf = require("quickfix")
 
       map_prefix("<leader>F", "Find")
@@ -15,6 +16,39 @@ return {
       local open_smart_in_quickfix = function(...)
         actions.smart_send_to_qflist(...)
         qf.open_quickfix()
+      end
+
+      local show_ignored = false
+
+      local find_files_command = function()
+        local command = { "rg", "--files", "--hidden", "-g", "!.git" }
+        if show_ignored then
+          table.insert(command, "--no-ignore")
+          table.insert(command, "--no-ignore-parent")
+        end
+        return command
+      end
+
+      local function open_find_files(opts)
+        opts = opts or {}
+        require("telescope.builtin").find_files(vim.tbl_extend("force", {
+          find_command = find_files_command(),
+          attach_mappings = function(prompt_bufnr, map_telescope)
+            local toggle_ignored = function()
+              local picker = action_state.get_current_picker(prompt_bufnr)
+              local prompt = action_state.get_current_line()
+              local cwd = picker and picker.cwd or nil
+
+              show_ignored = not show_ignored
+              actions.close(prompt_bufnr)
+              open_find_files({ cwd = cwd, default_text = prompt })
+            end
+
+            map_telescope("i", "<M-i>", toggle_ignored)
+            map_telescope("n", "<M-i>", toggle_ignored)
+            return true
+          end,
+        }, opts))
       end
 
       require("telescope").setup({
@@ -31,10 +65,10 @@ return {
         },
         extensions = {
           fzf = {
-            fuzzy = true, -- false will only do exact matching
+            fuzzy = true,                   -- false will only do exact matching
             override_generic_sorter = true, -- override the generic sorter
-            override_file_sorter = true, -- override the file sorter
-            case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+            override_file_sorter = true,    -- override the file sorter
+            case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
             -- the default case_mode is "smart_case"
           },
           ["ui-select"] = {
@@ -51,8 +85,8 @@ return {
       if vim.fn.executable("rg") == 1 then
         -- If you are having trouble with this mapping in docker, see "detachKeys"
         map("n", "<C-p>", function()
-          require("telescope.builtin").find_files({ find_command = { "rg", "--files", "--hidden", "-g", "!.git" } })
-        end, { desc = "Telescope Find Files" })
+          open_find_files()
+        end, { desc = "Telescope Find Files (Alt-i toggles ignored)" })
         map("n", "<C-g>", function()
           local opts = require("telescope.themes").get_ivy()
           require("rc.plugins.telescope.multigrep").live_multigrep(opts)
