@@ -28,3 +28,8 @@ vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_netrwSettings = 1
 
 vim.opt.termguicolors = true -- full GUI colors
+
+-- Initialize vim.lsp.config['*'] so plugins (blink.cmp) can index it at load time
+if vim.lsp.config and not vim.lsp.config["*"] then
+  vim.lsp.config("*", {})
+end
