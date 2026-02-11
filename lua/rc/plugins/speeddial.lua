@@ -14,13 +14,6 @@ local base_sources = {
   },
   {
     project = {
-      title = "Hab Config",
-      root = "~/src/github/scottschroeder/hab/configs",
-      vcs_root = "~/src/github/scottschroeder/hab",
-    },
-  },
-  {
-    project = {
       title = "speeddial.nvim",
       vcs_root = "~/src/github/scottschroeder/speeddial.nvim",
     },
