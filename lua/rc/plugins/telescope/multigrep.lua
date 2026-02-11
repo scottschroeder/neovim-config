@@ -2,8 +2,10 @@ local pickers = require("telescope.pickers")
 local finders = require("telescope.finders")
 local make_entry = require("telescope.make_entry")
 local conf = require("telescope.config").values
+local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 local M = {}
+local live_multigrep
 
 local search_history = {}
 local max_history_entries = 100
@@ -41,28 +43,40 @@ local push_history = function(prompt, cwd)
   end
 end
 
-local live_multigrep = function(opts)
+local build_history_items = function(cwd)
+  local items = {}
+  local seen = {}
+
+  for idx = #search_history, 1, -1 do
+    local entry = search_history[idx]
+    local key = string.format("%s\0%s", entry.prompt or "", entry.cwd or cwd or "")
+
+    if not seen[key] then
+      seen[key] = true
+      table.insert(items, entry)
+    end
+  end
+
+  return items
+end
+
+local format_history_item = function(item)
+  local parts = { item.prompt }
+  if item.glob ~= "" then
+    table.insert(parts, "[" .. item.glob .. "]")
+  end
+
+  if item.cwd and item.cwd ~= "" then
+    table.insert(parts, "{" .. vim.fn.fnamemodify(item.cwd, ":t") .. "}")
+  end
+
+  return table.concat(parts, " ")
+end
+
+live_multigrep = function(opts)
   opts = opts or {}
 
   opts.cwd = opts.cwd or vim.uv.cwd()
-  local history_index = nil
-
-  local history_prev = function()
-    if #search_history == 0 then
-      return nil
-    end
-
-    if history_index == nil then
-      history_index = #search_history
-    else
-      history_index = history_index - 1
-      if history_index < 1 then
-        history_index = #search_history
-      end
-    end
-
-    return search_history[history_index]
-  end
 
   local finder = finders.new_async_job({
     command_generator = function(prompt)
@@ -136,19 +150,45 @@ local live_multigrep = function(opts)
           end,
         })
 
-        local use_prev_history = function()
-          local history_item = history_prev()
-          if not history_item then
+        local clear_prompt = function()
+          local current_picker = action_state.get_current_picker(prompt_bufnr)
+          current_picker:reset_prompt()
+          current_picker:set_prompt("")
+        end
+
+        local open_history_selector = function()
+          local history_items = build_history_items(opts.cwd)
+          if #history_items == 0 then
+            clear_prompt()
             return
           end
 
-          local current_picker = action_state.get_current_picker(prompt_bufnr)
-          current_picker:reset_prompt()
-          current_picker:set_prompt(history_item.prompt)
+          local reopen_opts = vim.deepcopy(opts)
+
+          actions.close(prompt_bufnr)
+
+          vim.schedule(function()
+            vim.ui.select(history_items, {
+              prompt = "Search History",
+              format_item = format_history_item,
+            }, function(choice)
+              local next_opts = vim.deepcopy(reopen_opts)
+
+              if choice then
+                next_opts.default_text = choice.prompt
+              else
+                next_opts.default_text = ""
+              end
+
+              live_multigrep(next_opts)
+            end)
+          end)
         end
 
-        map("i", "<C-g>", use_prev_history)
-        map("n", "<C-g>", use_prev_history)
+        map("i", "<C-g>", open_history_selector)
+        map("n", "<C-g>", open_history_selector)
+        map("i", "<C-u>", clear_prompt)
+        map("n", "<C-u>", clear_prompt)
 
         return true
       end,
