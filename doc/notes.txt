@@ -1,13 +1,14 @@
 ================================================================================
 INTRODUCTION                                                         *notes.txt*
 
-Notes about my own configuration.
+Notes about my own configuration. Use `:help notes` to get here.
 
 ================================================================================
 CONTENTS                                                        *notes.contents*
 
   1. Spelling ................................ |notes.spelling|
   2. Diffs & Conflicts ....................... |notes.diffs|
+  3. Icons ................................... |notes.icons|
 
 ================================================================================
 SPELLING                                                        *notes.spelling*
@@ -33,7 +34,8 @@ DIFFS & CONFLICTS                                                  *notes.diffs*
 Open the diff menu with `<leader>d`
 
   Diff working tree .................. `<leader>dd`
-  Diff smart PR base ................. `<leader>dO`
+  Diff smart PR ................. `<leader>dO`
+  Diff PR       ................. `<leader>dP`
 
 --------------------------------------------------------------------------------
 CONFLICT RESOLUTION                                      *notes.diffs.conflicts*
@@ -49,5 +51,50 @@ HISTORY                                                    *notes.diffs.history*
   Current file history ............... `<leader>dhf`
 
   In visual mode, `<leader>dhf` tracks only the highlighted section.
+
+================================================================================
+ICONS                                                              *notes.icons*
+
+Browse all installed devicons:
+>
+    :NvimWebDeviconsHiTest
+<
+
+Useful icons for reference:
+
+󰆧
+
+󰗀
+ git
+ git diff
+󰜘 git commit
+ gitlab
+󰡨 docker
+ book
+λ lambda
+ terraform
+ test
+ vim
+ vault
+ browser
+ settings gear
+ settings dials
+ settings wrench
+ keys
+ star
+ shell
+ shell prompt
+󰚩 robot
+󰒃 security / shield
+ tmux
+ apple
+󰣇 arch
+ linux
+
+ file
+ golang
+ python
+ rust
+ lua
 
 vim:tw=78:ts=8:ft=help:norl:

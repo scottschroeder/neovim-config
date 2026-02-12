@@ -1,5 +1,14 @@
 # neovim-config
 
+## Documentation
+
+Usage notes, keybindings, and tips are in the built-in help docs:
+```
+:help notes.txt
+```
+
+See `doc/notes.txt` for the source.
+
 ## Development / Testing
 
 ```bash
@@ -10,103 +19,6 @@ docker run -v $(pwd):/home/manager/.config/nvim -it neovim-config
 or just run `nvim` directly
 ```bash
 docker run -v $(pwd):/home/manager/.config/nvim -it neovim-config nvim
-```
-
-
-# Documenting Setup
-
-## View Icons
-
-```
-:NvimWebDeviconsHiTest
-```
-
-```lua
--- 󰆧
--- 
--- 󰗀
---  git
---  git diff
--- 󰜘 git commit
---  gitlab
--- 󰡨 docker
---  book
--- λ lambda
---  terraform
---  test
---   vim
---   vault
---  browser
---  settings gear
---  settings dials
---  settings wrench
---  keys
---  star
---  shell
---  shell prompt
--- 󰚩 robot
--- 󰒃 security / shield
---  tmux
---  apple
--- 󰣇 arch
---  linux
---
---  file
---  golang
---  python
---  rust
---  lua
-```
-
-
-## Diffs and Conflict Resolution
-
-Inspiration from https://www.naseraleisa.com/posts/diff#deep-diffing-comparing-against-one-or-more-commits
-
-Open the diff menu
-```
-<leader>d
-```
-
-- diff current working tree `<leader>dd`
-- diff smart PR base `<leader>dO`
-- conflict resolution `<leader>dc`
-    - lhs `<leader>dch`
-    - rhs `<leader>dcl`
-- History
-    - whole repo `<leader>dhr`
-    - this file `<leader>dhf` (in visual mode tracks just highlighted section)
-
-#### Markdown diffs
-
-```diff
-+ line added
-- line removed
-```
-
-#### Markdown Table
-
-| Month    | Savings |
-| -------- | ------- |
-| January  | $250    |
-| February | $80     |
-| March    | $420    |
-
-
-
-## Spell checking
-
-- `z=` for suggestions
-- `]s` or `[s` to jump to next/previous misspelled word
-- `zg` add word to dictionary (spell good)
-- `zug` undo add to dictionary
-- `zw` mark word as wrong
-- `zG` add word to tmp dictionary
-
-#### Manually edit the spell dictionary
-```
-:e ~/.config/nvim/spell/en.utf-8.add
-:mkspell! %
 ```
 
 # TODO
