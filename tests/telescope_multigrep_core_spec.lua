@@ -117,6 +117,26 @@ describe("telescope multigrep core filter_entry", function()
     }
     assert.is_nil(core.filter_entry({ filename = "anything" }, state))
   end)
+
+  it("supports very magic alternation for exclude extensions", function()
+    local parsed = core.parse_prompt("needle  !\\.(lua|rs)$")
+    local state = core.compile_file_filters(parsed.file_filters)
+
+    assert.is_true(state.is_valid)
+    assert.is_nil(core.filter_entry({ filename = "src/main.lua" }, state))
+    assert.is_nil(core.filter_entry({ filename = "src/main.rs" }, state))
+    assert.is_not_nil(core.filter_entry({ filename = "src/main.py" }, state))
+  end)
+
+  it("supports very magic alternation for include extensions", function()
+    local parsed = core.parse_prompt("needle  \\.(lua|rs)$")
+    local state = core.compile_file_filters(parsed.file_filters)
+
+    assert.is_true(state.is_valid)
+    assert.is_not_nil(core.filter_entry({ filename = "src/main.lua" }, state))
+    assert.is_not_nil(core.filter_entry({ filename = "src/main.rs" }, state))
+    assert.is_nil(core.filter_entry({ filename = "src/main.py" }, state))
+  end)
 end)
 
 describe("telescope multigrep core history", function()

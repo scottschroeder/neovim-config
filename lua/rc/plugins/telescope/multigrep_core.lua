@@ -55,7 +55,7 @@ end
 
 function M.compile_file_regex(pattern)
   local case_prefix = pattern:find("%u") and "\\C" or "\\c"
-  return vim.regex(case_prefix .. pattern)
+  return vim.regex(case_prefix .. "\\v" .. pattern)
 end
 
 function M.compile_file_filters(file_filters, compile_regex)
