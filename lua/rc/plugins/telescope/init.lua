@@ -106,6 +106,7 @@ return {
       map("n", "<leader>Fh", require("telescope.builtin").help_tags, { desc = "Neovim Help" })
       map("n", "<leader>Fr", require("telescope.builtin").resume, { desc = "Resume last picker" })
       map("n", "<leader>Fb", require("telescope.builtin").buffers, { desc = "Buffers" })
+      map("n", "<M-p>", require("telescope.builtin").buffers, { desc = "Open Buffer Picker" })
 
       -- -- TODO why didn't the cmd function work?
       -- vim.api.nvim_create_user_command("Files",
