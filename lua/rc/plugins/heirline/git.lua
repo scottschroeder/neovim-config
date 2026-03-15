@@ -4,6 +4,32 @@ local palette = require("rc.settings.color.palette")
 local colors = palette.colors.simple
 local M = {}
 
+local worktree_cache = {
+  cwd = nil,
+  name = nil,
+}
+
+local detect_worktree_name = function()
+  local cwd = vim.fn.getcwd()
+  if worktree_cache.cwd == cwd then
+    return worktree_cache.name
+  end
+
+  local name = nil
+  local dot_git_file = vim.fn.findfile(".git", cwd .. ";")
+  if dot_git_file ~= "" then
+    local first_line = vim.fn.readfile(dot_git_file, "", 1)[1]
+    local gitdir = first_line and first_line:match("^gitdir:%s*(.+)%s*$")
+    if gitdir ~= nil then
+      name = gitdir:match("/%.git/worktrees/([^/]+)/?$")
+    end
+  end
+
+  worktree_cache.cwd = cwd
+  worktree_cache.name = name
+  return name
+end
+
 M.GitBranch = {
   condition = conditions.is_git_repo,
 
@@ -19,6 +45,23 @@ M.GitBranch = {
     end,
     hl = { bold = true },
   },
+}
+
+M.GitWorktree = {
+  condition = function(self)
+    if not conditions.is_git_repo() then
+      return false
+    end
+
+    self.worktree_name = detect_worktree_name()
+    return self.worktree_name ~= nil
+  end,
+
+  hl = { fg = colors.yellow },
+
+  provider = function(self)
+    return string.format("(wt %s) ", self.worktree_name)
+  end,
 }
 
 M.GitChanges = {

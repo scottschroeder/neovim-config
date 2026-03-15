@@ -26,6 +26,7 @@ local statusline = {
   Align,
   require("rc.plugins.heirline.git").GitBranch,
   Space,
+  require("rc.plugins.heirline.git").GitWorktree,
   require("rc.plugins.heirline.files").Ruler,
   require("rc.plugins.heirline.files").ScrollBar,
   Space,
