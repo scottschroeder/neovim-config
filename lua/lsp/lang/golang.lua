@@ -2,7 +2,16 @@
 --
 local do_import_on_save = true
 
+-- Load local overrides (gitignored) for machine-specific gopls settings
+-- e.g. dd-gopls for dd-source
+local ok, local_config = pcall(require, "lsp.lang.golang_local")
+if not ok then
+  local_config = {}
+end
+
 vim.lsp.config("gopls", {
+  cmd = local_config.cmd,
+  cmd_env = local_config.cmd_env,
   on_attach = function(c, b)
     require("lsp.attach").on_attach(c, b)
     local buf_map = require("rc.utils.map").buf_map

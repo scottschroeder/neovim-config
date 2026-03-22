@@ -2,3 +2,4 @@ plugin
 .luarc.json
 spell/*
 lua/rc/plugins/speeddial_local.lua
+lua/lsp/lang/golang_local.lua
