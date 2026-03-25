@@ -449,10 +449,21 @@ return {
     -- keys = "<leader>g",
     config = function()
       local gitlinker = require("gitlinker")
+      local hosts = require("gitlinker.hosts")
+
+      -- Resolve SSH host aliases to github.com
+      local function github_alias_url(url_data)
+        url_data.host = "github.com"
+        return hosts.get_github_type_url(url_data)
+      end
+
       gitlinker.setup({
         mappings = nil,
         opts = {
           add_current_line_on_normal_mode = false,
+        },
+        callbacks = {
+          ["github%-"] = github_alias_url,
         },
       })
 
